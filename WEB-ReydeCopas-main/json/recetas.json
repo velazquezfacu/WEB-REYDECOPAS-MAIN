@@ -1,0 +1,385 @@
+[
+    {
+        "nombre": "Galletitas de Remolacha y Naranja",
+        "ingredientes": ["200g de Remolacha cocida",
+                         "100g de Salvado de Avena",
+                         "100g de Avena instantánea molida",
+                         "60g de Azúcar Mescabo",
+                         "1 Cucharada sopera de Polvo de Hornear",
+                         "Ralladura de 1⁄2 Naranja",
+                         "Jugo de 1 Naranja",
+                         "2 cucharadas soperas de Aceite de Girasol"],
+        "preparacion": ["Lavar y limpiar las remolachas. Hervirlas en agua dejando 5 cm de las pencas y con la cascara. Una vez blanda la estructura de la remolacha, retirar y dejar enfriar.",
+                        "Mezclar los ingredientes secos: salvado de avena, avena instantánea, azúcar mescabó, polvo de hornear y la ralladura de naranja.",
+                        "En un recipiente aparte procesar la remolacha con el aceite y el jugo de naranja, hasta que quede una pasta homogénea.",
+                        "Incorporar la pasta a la mezcla de los ingredientes secos. Mezclar hasta formar una preparación homogénea.",
+                        "Hacer bollitos con una cuchara tipo sopa y aplastarlos en para darle forma.",
+                        "Colocar los bollitos en una asadera apta cubierta con papel manteca.",
+                        "Llevar a horno moderado hasta que su cocción (Aprox. 25 min)",
+                        "Retirar y disfrutar."]
+    },
+
+    {
+        "nombre": "Galletitas Chocobanana",
+        "ingredientes": ["2 Huevos",
+                         "200g de Harina de Avena o Avena Instantánea.",
+                         "100g de Azúcar Mescabo o 8 sobres de Sucralosa.",
+                         "1⁄2 Cucharada sopera de Polvo de Hornear",
+                         "50g chip de chocolate amargo",
+                         "2 bananas medianas",
+                         "9 cucharadas soperas de Aceite de Girasol"],
+        "preparacion": ["Mezclar y batir los huevos con el aceite hasta formar una espuma",
+                        "Incorporar el azúcar y las bananas pisadas. Batir enérgicamente.",
+                        "En un recipiente aparte unificar bien la avena con el polvo de hornear",
+                        "Incorporar de a poco la avena y los chip de chocolate con la el batido del paso 2.",
+                        "Hacer bollitos con una cuchara tipo sopa y aplastarlos para darle forma.",
+                        "Colocar los bollitos en una asadera apta cubierta con papel manteca.",
+                        "Llevar a horno moderado hasta que su cocción (aprox 25 min)",
+                        "Retirar y disfrutar.",
+                        "NOTA: Se puede reemplazar la banana por el jugo de 1 Naranja o Mandarina"]
+    },
+
+    {
+        "nombre": "Muffins ChocoBeet",
+        "ingredientes": ["2 Huevos",
+                         "250g de remolacha cocida.",
+                         "100g de Harina integral",
+                         "150g de harina de avena instantánea",
+                         "8 sobres de Sucralosa en polvo (o también 80g de azúcar Mascabado)",
+                         "2 Cucharadas soperas de Polvo de Hornear",
+                         "2 cucharadas soperas de harina de algarroba",
+                         "2 cucharaditas tipo te de cacao amargo",
+                         "1⁄2 taza de Aceite girasol",
+                         "1⁄2 taza de leche semidescremada"],
+        "preparacion": ["Mezclar bien el polvo de hornear, la harina integral, avena, sucralosa, harina de algarroba y cacao amargo",
+                        "Agregar la remolacha a la preparación anterior y mixear agregándole el aceite e intercalarlo con la leche",
+                        "Incorporarle finalmente los huevos mientras se sigue mixeando.",
+                        "Colocar los moldes de muffins en un recipiente apto. (yo uso moldes de silicona)",
+                        "Colocar hasta 3⁄4 del molde con la preparación.",
+                        "Llevar a horno moderado hasta que su cocción (Aprox. 25 min)",
+                        "Retirar y disfrutar."]
+    },
+
+    {
+        "nombre": "Brownie de Algarroba",
+        "ingredientes": [
+            "350g azúcar mascabo o 20g Stevia.",
+            "25g Polvo de hornear.",
+            "5g bicarbonato.",
+            "4 huevos.",
+            "100g Harina de algarroba.",
+            "100g de Harina de avena o Harina de arroz.",
+            "3⁄4 de aceite neutro (girasol)."],
+        "preparacion": [
+            "Mezclar el azúcar junto con la harina de algarroba previamente mezclada con el polvo de hornear y el bicarbonato e incorporarle el aceite y unir.",
+            "Incorporar los Huevos e unir.",
+            "Incorporar la harina de avena de a poco y unir.",
+            "Colocar papel manteca en una asadera.",
+            "Incorporar la preparación en la asadera o recipiente apto.",
+            "Llevar a horno precalentado a 180-200°C hasta su cocción.",
+            "Retirar y Disfrutar"]
+    },
+
+    {
+        "nombre": "Budin de Algarroba y Banana",
+        "ingredientes": [
+            "3 huevos",
+            "150g de Azúcar mascabo",
+            "80cc de Aceite girasol",
+            "150g de Harina de Algarroba",
+            "50g de Salvado de Avena",
+            "30g de Polvo de Hornear (1 cucharada sopera colmada)",
+            "3 bananas pequeñas maduras – Aprox. 300g (2 pisadas y 1 cortada en cubitos)"
+        ],
+        "preparacion": [
+            "Pisar 2 bananas e incorporarles los huevos. Mezclar bien hasta formar una crema.",
+            "Incorporar el aceite y batir bien hasta unificar todo.",
+            "Agregar el azúcar a la preparación y batir nuevamente enérgicamente.",
+            "En un recipiente aparte, mezclar la harina de algarroba, el salvado de avena y el polvo de hornear hasta unificar bien todo.",
+            "Incorporar a la preparación del azúcar la mezcla del paso anterior de a poco y unificando todo.",
+            "Luego de mezclar todo, incorporar las bananas cortadas en cubitos. Mezclar.",
+            "Colocar la preparación en una budinera previamente revestida con papel manteca.",
+            "Llevar al horno moderado a temperatura 180°C previamente calentado.",
+            "No abrir el horno antes de 30 minutos porque si no, pierde la capacidad de leudar y se hunde.",
+            "Retirar del horno luego de aproximadamente 40 minutos."
+        ]
+    },
+
+    {
+        "nombre": "Budín de Limón",
+        "ingredientes": [
+          "3 huevos",
+          "150g de Azúcar mascabo o 15 sobres edulcorante Sucralosa",
+          "80cc de Aceite girasol",
+          "100g de Harina de Arroz",
+          "100g de Harina de Avena",
+          "40g de Polvo de Hornear (2 cucharada sopera colmada)",
+          "1 Limón (jugo y ralladura)",
+          "80cc de leche semidescremada (opcional)"
+        ],
+        "preparacion": [
+          "Mezclar los huevos con el aceite hasta formar una espuma.",
+          "Agregar el Azúcar a la preparación (o edulcorante) y batir nuevamente enérgicamente.",
+          "En un recipiente aparte, mezclar la harina de arroz, la harina de avena y el polvo de hornear hasta unificar bien todo.",
+          "Incorporar a la preparación del azúcar la mezcla del paso anterior de a poco y unificar todo.",
+          "Luego de mezclar todo, incorporar el jugo de limón y su ralladura. Mezclar.",
+          "Colocar la preparación en una budinera previamente revestida con papel manteca.",
+          "Llevar al horno moderado a temperatura 180°C previamente calentado.",
+          "No abrir el horno antes de 30 minutos porque si no, pierde la capacidad de leudar y se hunde.",
+          "Retirar del horno luego de aproximadamente 40 minutos. Hacer la prueba si adentro está cocido con un escarbadientes que debe salir limpio."
+        ]
+    },
+
+    {
+        "nombre": "Budín de Zanahoria",
+        "ingredientes": [
+            "3 huevos",
+            "150g de Azúcar mascabo o 15 sobres de edulcorante Sucralosa",
+            "80cc de Aceite girasol",
+            "100g de Harina de Arroz",
+            "100g de Harina de Avena",
+            "40g de Polvo de Hornear (2 cucharadas soperas colmadas)",
+            "2 Zanahorias ralladas",
+            "80cc de leche semidescremada (opcional)"
+        ],
+        "preparacion": [
+            "Mezclar los huevos con el aceite hasta formar una espuma.",
+            "Agregar el Azúcar a la preparación (o edulcorante) y batir nuevamente enérgicamente.",
+            "En un recipiente aparte mezclar la harina de arroz, de avena y el polvo de hornear hasta unificar bien todo.",
+            "Incorporar a la preparación del azúcar la mezcla del paso anterior de a poco y unificando todo.",
+            "Luego de mezclar todo, incorporar las zanahorias ralladas. Mezclar.",
+            "Colocar la preparación en una budinera previamente revestida con papel manteca.",
+            "Llevar a horno moderado a temperatura 180°C previamente calentado.",
+            "No abrir el horno antes de 30 minutos porque si no, pierde la capacidad de leudar y se hunde.",
+            "Retirar del horno luego de 40 minutos aproximadamente. Hacer la prueba con un escarbadientes, que debe salir limpio."        
+        ]
+    },
+
+    {
+        "nombre": "Budín de Manzana",
+        "ingredientes": [
+            "3 huevos",
+            "150g de Azúcar mascabo o 15 sobres de edulcorante Sucralosa",
+            "80cc de Aceite girasol",
+            "100g de Harina de Arroz",
+            "100g de Harina de Avena",
+            "40g de Polvo de Hornear (2 cucharadas soperas colmadas)",
+            "2 manzanas medianas",
+            "80cc de leche semidescremada (opcional)"
+        ],
+        "preparacion": [
+            "Mezclar los huevos con el aceite hasta formar una espuma.",
+            "Agregar el Azúcar a la preparación (o edulcorante) y batir nuevamente enérgicamente.",
+            "En un recipiente aparte mezclar la harina de arroz, de avena y el polvo de hornear hasta unificar bien todo.",
+            "Incorporar a la preparación del azúcar la mezcla del paso anterior de a poco y unificando todo.",
+            "Luego de mezclar todo, incorporar las manzanas peladas y cortadas en cubitos. Mezclar.",
+            "Colocar la preparación en una budinera previamente revestida con papel manteca.",
+            "Llevar a horno moderado a temperatura 180°C previamente calentado.",
+            "No abrir el horno antes de 30 minutos porque si no, pierde la capacidad de leudar y se hunde.",
+            "Retirar del horno luego de aproximadamente 40 minutos. Hacer la prueba con un escarbadientes, que debe salir limpio."
+        ]
+    },
+
+    {
+        "nombre": "Pan Integral Alto en Proteinas",
+        "ingredientes": [
+            "400g de Harina de trigo integral extrafina",
+            "100g de avena molida",
+            "40g de Semillas de chía y lino molidas o enteras",
+            "10g de levadura seca",
+            "250-300ml de leche fluida semidescremada",
+            "50g de leche en polvo descremada (o 20g de clara en polvo)",
+            "10g de azúcar mascabo (para activar la levadura)",
+            "Sal"
+        ],
+        "preparacion": [
+            "Activar la Levadura con el azúcar y 1 cucharadita de agua tibia en un recipiente y colocarla en un lugar calentito (prender el horno los va a ayudar)",
+            "Colocar la harina integral con la avena, semillas de chía y lino, sal y la clara de huevo deshidratada (pueden reemplazarla por la leche en polvo descremada) y unir bien todos los ingredientes.",
+            "Hacer una corona e incorporar la Levadura y mezclar bien, incorporar de a poco la leche fluida hasta formar una masa uniforme y lisa.",
+            "Dejar reposar tapada con un repasador en un lugar calentito durante 40 minutos. Volver a amasar y dejar unos 20 minutos más.",
+            "Colocar la masa en un recipiente apto para horno y darle la forma deseada. Llevar al horno a temperatura de 200°C hasta que se dore."
+        ]
+    },
+
+    {
+        "nombre": "Masa de Arveja (Tarta y Empanada)",
+        "ingredientes": [
+            "1 1⁄4 taza de Harina de Arvejas (300g)",
+            "1 taza de Harina Integral",
+            "3 cucharaditas de Semillas de chía y lino enteras",
+            "3⁄4 taza de Leche semidescremada",
+            "1⁄4 taza de Aceite Girasol"
+        ],
+        "preparacion": [
+            "Unir las harinas con las semillas y el aceite.",
+            "Agregarle la leche de a poco hasta formar una masa.",
+            "Amasar levemente hasta formar una masa homogénea.",
+            "Estirar la masa para tarta o discos de empanada.",
+            "Reservar en la heladera o freezer según su uso."
+        ]
+    },
+
+    {
+        "nombre": "Bizcochitos de Zanahoria y Queso",
+        "ingredientes": [
+            "1 taza de Harina integral (300g)",
+            "Pure de 1 zanahoria mediana",
+            "4 Cdas soperas de leche semidescremada",
+            "4 Cdas soperas de queso untable descremado",
+            "1 cda sopera de Aceite",
+            "Queso Port Salud en daditos (descremado)",
+            "1 cda sopera colmada de polvo de hornear",
+            "Sal y nuez moscada a gusto"
+        ],
+        "preparacion": [
+            "En un bowl mezclar el pure de zanahoria, el queso crema, la leche, el aceite y los condimentos.",
+            "Agregar de a poco la harina con el polvo de hornear y unir los ingredientes hasta formar una masa.",
+            "Dejar reposar en la heladera por 15 minutos. Retirar y estirar la masa.",
+            "En la mitad de la masa colocar los daditos de queso y cubrirlos con la otra mitad.",
+            "Con un cortante hacer la forma de los bizcochitos dejando el queso en el medio y así evitar que se salga en la cocción.",
+            "Colocarlo en una placa para horno con papel manteca y llevar a fuego medio por 15-20 min"
+        ]
+    },
+
+    {
+        "nombre": "Bizcochitos de Zapallo y Queso",
+        "ingredientes": [
+          "1 taza de Harina integral (300g)",
+          "Pure de 1 zanahoria mediana",
+          "4 Cdas soperas de leche semidescremada",
+          "4 Cdas soperas de queso untable descremado",
+          "1 cda sopera de Aceite",
+          "Queso Port Salud en daditos (descremado)",
+          "1 cda sopera colmada de polvo de hornear",
+          "Sal y nuez moscada a gusto"
+        ],
+        "preparacion": [
+          "En un bowl, mezcla el pure de zapallo, queso crema, leche, aceite y condimentos.",
+          "Añade gradualmente la harina con polvo de hornear y mezcla hasta obtener una masa uniforme.",
+          "Reposa la masa en la heladera durante 15 minutos, luego estírala y coloca los daditos de queso en el centro.",
+          "Sella la masa con otro trozo y corta la forma de los bizcochitos con un cortante para evitar que el queso se derrame durante la cocción.",
+          "Coloca los bizcochitos en una placa para horno con papel manteca y hornéalos a fuego medio durante 15-20 minutos."
+        ]
+    },
+
+    {
+        "nombre": "Crepe de Espinaca",
+        "ingredientes": [
+            "crepe",
+            "2 huevos",
+            "1 Atado de Espinaca",
+            "1 Ajo",
+            "1 pizca de sal",
+            "2 Cdas soperas de Harina de arvejas",
+            "Relleno:",
+            "   60g Queso Port Salud en daditos (descremado)",
+            "   1 Tomate Fresco"
+          ],
+        "preparacion": [
+          "Lavar bien la espinaca y con una minipimer procesarla hasta formar una pasta. Agregar el ajo y la sal.",
+          "Incorporar los huevos a la pasta de espinaca y batir hasta unificar todo.",
+          "Calentar una sartén teflonada o bien le colocamos una cucharada tipo te de aceite y lo esparcimos sobre la superficie con papel de cocina.",
+          "Incorporar parte de la preparación a la sartén. Dejarla 5 minutos o hasta su cocción.",
+          "Incorporarle el queso y tomate fresco y doblar a la mitad hasta su cocción.",
+          "Retirar y disfrutar"
+        ]
+      },
+
+      {
+        "nombre": "Muffins de Espinaca",
+        "ingredientes": [
+          "3 huevos",
+          "2 Atado de Espinaca",
+          "2 Cebollas chicas",
+          "1 pizca de sal",
+          "100g Queso Port Salud en daditos (descremado)",
+          "100g de Arroz Integral cocido"
+        ],
+        "preparacion": [
+          "Lavar bien la espinaca y con una minipimer procesarla hasta formar una pasta. Agregar las cebollas y la sal. Mixear nuevamente.",
+          "Agregar el Arroz integral y el queso en cubitos y mezclar hasta unificar.",
+          "Incorporar los huevos y mezclar.",
+          "Colocar la preparación en moldes de silicona hasta ¾ o bien en moldes previamente aceitados y remover el exceso de aceite con papel de cocina.",
+          "Llevar al horno para su cocción a temperatura moderada."
+        ]
+      },
+
+      {
+        "nombre": "Queso Untable Casero",
+        "ingredientes": [
+          "1 Litro de Leche Semidescremada",
+          "Jugo de 1 o 1/2 limón",
+          "Sal a gusto",
+          "Otros condimentos"
+        ],
+        "preparacion": [
+          "Colocar la leche en una cacerola (No debe ser de aluminio) y calentarla hasta que comiencen a aparecer burbujitas a los costados. No debe hervir.",
+          "Retirar del fuego y agregar el jugo de limón. Dejar reposar por 30 minutos fuera del fuego.",
+          "Observar que se separe el suero de la leche. Colocar un colador con un paño/tela/cofia para dejar que siga filtrando.",
+          "Dejarlo un rato en la heladera hasta que filtre bien. Se recomienda dejarle bastante suero para que no quede muy duro después.",
+          "Luego, lo que queda en el paño se lleva a una procesadora para darle untuosidad. Procesar, detener, agregar sal, remover y volver a procesar hasta obtener la consistencia deseada."
+        ]
+      },
+
+      {
+        "nombre": "Untable de Zanahoria",
+        "ingredientes": [
+          "2 Zanahorias",
+          "2 cucharadas de Aceite de Oliva o Girasol",
+          "Sal a gusto",
+          "Otros condimentos"
+        ],
+        "preparacion": [
+          "Pelar y hervir las zanahorias.",
+          "Mixear las zanahorias con la sal y agregarle el aceite y continuar mixeando para darle untuosidad.",
+          "Colocar en un recipiente tipo mermelada.",
+          "Reservar en la heladera. Dura aproximadamente 5 días."
+        ]
+      },
+
+      {
+        "nombre": "Untable de Girasol",
+        "ingredientes": [
+          "100g Semillas de girasol",
+          "2 cditatipo te de cebolla de verdeo",
+          "Sal a gusto",
+          "2 cditatipo te de puerro",
+          "200-300 ml de agua"
+        ],
+        "preparacion": [
+          "Remojar las semillas de girasol en el agua por 4-12 hs.",
+          "Procesar las semillas de girasol con agua que haya quedado, el puerro y la cebolla de verdeo.",
+          "Incorporarle la sal a gusto y mezclar.",
+          "Colocar en un recipiente tipo mermelada.",
+          "Reservar en la heladera. Dura aproximadamente 5 días."
+        ]
+      },
+
+      {
+        "nombre": "Mayonesa de Garbanzos",
+        "ingredientes": [
+          "2 tazas de garbanzos cocidos y pelados.",
+          "100 ml de aceite (1/2 taza)",
+          "Sal a gusto",
+          "1 cda de jugo de limón",
+          "1 diente de ajo picado."
+        ],
+        "preparacion": [
+          "Procesar los garbanzos con el jugo de limón y el ajo hasta formar una pasta.",
+          "Incorporarle de a poco el aceite mientras se continua mezclando.",
+          "Agregar sal al gusto y mezclar.",
+          "Colocar en un recipiente tipo mermelada.",
+          "Reservar en la heladera."
+        ]
+      }
+      
+  ]
+
+
+
+
+
+
+
+
+

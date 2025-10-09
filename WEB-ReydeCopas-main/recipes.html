@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recetas | Carla Cuenca</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <!-- Custom CSS Link -->
+    <link rel="stylesheet" href="/styles/styles.css">
+    <!-- Google Font Link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@100..900&family=Caudex:ital,wght@0,400;0,700;1,400;1,700&family=Forum&family=Goudy+Bookletter+1911&family=Petit+Formal+Script&display=swap" rel="stylesheet">  
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Lobster&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Belleza&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+    <!-- Box Icons -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <!-- Navbar -->
+    <header class="header">
+        <a href="index.html#home" class="logo"><img src="images/logo.png" alt=""></a>
+        <nav>
+            <i class="bx bx-menu" id="menu-icon"></i>
+            <ul class="navbar">
+                <li><a href="index.html#home">Inicio</a></li>
+                <li><a href="index.html#about">Sobre mi</a></li>
+                <li><a href="index.html#consultorio">Consultorio</a></li>
+                <li><a href="index.html#servicios">Servicios</a></li>
+                <li><a href="index.html#recetas">Recetas</a></li>
+                <li><a href="turno.php" target="_blank">Turno</a></li>
+                <li><a href="sesion.html">Iniciar sesion</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- WhatsApp Me -->
+    <div id="whatsapp-button" class="whatsapp-button">
+        <a href="https://wa.me/+5491134417767" target="_blank">
+            <img src="images/wasap.png" alt="WhatsApp">
+        </a>
+    </div>
+
+    <section class="modal">
+        <div class="modal-container">
+            <div class="receta-img-container">
+                <img src="" alt="" class="modal-img">
+            </div>
+            <h1 class="receta-title"></h1>
+            <div class="ingredientes-container-receta">
+                <h4>Ingredientes:</h4>
+                <ul class="lista-ingredientes">
+                    <li></li>
+                </ul>
+            </div>
+            <div class="preparacion-container">
+                <h4>Preparacion:</h4>
+                <ul class="lista-pasos">
+                    <li></li>
+                </ul>
+            </div>
+            <!-- <div class="compartir-container">
+                <div class="receta-redes">
+                    <a href="#" title="Compartir en Facebook"><i class='bx bxl-facebook share-fb'></i></a>
+                    <a href="#" title="Compartir en Whatsapp"><i class='bx bxl-whatsapp share-wsp'></i></a>
+                    <a href="#" title="Copiar Link"><i class='bx bx-link-alt share-link'></i></a>
+                </div>
+            </div> -->
+            <a href="" class="modal-close">Volver a las recetas</a>
+            
+        </div>
+    </section>
+
+    <section class="recetas recetas-html" id="recetas">
+        <h1 class="recetas-title">Recetas que nos encantan</h1>
+        <div class="container container-recetas">
+
+            <div class="card">
+                <div class="img-container">
+                    <img src="./images/recipe0.jpg" alt="" class="img-receta">
+                </div>
+                <div class="content">
+                    <h5>Recetas</h5>
+                    <h3>Galletitas de Remolacha y Naranja</h3>
+                    <p>Lavar y limpiar las remolachas. Hervirlas en agua dejando 5 cm de las pencas y con la cáscara. Una vez blanda la estructura de la remolacha, retirar y dejar enfriar. Mezclar los ingredientes ...</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="img-container">
+                    <img src="./images/recipe1.jpg" alt="" class="img-receta">
+                </div>
+                <div class="content">
+                    <h5>Recetas</h5>
+                    <h3>Galletitas Chocobanana</h3>
+                    <p>Mezclar y batir los huevos con el aceite hasta formar una espuma. Incorporar el azúcar y las bananas pisadas. Batir enérgicamente. En un recipiente aparte unificar bien la avena ...</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="img-container">
+                    <img src="./images/recipe2.jpg" alt="" class="img-receta">
+                </div>
+                <div class="content">
+                    <h5>Recetas</h5>
+                    <h3>Muffins Chocobeet</h3>
+                    <p>Lavar bien la espinaca y con una minipimer procesarla hasta formar una pasta. Agregar las cebollas y la sal. Mixear nuevamente. Agregar el Arroz integral y el queso en cubitos y mezclar ...</p>
+                </div>
+            </div>
+        
+            <div class="card">
+                <div class="img-container">
+                    <img src="./images/recipe3.jpg" alt="" class="img-receta">
+                </div>
+                <div class="content">
+                    <h5>Recetas</h5>
+                    <h3>Brownie de Algarroba</h3>
+                    <p>Mezclar el azúcar junto con la harina de algarroba previamente mezclada con el polvo de hornear y el bicarbonato e incorporarle el aceite y unir ...</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="img-container">
+                    <img src="./images/recipe4.jpg" alt="" class="img-receta">
+                </div>
+                <div class="content">
+                    <h5>Recetas</h5>
+                    <h3>Budin de Algarroba y Banana</h3>
+                    <p>Pisar 2 bananas e incorporarle los huevos. Mezclar bien hasta formar una crema. Incorporar el Aceite, batir bien hasta unificar todo. Agregar el Azúcar a la preparación ...</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="img-container">
+                    <img src="./images/recipe5.jpg" alt="" class="img-receta">
+                </div>
+                <div class="content">
+                    <h5>Recetas</h5>
+                    <h3>Budín de Limón</h3>
+                    <p>Mezclar los huevos con el aceite hasta formar una espuma. Agregar el Azúcar a la preparación (o edulcorante) y batir nuevamente enérgicamente ...</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="img-container">
+                    <img src="./images/recipe6.jpg" alt="" class="img-receta">
+                </div>
+                <div class="content">
+                    <h5>Recetas</h5>
+                    <h3>Budín de Zanahoria</h3>
+                    <p>Mezclar los huevos con el aceite hasta formar una espuma. Agregar el Azúcar a la preparación (o edulcorante) y batir nuevamente enérgicamente. En un recipiente aparte ...</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="img-container">
+                    <img src="./images/recipe7.jpg" class="img-receta">
+                </div>
+                <div class="content">
+                    <h5>Recetas</h5>
+                    <h3>Budín de Manzana</h3>
+                    <p>Mezclar los huevos con el aceite hasta formar una espuma. Agregar el Azúcar a la preparación (o edulcorante) y batir nuevamente enérgicamente. En un recipiente aparte mezclar ...</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="img-container">
+                    <img src="./images/recipe8.jpg" alt="" class="img-receta">
+                </div>
+                <div class="content">
+                    <h5>Recetas</h5>
+                    <h3>Pan Integral Alto en Proteínas</h3>
+                    <p>Activar la Levadura con el azúcar y 1 cucharadita de agua tibia en un recipiente y colocarla en un lugar calentito (prender el horno los va a ayudar). Colocar la harina integral ...</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="img-container">
+                    <img src="./images/recipe9.jpg" alt="" class="img-receta">
+                </div>
+                <div class="content">
+                    <h5>Recetas</h5>
+                    <h3>Masa de Arveja (Tarta y Empanada)</h3>
+                    <p>Unir las harinas con las semillas y el aceite. Agregarle la leche de a poco hasta formar una masa. Amasar levemente hasta formar una masa homogénea. Estirar la masa ...</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="img-container">
+                    <img src="./images/recipe10.jpg" alt="" class="img-receta">
+                </div>
+                <div class="content">
+                    <h5>Recetas</h5>
+                    <h3>Bizcochitos de Zanahoria y Queso</h3>
+                    <p>En un bowl, mezcla el puré de zanahoria, queso crema, leche, aceite y condimentos. Luego, añade gradualmente la harina con polvo de hornear y mezcla hasta obtener una masa uniforme ...</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="img-container">
+                    <img src="./images/recipe11.jpg" alt="" class="img-receta">
+                </div>
+                <div class="content">
+                    <h5>Recetas</h5>
+                    <h3>Bizcochitos de Zapallo y Queso</h3>
+                    <p>En un bowl, mezcla el puré de zapallo, queso crema, leche, aceite y condimentos. Luego, añade gradualmente la harina con polvo de hornear y mezcla hasta obtener una masa uniforme ...</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="img-container">
+                    <img src="./images/recipe12.jpg" alt="" class="img-receta">
+                </div>
+                <div class="content">
+                    <h5>Recetas</h5>
+                    <h3>Crepe de Espinaca</h3>
+                    <p>Lava bien la espinaca y con una minipimer procesarla hasta formar una pasta, agregando el ajo y la sal. Incorpora los huevos a la pasta de espinaca y bate hasta unificar todo. Calienta una sartén ...</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="img-container">
+                    <img src="./images/recipe13.jpg" alt="" class="img-receta">
+                </div>
+                <div class="content">
+                    <h5>Recetas</h5>
+                    <h3>Muffins de Espinaca</h3>
+                    <p>Lava bien la espinaca y procesa hasta obtener una pasta con una minipimer, añadiendo las cebollas y la sal, y mezclando nuevamente. Agrega el arroz integral cocido y el queso en cubitos ...</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="img-container">
+                    <img src="./images/recipe14.jpg" alt="" class="img-receta">
+                </div>
+                <div class="content">
+                    <h5>Recetas</h5>
+                    <h3>Queso Untable Casero</h3>
+                    <p>Para preparar el queso untable casero, comienza calentando 1 litro de leche semidescremada en una cacerola (asegúrate de que no sea de aluminio) hasta que  ...</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="img-container">
+                    <img src="./images/recipe15.jpg" alt="" class="img-receta">
+                </div>
+                <div class="content">
+                    <h5>Recetas</h5>
+                    <h3>Untable de Zanahoria</h3>
+                    <p>Para preparar el untable de zanahoria, comienza pelando y hirviendo las zanahorias hasta que estén tiernas. Luego, mézclalas en una licuadora o procesadora con sal y aceite de oliva o girasol ...</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="img-container">
+                    <img src="./images/recipe16.jpg" alt="" class="img-receta">
+                </div>
+                <div class="content">
+                    <h5>Recetas</h5>
+                    <h3>Untable de Girasol</h3>
+                    <p>Para preparar el Untable de Girasol, comienza remojando las semillas de girasol en agua durante 4-12 horas. Luego, procesa las semillas junto con el agua remojada, el puerro y la cebolla ...</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="img-container">
+                    <img src="./images/recipe17.jpg" alt="" class="img-receta">
+                </div>
+                <div class="content">
+                    <h5>Recetas</h5>
+                    <h3>Mayonesa de Garbanzos</h3>
+                    <p>Para preparar la Mayonesa de Garbanzos, primero procesa los garbanzos cocidos y pelados junto con el jugo de limón y el ajo picado hasta obtener una pasta suave y homogénea ...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Start -->
+
+    <footer class="footer footer-recetas" id="footer">
+        <div class="footer-logo-container">
+            <img src="./images/logo.png" alt="">
+        </div>
+        <div class="footer-box">
+            <h4>Carla Cuenca</h4>
+            <p>Lic. en Nutricion - UBA</p>
+            <p>MN 10538 - MP 6207</p>
+        </div>
+        <div class="footer-box">
+            <h4>Turnos</h4>
+            <p>Bauness 2254, Villa Urquiza [Martes]</p>
+            <p>Av. Triunvirato 4141, Villa Urquiza [Sabado]</p>
+        </div>
+        <div class="footer-box">
+            <h4>Contacto</h4>
+            <div class="box-info">
+                <p>lorem@ipsum.com</p>
+            </div>
+            <div class="box-info">
+                <p>11-1234-5678</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Footer End -->
+
+    <!-- Scroll Reveal -->
+    <script src="https://unpkg.com/scrollreveal"></script>
+
+    <!-- Custom Scripts Link -->
+    <script src="/js/scriptsRecipe.js"></script>
+    
+</body>
+</html>
