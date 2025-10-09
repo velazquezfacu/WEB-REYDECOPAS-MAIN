@@ -628,115 +628,55 @@ section h1{
     height: 79px;
 }
 .about-bot-shape .shape-fill {
-    fill: var(--fifth-color);
+    fill: #CCCCCC;
 }
 
 /* <!-- About Section End--> */
 
-/* <!-- Consultorio Section Start --> */
-
-/* .consultorio{
-    display: flex;
-    position: relative;
-    flex-direction: column;
-    justify-content: center;
-    background: var(--sixth-color);
-}
-
-.consultorio-first{
-    display: flex;
-}
-
-.consultorio-first-image{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50%;
-}
-
-.consultorio-first-image img{
-    display: block;
-    width: 100%;
-}
-
-.consultorio-first-description{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 50%;
-}
-
-.consultorio-second{
-    display: flex;
-}
-
-.consultorio-second-image{
-    width: 50%;
-}
-
-.consultorio-second-image img{
-    display: block;
-    width: 100%;
-}
-
-.consultorio-second-description{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 50%;
-}
-
-.consultorio-shape {
-    position: absolute;
-    bottom: -10px;
-    left: 0;
-    width: 100vw;
-    overflow: hidden;
-    line-height: 0;
-}
-
-.consultorio-shape svg {
-    position: relative;
-    display: block;
-    width: calc(142% + 1.3px);
-    height: 249px;
-    transform: rotateY(180deg);
-}
-
-.consultorio-shape .shape-fill {
-    fill: var(--fifth-color);
-} */
-
-/* <!-- Consultorio Section End --> */
 
 /* <!-- Servicios Section Start --> */
+
+.servicios h1{
+     font-family: 'Poppins', sans-serif;
+     color: #ff3c3c;
+}
+
+.servicios h2{
+    font-family: 'Poppins', sans-serif;
+     color: #ff3c3c;
+}
+    
+
 
 .servicios{
     display: flex;
     position: relative;
     flex-direction: column;
-    background: var(--fifth-color);
+    background: #CCCCCC;
 }
 
 .servicios p:nth-child(2){
-    color: var(--black-color);
+    color: #ff3c3c;
     font-size: clamp(1rem, 0.949rem + 0.251vw, 1.35rem);
     font-weight: 600;
     margin-bottom: 2rem;
 }
 
+.servicios-container h2 {
+    grid-column: 1 / -1; /* Hace que el h2 ocupe todas las columnas de la grilla */
+    text-align: center;
+    margin: 2rem 0; /* Espacio vertical para el título */
+}
+
 .servicios-container{
     display: grid;
     grid-template-columns: repeat(3, minmax(350px, 500px));
-    grid-template-rows: repeat(2, 1fr);
     place-self: center;
-    gap: 2em;
     margin-bottom: 4em;
 }
 
 .servicios-item{
+    margin: 1em; /* Añadimos margen a los items para separarlos */
     display: flex;
     flex-direction: column;
     justify-content: space-around;
