@@ -535,19 +535,20 @@ section h1{
     display: flex;
     justify-content: space-around;
     width: 100%;
+    gap: 2rem;
 }
 .text-description h1 {
     color: #ff3c3c;
 }
 
-.text-description{
+.text-description {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    font-size: clamp(1.3rem, 0.980rem + 0.250vw, 1.4rem);
-    width: 60%;
+    font-size: clamp(1.3rem, 0.98rem + 0.25vw, 1.4rem);
+    width: 100%;
     color: white;
-    margin-right: 90px;
+    text-align: left;
 }
 
 .padbot{
@@ -563,8 +564,13 @@ section h1{
 
 .image-container {
     display: flex;
-    flex-direction: column;    
+    flex-direction: column;
     gap: 2rem; /* Espacio entre las imágenes */
+    width: 100%;
+}
+
+.about-item {
+    flex: 1;
 }
 
 .about-instagram{
@@ -1572,12 +1578,21 @@ textarea.input{
 
 @media screen and (max-width: 768px){
 
+    .about-description {
+        display: flex;
+        flex-direction: column; /* Apila los elementos verticalmente en móvil */
+        align-items: center;
+        gap: 2rem;
+    }
+
     .home{
         padding: 20px 2%;
     }
 
     .home-container{
         padding: 1em;
+        display: flex;
+        flex-direction: column;
     }
 
     .nav-menu{
@@ -1585,14 +1600,19 @@ textarea.input{
     }
 
     .about-description{
-        flex-direction: column-reverse;
-        justify-content: center;
-        align-items: center;
+        flex-direction: column;
     }
 
-    .text-description{
-        width: 100%;
+    .text-description {
+        padding: 0 1rem; /* Añade un poco de espacio a los lados para que no se pegue a los bordes */
+        text-align: center; /* Centra el texto */
     }
+
+    .image-container .image-description:first-child,
+    .image-container .image-description:last-child {
+        display: none;
+    }
+
 
     .about-instagram{
         flex-direction: column-reverse;
@@ -1743,14 +1763,19 @@ textarea.input{
         width: 100%;
     }
 
-    .home-container{
-        height: 10em;
+    .home-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem; /* Espacio entre el título y el texto */
+        text-align: center;
+        height: auto; /* Permitir que la altura se ajuste al contenido */
     }
 
     .go-bot-button{
         padding: .5rem;
     }
-
     .go-bot-button i{
         font-size: 3rem;
     }
@@ -1759,10 +1784,8 @@ textarea.input{
         flex-direction: column;
     }
 
-    .home-text{
-        position: absolute;
-        bottom: 10px;
-        margin: 0;
+    .home-text {
+        margin-top: 0; /* Eliminamos el margen superior que ya no es necesario */
     }
 
     .image-description{
