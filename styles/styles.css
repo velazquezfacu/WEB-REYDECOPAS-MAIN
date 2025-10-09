@@ -468,7 +468,7 @@ section h1{
     color: #ff3c3c; /* rojo intenso */
     text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
     font-weight: 700;
-    font-size: clamp(2rem, 2.7vw + 1rem, 6rem);
+    font-size: clamp(1rem, 2.7vw + 1rem, 6rem);
     line-height: 1.25;
 }
 
@@ -485,6 +485,10 @@ section h1{
     font-size: clamp(1rem, 0.31rem + 0.87vw, 1.75rem);
     color: var(--sixth-color);
     text-shadow: var(--text-shadow);
+}
+
+.home{
+    position: relative;
 }
 
 .home-bot-shape {
@@ -519,6 +523,7 @@ section h1{
     flex-direction: column;
     position: relative;
     background: black;
+    padding-top: 150px;
 }
 
 .about h1{
@@ -1583,6 +1588,14 @@ textarea.input{
         flex-direction: column; /* Apila los elementos verticalmente en móvil */
         align-items: center;
         gap: 2rem;
+    }
+
+    .home-bot-shape {
+        display: none;
+    }
+
+    .about {
+        padding-top: 50px;
     }
 
     .home{

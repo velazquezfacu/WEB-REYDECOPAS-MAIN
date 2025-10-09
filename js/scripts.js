@@ -49,7 +49,7 @@ document.querySelector('.go-top-container').addEventListener('click', () => {
 /*==================== Typed JS ====================*/
 
 const typed = new Typed('.home-title',{
-  strings: ["Rey de Copas - Club de Socios de C.A.I", "Forma parte del mejor club de Argentina.", "Con mas de un Millón de socios activos."],
+  strings: ["Rey de Copas - Club de Socios de C.A.I", "Únite al mejor club de Argentina.", "Más de un Millón de socios activos."],
   startDelay: 300,
   typeSpeed: 50,
   backSpeed: 50,
