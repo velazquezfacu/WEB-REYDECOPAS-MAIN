@@ -933,7 +933,7 @@ section h1{
     align-items: center;
     background-image:
         linear-gradient(rgba(255, 255, 255, 0.199), rgba(97, 97, 97, 0.603)),
-        url(../images/contact.jpg);
+        url(../images/hinchadarojo.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -955,7 +955,7 @@ section h1{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background: var(--sixth-color);
+    background: white;
     position: relative;
     padding: 2rem 0;
 }
@@ -965,13 +965,14 @@ section h1{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background: var(--third-color);
+    background: black;
     position: relative;
 }
 
 .contact-info h1{
     margin: .5rem 0;
-    color: var(--black-color);
+     font-family: 'Poppins', sans-serif;
+     color: #ff3c3c;
 }
 
 .contact-info p{
@@ -984,7 +985,8 @@ section h1{
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background: linear-gradient(135deg, transparent 20%, var(--third-color));
+    background: linear-gradient(135deg, transparent 20%, #CCCCCC);
+    /*background: linear-gradient(135deg, transparent 20%, var(--third-color));*/
     position: absolute;
 }
 
@@ -1007,7 +1009,7 @@ section h1{
     position: absolute;
     width: 26px;
     height: 26px;
-    background: var(--third-color);
+    background:#CCCCCC;
     transform: rotate(45deg);
     top: 50px;
     left: -13px;

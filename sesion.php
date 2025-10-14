@@ -33,15 +33,15 @@ session_start();
 </head>
 <body>
     <header class="header">
-        <a href="#home" class="logo"><img src="images/logo.png" alt=""></a>
+        <a href="#home" class="logo"><img src="images/Reyes de copas.png" alt=""></a>
         <nav>
             <ul class="navbar">
                 <li><a href="index.html#home">Inicio</a></li>
-            <li><a href="index.html#about">Sobre mi</a></li>
+            <li><a href="index.html#about">Sobre nosotros</a></li>
             <!-- <li><a href="#consultorio">Consultorio</a></li> -->
             <li><a href="index.html#servicios">Servicios</a></li>
-            <li><a href="index.html#recetas">Recetas</a></li>
-            <li><a href="php/chequeo.php">Turnos</a></li>
+            <li><a href="index.html#recetas">Ustedes</a></li>
+            <li><a href="php/chequeo.php">Planes</a></li>
             <li><a href="sesion.php">Cuenta</a></li>
             </ul>
             <div class="nav-toggle" id="nav-toggle">
@@ -53,11 +53,11 @@ session_start();
     <div class="nav-menu" id="nav-menu">
         <ul class="nav-list">
             <li><a href="index.html#home">Inicio</a></li>
-            <li><a href="index.html#about">Sobre mi</a></li>
+            <li><a href="index.html#about">Sobre nosotros</a></li>
             <!-- <li><a href="#consultorio">Consultorio</a></li> -->
             <li><a href="index.html#servicios">Servicios</a></li>
-            <li><a href="index.html#recetas">Recetas</a></li>
-            <li><a href="php/chequeo.php">Turnos</a></li>
+            <li><a href="index.html#recetas">Ustedes</a></li>
+            <li><a href="php/chequeo.php">Planes</a></li>
             <li><a href="sesion.php">Cuenta</a></li>
         </ul>
         <i class='bx bx-x' id="nav-close"></i>
