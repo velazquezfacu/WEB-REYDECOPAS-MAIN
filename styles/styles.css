@@ -1030,13 +1030,14 @@ form{
 .input{
     width: 100%;
     outline: none;
-    border: 2px solid var(--first-color);
-    background: none;
+    border: 2px solid #ccc;
+    background: var(--white-color);
     padding: .6rem 1.2rem;
     color: var(--black-color);
     font-weight: 500;
     font-size: clamp(1rem, 0.971rem + 0.143vw, 1.2rem);
     letter-spacing: .5px;
+    line-height: 1.5; /* Asegura que el texto no se corte verticalmente */
     border-radius: 15px;
     transition: .3s;
 }
@@ -1051,13 +1052,13 @@ textarea.input{
 
 .input-container label{
     position: absolute;
-    top: 50%;
-    left: 15px;
-    transform: translateY(-50%);
-    padding: 0 .4rem;
-    color: var(--first-color);
+    top: -1.2rem;
+    left: 1rem;
+    transform: translateY(0);
+    padding: 0 .2rem;
+    color: var(--white-color);
     font-size: clamp(1rem, 1rem + 0vw, 1rem);
-    font-weight: 700;
+    font-weight: 500;
     pointer-events: none;
     z-index: 1000;
     transition: .5s;
@@ -1071,7 +1072,7 @@ textarea.input{
 .btn-form-container{
     display: flex;
     justify-content: center;
-    margin-bottom: 10px;
+    margin: 2rem 0 1rem; /* Aumenta el margen superior */
 }
 
 
@@ -1129,10 +1130,11 @@ textarea.input{
 }
 
 .input-container.focus label{
-    top: 0;
-    transform: translateY(-50%);
-    left: 25px;
+    top: -1.2rem;
+    transform: translateY(0);
+    left: 1rem;
     font-size: clamp(1rem, 1rem + 0vw, 1rem);
+    color: var(--first-color);
 }
 
 .input-container.focus span:before,
@@ -1634,6 +1636,29 @@ textarea.input{
         left: 75px;
     }
     
+    .form-row {
+        flex-wrap: wrap; /* Permite que los elementos se reordenen si no caben */
+        gap: 1rem; /* Añade espacio cuando los elementos se apilan */
+    }
+    .form-row > .input:not(.nro-input) {
+        flex-basis: 100%; /* El campo de la calle ocupa todo el ancho */
+        flex-grow: 1;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr; /* Una sola columna en tablets y móviles */
+        gap: 2rem 1rem;
+    }
+
+    .form-grid .span-2 {
+        grid-column: span 1; /* Resetea el span en una sola columna */
+    }
+
+    #provincia {
+        width: 60%; /* Ajusta el ancho del campo provincia en móviles */
+    }
+
+
     .footer{
         flex-direction: column;
     }
@@ -1715,6 +1740,78 @@ textarea.input{
         top: 0;
     }
 
+}
+
+/* ----------------- Altas socios ------------------- */
+.altasoc-text{
+    font-family: 'Poppins', sans-serif;
+    color: #ff3c3c;
+    margin-top: 2rem;
+    font-size: clamp(2rem, 1.5rem + 2vw, 3rem);
+    text-shadow: var(--text-shadow);
+    margin-bottom: 2rem;
+}
+.altasoc-container{
+     position: relative;
+    /*box-shadow: var(--box-shadow);*/
+    background-color: rgba(0, 0, 0,0.8);
+    background-image: 
+        linear-gradient(rgba(0, 0, 0,0.5), rgba(97, 97, 97, 0.603)),
+        url(/images/bg.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    padding: 2rem;
+}
+
+.alta-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 900px; /* O el ancho que prefieras */
+    margin: 0 auto;
+}
+
+.form-section-title {
+    color: var(--white-color);
+    text-shadow: var(--text-shadow);
+    margin-top: 2.5rem;
+    margin-bottom: 2rem;
+    grid-column: 1 / -1;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2.5rem 1.5rem; /* Espacio vertical y horizontal */
+}
+
+.form-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-end;
+}
+
+.form-row .nro-input,
+.input.nro-input {
+    flex-basis: 100px;
+    flex-shrink: 0;
+}
+
+.form-grid .input-container {
+    margin: 0;
+}
+
+.form-grid .span-2 {
+    grid-column: span 2;
+}
+
+.form-row input.input {
+    margin-bottom: 0; /* Resetea el margen para los inputs en fila */
+}
+
+.alta-form {
+    padding: 0 1rem; /* Añade un poco de padding en los costados para móviles */
 }
 
 /* ----------------- Pantallas Moviles Grandes ------------------- */

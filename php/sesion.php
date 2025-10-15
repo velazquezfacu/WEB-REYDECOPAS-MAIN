@@ -10,9 +10,9 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Club de Socios C.A.I - Iniciar Sesión</title>
     <!-- Favicon -->
-    <link rel="shortcut icon" href="images/escudocai.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../images/escudocai.ico" type="image/x-icon">
     <!-- Custom CSS Link -->
-    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="../styles/styles.css">
     <!-- Google Font Link -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -76,7 +76,7 @@ session_start();
             <span class="circle one"></span>
             <span class="circle two"></span>
 
-            <form id="formSesion" action="php/sesionScript.php" method="post">
+            <form id="formSesion" action="sesionScript.php" method="post">
                 <div class="input-container">
                     <input type="email" name="email" placeholder="Email" class="input">
                     <label for=""></label>
@@ -101,7 +101,7 @@ session_start();
                 
                 ?>
                 
-                <p class="btn-form-container">Si todavia no tenes una cuenta,&nbsp;<a href="registro.html">creala aca</a></p>   
+                <p class="btn-form-container">Si todavia no tenes una cuenta,&nbsp;<a href="../registro.html">creala aca</a></p>   
 
                     
                 <div id="respuesta"></div>

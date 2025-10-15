@@ -55,9 +55,8 @@ if ($stmt->num_rows === 1) {
         $stmt->close();
         $conexion->close();
 
-        header("Location: lista.php");
-
-         //json_encode(['success' => true, 'redirect' => 'lista.php']);
+        // Enviar la respuesta JSON que el AJAX espera
+        echo json_encode(['success' => true, 'redirect' => 'altasocio.php']);
         exit();
 
     } else {
