@@ -1,5 +1,5 @@
 <?php
-    $conexion = mysqli_connect("localhost", "root", "", "nutricionista") 
+    $conexion = mysqli_connect("localhost", "root", "", "reyescopas") 
     or die('no se pudo conectar al servidor');
 
     $id = $_POST['id'];

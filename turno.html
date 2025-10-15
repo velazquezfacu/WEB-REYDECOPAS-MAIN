@@ -34,7 +34,6 @@
                 <li><a href="index.html#about">Sobre Nosotros</a></li>
                 <li><a href="index.html#servicios">Servicios</a></li>
                 <li><a href="index.html#recetas">Ustedes</a></li>
-                <li><a href="php/chequeo.php">Planes</a></li>
                 <li><a href="sesion.php">Cuenta</a></li>
             </ul>
             <div class="nav-toggle" id="nav-toggle">
@@ -153,7 +152,7 @@
 
                 $.ajax({
             type: 'POST',
-            url: 'php/turnoScript.php', // Ruta al archivo PHP que procesará los datos
+            url: 'php/turnoScript.php',
             data: formData,
             success: function(response){
                 try {

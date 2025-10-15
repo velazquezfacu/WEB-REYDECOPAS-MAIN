@@ -1,17 +1,18 @@
 <?php
 
-    $conexion = new mysqli("localhost", "root", "", "nutricionista");
+    $conexion = new mysqli("localhost", "root", "", "reyescopas");
 
 
         $nombre = $_POST['nombre'];
-        $mail = $_POST['mail'];
-        $constraseña = password_hash($_POST['contraseña'], PASSWORD_DEFAULT);
+        $apellido = $_POST['apellido'];
+        $mail = $_POST['email'];
+        $contrasena = password_hash($_POST['contrasena'], PASSWORD_DEFAULT);
         $dni = $_POST['dni'];
         $telefono = $_POST['telefono'];
         
 
         $consulta_existencia = mysqli_query(
-            $conexion, "SELECT * FROM usuarios where dni ='$dni' OR mail = '$mail'");
+            $conexion, "SELECT * FROM usuarios where dni ='$dni' OR email = '$mail'");
 
         if(mysqli_num_rows($consulta_existencia) > 0)
         {
@@ -19,9 +20,9 @@
         }
         else
         {
-            $sql =  "INSERT INTO usuarios(nombre, mail, contraseña, dni, telefono) VALUES (?, ?, ?, ?, ?)";
+            $sql =  "INSERT INTO usuarios(nombre, apellido, email, contrasena, dni, telefono) VALUES (?, ?, ?, ?, ?, ?)";
             $stmt = $conexion->prepare($sql);
-            $stmt->bind_param("sssss", $nombre, $mail, $constraseña, $dni, $telefono);
+            $stmt->bind_param("ssssss", $nombre, $apellido, $mail, $contrasena, $dni, $telefono);
 
             if($stmt->execute())
             {

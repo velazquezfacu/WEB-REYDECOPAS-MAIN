@@ -1,21 +1,24 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "nutricionista";
+session_start();
+
+// 2. CORRECCIÓN DE SEGURIDAD: REDIRIGIR SI NO HAY SESIÓN INICIADA
+if (!isset($_SESSION['email'])) {
+    header("Location: sesion.php");
+    exit();
+}
 
 // Crear conexión
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conexion = new mysqli("localhost", "root", "", "reyescopas");
 
 // Verificar conexión
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+if ($conexion->connect_error) {
+    die("Connection failed: " . $conexion->connect_error);
 }
 
 $sql = "SELECT turnos.id, usuarios.nombre, turnos.dia, turnos.hora, usuarios.telefono 
         FROM turnos
         INNER JOIN usuarios ON turnos.usuario_id = usuarios.id";
-$result = $conn->query($sql);
+$result = $conexion->query($sql);
 
 $data = array();
 if ($result->num_rows > 0) {
@@ -26,7 +29,7 @@ if ($result->num_rows > 0) {
 } else {
     echo "0 results";
 }
-$conn->close();
+$conexion->close();
 ?>
 
 
@@ -154,140 +157,107 @@ $conn->close();
 
 <!-- Modificar y Eliminar valores de la tabla -->
 	<script>
-				$(document).ready(function() {
-			// Inicializar DataTable
-			var table = $('#productTable').DataTable();
-
-			// Manejar el evento click del botón "Modificar"
-			$('#productTable tbody').on('click', '.modificar-btn', function() {
-				// Obtener la fila actual
-				var fila = $(this).closest('tr');
-				
-				// Obtener los datos de la fila
-				var datosFila = table.row(fila).data();
-				
-				// Rellenar el formulario del modal con los datos de la fila
-				$('#idInput').val(datosFila[0]);
-				$('#nombreInput').val(datosFila[1]);
-				$('#diaInput').val(datosFila[2]);
-				$('#horarioInput').val(datosFila[3]);
-				$('#contactoInput').val(datosFila[4]);
-
-				// Mostrar el modal
-				$('#modificarModal').modal('show');
-			});
-
-			// Manejar el evento click del botón "Guardar Cambios"
-			$('#guardarCambiosBtn').on('click', function() {
-				// Obtener los valores del formulario
-				var id = $('#idInput').val();
-				var nombre = $('#nombreInput').val();
-				var dia = $('#diaInput').val();
-				var hora = $('#horarioInput').val();
-				var contacto = $('#contactoInput').val();
-
-				// Actualizar los datos en la tabla
-				var fila = table.row(function(idx, data, node) {
-					return data[0] === id;
-				}).node();
-				
-				table.cell(fila, 1).data(nombre);
-				table.cell(fila, 2).data(dia);
-				table.cell(fila, 3).data(hora);
-				table.cell(fila, 4).data(contacto).draw();
-
-				$.ajax({
-					url: 'php/modificar.php',
-					method: 'POST',
-					data: {
-						id: id,
-						hora: hora,
-						dia: dia,
-					},
-				});
-
-				// Cerrar el modal
-				$('#modificarModal').modal('hide');
-			});
-
-
-			// Manejar el evento click del botón "Eliminar"
-			$('#productTable tbody').on('click', '.eliminar-btn', function() {
-			// Obtener la fila actual
-			filaAEliminar = $(this).closest('tr');
-			
-			// Mostrar el modal de confirmación
-			$('#eliminarModal').modal('show');
-		});
-
-		// Manejar el evento click del botón "Confirmar Eliminar" en el modal
-		$('#confirmarEliminarBtn').on('click', function() {
-			// Obtener los datos de la fila
-			var datosFila = table.row(filaAEliminar).data();
-			var id = datosFila[0];
-
-			// Enviar solicitud AJAX para eliminar el registro en la base de datos
-			$.ajax({
-				url: 'php/eliminar.php',
-				method: 'POST',
-				data: { 
-					id: id
-				},
-				success: function(response) {
-					// Eliminar la fila de la tabla
-					table.row(filaAEliminar).remove().draw();
-					// Cerrar el modal de confirmación
-					$('#eliminarModal').modal('hide');
-					console.log('Registro eliminado correctamente');
-				},
-				error: function(jqXHR, textStatus, errorThrown) {
-					console.error('Error al eliminar el registro: ' + textStatus, errorThrown);
-				}
-			});
-		});
-		});
-	</script>
-  
-	<script>
-        $(document).ready(function() {
-            $('#productTable').DataTable();
+    $(document).ready(function() {
+        
+        // 1. Inicializar DataTables y configurar lenguaje
+        // Usamos la inicialización que tienes para la tabla que cargas en PHP
+        var table = $('#productTable').DataTable({
+            "order": [
+                [0, "asc"]
+            ],
+            // Usamos tu configuración de lenguaje DataTables:
+            "language": {
+                "lengthMenu": "Mostrar _MENU_ registros por pagina",
+                "info": "Mostrando pagina _PAGE_ de _PAGES_",
+                "infoEmpty": "No hay registros disponibles",
+                "infoFiltered": "(filtrada de _MAX_ registros)",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "zeroRecords": "No se encontraron registros coincidentes",
+                "paginate": {
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                },
+            },
+            // Deshabilita el procesamiento por servidor ya que cargas los datos en PHP
+            "bServerSide": false,
         });
-    </script>
 
-	<script>
-		$(document).ready(function() {
-			$('#mitabla').DataTable({
-				"order": [
-					[0, "asc"]
-				],
-				"language": {
-					"lengthMenu": "Mostrar _MENU_ registros por pagina",
-					"info": "Mostrando pagina _PAGE_ de _PAGES_",
-					"infoEmpty": "No hay registros disponibles",
-					"infoFiltered": "(filtrada de _MAX_ registros)",
-					"loadingRecords": "Cargando...",
-					"processing": "Procesando...",
-					"search": "Buscar:",
-					"zeroRecords": "No se encontraron registros coincidentes",
-					"paginate": {
-						"next": "Siguiente",
-						"previous": "Anterior"
-					},
-				},
-				"bProcessing": true,
-				"bServerSide": true,
-				"sAjaxSource": "server_process.php"
-			});
-		});
 
-		let eliminaModal = document.getElementById('eliminaModal')
-		eliminaModal.addEventListener('shown.bs.modal', event => {
-			let button = event.relatedTarget
-			let url = button.getAttribute('data-bs-href')
-			eliminaModal.querySelector('.modal-footer .btn-ok').href = url
-		})
-	</script>
+        // 2. LÓGICA DEL BOTÓN MODIFICAR (sin cambios, ya estaba bien)
+        $('#productTable tbody').on('click', '.modificar-btn', function() {
+            var fila = $(this).closest('tr');
+            // DataTables te devuelve los datos de la fila como un array de valores
+            var datosFila = table.row(fila).data(); 
+            
+            $('#idInput').val(datosFila[0]);
+            $('#nombreInput').val(datosFila[1]);
+            $('#diaInput').val(datosFila[2]);
+            $('#horarioInput').val(datosFila[3]);
+            $('#contactoInput').val(datosFila[4]);
 
+            $('#modificarModal').modal('show');
+        });
+
+        // 3. LÓGICA DE GUARDAR CAMBIOS (sin cambios)
+        $('#guardarCambiosBtn').on('click', function() {
+            var id = $('#idInput').val();
+            var nombre = $('#nombreInput').val();
+            var dia = $('#diaInput').val();
+            var hora = $('#horarioInput').val();
+            var contacto = $('#contactoInput').val();
+            
+            // Actualizar la fila en el DataTables (lado del cliente)
+            var fila = table.row(function(idx, data, node) {
+                return data[0] === id;
+            }).node();
+            
+            table.cell(fila, 1).data(nombre);
+            table.cell(fila, 2).data(dia);
+            table.cell(fila, 3).data(hora);
+            table.cell(fila, 4).data(contacto).draw();
+
+            // Llamada AJAX a modificar.php
+            $.ajax({
+                url: 'php/modificar.php',
+                method: 'POST',
+                data: { id: id, hora: hora, dia: dia, nombre: nombre }, // Añadí 'nombre' para completar
+            });
+
+            $('#modificarModal').modal('hide');
+        });
+
+
+        // 4. LÓGICA DEL BOTÓN ELIMINAR (sin cambios, ya estaba bien)
+        var filaAEliminar; 
+
+        $('#productTable tbody').on('click', '.eliminar-btn', function() {
+            filaAEliminar = $(this).closest('tr');
+            $('#eliminarModal').modal('show');
+        });
+
+        $('#confirmarEliminarBtn').on('click', function() {
+            var datosFila = table.row(filaAEliminar).data();
+            var id = datosFila[0];
+
+            $.ajax({
+                url: 'php/eliminar.php',
+                method: 'POST',
+                data: { id: id },
+                success: function(response) {
+                    table.row(filaAEliminar).remove().draw();
+                    $('#eliminarModal').modal('hide');
+                    console.log('Registro eliminado correctamente');
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Error al eliminar el registro: ' + textStatus, errorThrown);
+                }
+            });
+        });
+        
+    });
+</script>
 
 
 </body>

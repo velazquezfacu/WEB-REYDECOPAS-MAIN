@@ -1,7 +1,14 @@
 <?php
 session_start();
+header('Content-Type: application/json');
 
-if (isset($_SESSION['user_id'])){
+// 1. Solo procesar si la solicitud es POST
+if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+    echo json_encode(['success' => false, 'message' => 'Método no permitido.']);
+    exit();
+}
+
+if (isset($_SESSION['user_id'])) {
 
 /*
     require "vendor/autoload.php";
@@ -10,33 +17,36 @@ if (isset($_SESSION['user_id'])){
     use PHPMailer\PHPMailer\Exception;
 */   
 
-    $conexion = mysqli_connect("localhost", "root", "", "nutricionista") 
-    or die('no se pudo conectar al servidor');
+    $conexion = mysqli_connect("localhost", "root", "", "reyescopas") 
+        or die(json_encode(['success' => false, 'message' => 'No se pudo conectar al servidor.']));
 
+    if (!isset($_POST['dia']) || !isset($_POST['hora'])) {
+        echo json_encode(['success' => false, 'message' => 'Faltan datos para agendar el turno.']);
+        exit();
+    }
+    
     $dia = $_POST['dia'];
     $hora = $_POST['hora'];
     $id = $_SESSION['user_id'];
-    $mail = $_SESSION['mail'];
+    $mail = $_SESSION['email'];
     $nombre = $_SESSION['nombre'];
 
     $consulta_existencia = mysqli_query($conexion, "SELECT * FROM turnos where dia = '$dia' && hora ='$hora'");
 
     
         if(mysqli_num_rows($consulta_existencia) > 0){
-            echo "El turno ya esta ocupado";
+            echo json_encode(['success' => false, 'message' => 'El turno ya está ocupado. Por favor, elija otro.']);
         }
         else{
             $sql =  "INSERT INTO turnos(dia, hora, usuario_id) VALUES (?, ?, ?)";
             $stmt = $conexion->prepare($sql);
             $stmt->bind_param("sss", $dia, $hora, $id);
 
-            if($stmt->execute())
-            {
-                echo "Turno agendado con exito";
+            if ($stmt->execute()) {
+                echo json_encode(['success' => true, 'message' => 'Turno agendado con éxito.']);
             } 
-            else 
-            {
-                echo "Error: " . $stmt->error;
+            else {
+                echo json_encode(['success' => false, 'message' => 'Error al agendar el turno: ' . $stmt->error]);
             }
 
             $stmt->close(); 
@@ -63,7 +73,9 @@ if (isset($_SESSION['user_id'])){
                             echo "El mensaje no pudo ser enviado. Error de Mailer: {$e_mail->ErrorInfo}";
                     }
 */
-}else{
-    echo "Debes inciar sesion para agendar un turno";
+} else {
+    // Si no hay sesión iniciada
+    echo json_encode(['success' => false, 'message' => 'Debes iniciar sesión para agendar un turno.']);
 }
+mysqli_close($conexion);
 ?>

@@ -22,13 +22,10 @@ session_start();
     <link href="https://fonts.googleapis.com/css2?family=Belleza&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Box Icons -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <!-- Scroll Reveal -->
-    <script src="https://unpkg.com/scrollreveal"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 </head>
 <body>
@@ -41,7 +38,6 @@ session_start();
             <!-- <li><a href="#consultorio">Consultorio</a></li> -->
             <li><a href="index.html#servicios">Servicios</a></li>
             <li><a href="index.html#recetas">Ustedes</a></li>
-            <li><a href="php/chequeo.php">Planes</a></li>
             <li><a href="sesion.php">Cuenta</a></li>
             </ul>
             <div class="nav-toggle" id="nav-toggle">
@@ -80,14 +76,14 @@ session_start();
             <span class="circle one"></span>
             <span class="circle two"></span>
 
-            <form id="formSesion">
+            <form id="formSesion" action="php/sesionScript.php" method="post">
                 <div class="input-container">
-                    <input type="email" name="mail" placeholder="Email" class="input">
+                    <input type="email" name="email" placeholder="Email" class="input">
                     <label for=""></label>
                 </div>
 
                 <div class="input-container">
-                    <input type="password" name="contraseña" placeholder="Contraseña" class="input">
+                    <input type="password" name="contrasena" placeholder="Contraseña" class="input">
                     <label for=""></label>
 
                 </div>
@@ -97,7 +93,7 @@ session_start();
                 </div> 
 
                 <?php
-                if(isset($_SESSION['mail'])){
+                if(isset($_SESSION['email'])){
                     echo '<div class="btn-form-container">
                             <input type="button" id="cerrar-sesion" class="btn custom-btn btn-form" value="Cerrar Sesion">
                         </div>' ;
@@ -115,56 +111,49 @@ session_start();
 </section>
 
 <script>
-    
-        $(document).ready(function(){
-            $('#formSesion').on('submit', function(event) {
-                event.preventDefault();
-                
-                var formData = $(this).serialize();
-                
-                $.ajax({
-            type: 'POST',
-            url: 'php/sesionScript.php', 
-            data: formData,
-            success: function(response){
-                try {
-                            var result = JSON.parse(response);
-                            $('#respuesta').text(response).css('display', 'block');
-                        } catch (e) {
-                            $('#respuesta').text(response).css('display', 'block');
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        $('#respuesta').text('Error en la solicitud: ' + error).css('display', 'block');
+    $(document).ready(function() {
+        // 1. LÓGICA DE INICIO DE SESIÓN (#formSesion)
+        $('#formSesion').on('submit', function(event) {
+            event.preventDefault();
+        
+            var formData = $(this).serialize();
+        
+            $.ajax({
+                type: 'POST',
+                url: 'sesionScript.php', 
+                data: formData,
+                dataType: 'json',
+                success: function(response){
+                    if (response.success) {
+                        // Si el inicio de sesión es exitoso, redirigimos a la página de lista.
+                        window.location.href = response.redirect;
+                    } else {
+                        // Si success es FALSE, mostramos el mensaje de error.
+                        $('#respuesta').text(response.message).css('display', 'block');
                     }
-                });
-               // location.reload();
+                },
+                error: function(xhr, status, error) {
+                    $('#respuesta').text('Error en la solicitud: ' + error).css('display', 'block');
+                }
             });
         });
-    </script>
 
-<script>
-        $(document).ready(function() {
-            $('#cerrar-sesion').on('click', function(event) {
-                event.preventDefault();
-                location.reload();
-
-                $.ajax({
-                    type: 'POST',
-                    url: 'php/cerrarSesion.php',
-                    success: function(response) {
-                        $('#respuesta').text(response).css('display', 'block');
-                        //window.location.href = 'index.php'; // Redirige a la página de inicio después de cerrar sesión
-                    },
-                    error: function(xhr, status, error) {
-                        $('#respuesta').text('Error en la solicitud: ' + error).css('display', 'block');
-                    }
-                });
-                
+        // 2. LÓGICA DE CIERRE DE SESIÓN (#cerrar-sesion)
+        $('#cerrar-sesion').on('click', function(event) {
+            event.preventDefault();
+            
+            $.ajax({
+                url: 'cerrarSesion.php',
+                success: function(response) {
+                    window.location.href = 'sesion.php'; 
+                },
+                error: function(xhr, status, error) {
+                    $('#respuesta').text('Error al cerrar sesión: ' + error).css('display', 'block');
+                }
             });
         });
-    </script>
-
+    });
+</script>
         
 </body>
 </html>
