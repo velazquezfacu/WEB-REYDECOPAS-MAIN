@@ -1,19 +1,34 @@
 <?php
-    $conexion = mysqli_connect("localhost", "root", "", "nutricionista") 
-    or die('no se pudo conectar al servidor');
+   $conn = new mysqli("localhost", "root", "", "reyescopas");
+        if ($conn->connect_error) {
+            die("Conexión fallida: " . $conn->connect_error);
+        }
 
-    $id = $_POST['id'];
-    $dia = $_POST['dia'];
-    $hora = $_POST['hora'];
+    $nombre = $_POST['nombre'];
+    $apellido = $_POST['apellido'];
+    $email = $_POST['email'];
+    $dni = $_POST['dni'];
+    $telefono = $_POST['telefono'];
 
-    $id = mysqli_real_escape_string($conexion, $id);
-    $dia = mysqli_real_escape_string($conexion, $dia);
-    $hora = mysqli_real_escape_string($conexion, $hora);
+    $sql = "UPDATE usuarios SET nombre=?, apellido=?, email=?, telefono=? WHERE dni=?";
+    $stmt = $conn->prepare($sql)
 
-    $sql = "UPDATE turnos SET dia='$dia', hora='$hora' WHERE id =$id";
+    if ($stmt === false) {
+    // Si hay un error en la sintaxis SQL, muestra el error
+    die("Error al preparar la consulta: " . $conn->error);
+    }
 
-    mysqli_query($conexion, $sql);
+    $stmt->bind_param("sssss", $nombre, $apellido, $email, $telefono, $dni);
+
+    if ($stmt->execute()) {
+    // Éxito: Redirigir al usuario al perfil o a una página de confirmación
+    header("Location: perfil.php?status=success");
+    } else {
+    // Fallo: Mostrar un error (o enviar un JSON si es AJAX)
+    header("Location: perfil.php?status=error&msg=" . urlencode($conn->error));
+    }
+
 
     $stmt->close();
-    $conexion->close();
+    $conn->close();
 ?>

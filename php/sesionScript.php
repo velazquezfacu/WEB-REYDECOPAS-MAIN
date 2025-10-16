@@ -56,7 +56,7 @@ if ($stmt->num_rows === 1) {
         $conexion->close();
 
         // Enviar la respuesta JSON que el AJAX espera
-        echo json_encode(['success' => true, 'redirect' => 'altasocio.php']);
+        echo json_encode(['success' => true, 'redirect' => '../perfil.php']);
         exit();
 
     } else {

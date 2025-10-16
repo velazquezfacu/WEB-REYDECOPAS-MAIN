@@ -1645,11 +1645,6 @@ textarea.input{
         flex-grow: 1;
     }
 
-    .form-grid {
-        grid-template-columns: 1fr; /* Una sola columna en tablets y móviles */
-        gap: 2rem 1rem;
-    }
-
     .form-grid .span-2 {
         grid-column: span 1; /* Resetea el span en una sola columna */
     }
@@ -1742,50 +1737,6 @@ textarea.input{
 
 }
 
-/* ----------------- Altas socios ------------------- */
-.altasoc-text{
-    font-family: 'Poppins', sans-serif;
-    color: #ff3c3c;
-    margin-top: 2rem;
-    font-size: clamp(2rem, 1.5rem + 2vw, 3rem);
-    text-shadow: var(--text-shadow);
-    margin-bottom: 2rem;
-}
-.altasoc-container{
-     position: relative;
-    /*box-shadow: var(--box-shadow);*/
-    background-color: rgba(0, 0, 0,0.8);
-    background-image: 
-        linear-gradient(rgba(0, 0, 0,0.5), rgba(97, 97, 97, 0.603)),
-        url(/images/bg.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 100%;
-    padding: 2rem;
-}
-
-.alta-form {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 900px; /* O el ancho que prefieras */
-    margin: 0 auto;
-}
-
-.form-section-title {
-    color: var(--white-color);
-    text-shadow: var(--text-shadow);
-    margin-top: 2.5rem;
-    margin-bottom: 2rem;
-    grid-column: 1 / -1;
-}
-
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2.5rem 1.5rem; /* Espacio vertical y horizontal */
-}
-
 .form-row {
     display: flex;
     gap: 0.5rem;
@@ -1808,10 +1759,6 @@ textarea.input{
 
 .form-row input.input {
     margin-bottom: 0; /* Resetea el margen para los inputs en fila */
-}
-
-.alta-form {
-    padding: 0 1rem; /* Añade un poco de padding en los costados para móviles */
 }
 
 /* ----------------- Pantallas Moviles Grandes ------------------- */
@@ -1912,6 +1859,96 @@ textarea.input{
 
 }
 
+/* ----------------- Altas socios ------------------- */
+.altasoc-text{
+    font-family: 'Poppins', sans-serif;
+    color: #ff3c3c;
+    margin-top: 2rem;
+    font-size: clamp(2rem, 1.5rem + 2vw, 3rem);
+    text-shadow: var(--text-shadow);
+    margin-bottom: 2rem;
+}
+.altasoc-container{
+     position: relative;
+    /*box-shadow: var(--box-shadow);*/
+    background-color: rgba(0, 0, 0,0.8);
+    background-image: 
+        linear-gradient(rgba(0, 0, 0,0.5), rgba(97, 97, 97, 0.603)),
+        url(/images/bg.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    padding: 2rem;
+}
+
+.alta-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 900px; /* O el ancho que prefieras */
+    margin: 0 auto;
+    padding: 0 1rem; /* Añade un poco de padding en los costados para móviles */
+}
+
+.form-section-title {
+    color: var(--white-color);
+    text-shadow: var(--text-shadow);
+    margin-top: 2.5rem;
+    margin-bottom: 2rem;
+    grid-column: 1 / -1;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2.5rem 1.5rem; /* Espacio vertical y horizontal */
+}
+
+
+/* ----------------- Perfil de Usuario Section ------------------- */
+.perfil-section {
+    display: flex;
+    align-items: flex-start; /* Alinea el contenido arriba */
+    justify-content: center;
+    min-height: 100vh;
+    padding: 120px 5% 40px; /* Espacio para el header fijo y a los lados */
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.199), rgba(97, 97, 97, 0.603)),
+        url(../images/hinchadarojo.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+
+/* ----------------- Perfil de Usuario ------------------- */
+.perfil-container {
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 90%;
+    max-width: 1200px; /* Ancho máximo para pantallas grandes */
+    padding: 4rem 2rem;
+    text-align: center;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.perfil-title {
+    font-family: 'Poppins', sans-serif;
+    color: #ff3c3c;
+    text-shadow: var(--text-shadow);
+    font-size: clamp(2rem, 1.5rem + 2vw, 3rem);
+    margin-bottom: 1rem;
+}
+
+.perfil-text {
+    color: var(--white-color);
+    font-size: clamp(1rem, 0.8rem + 0.5vw, 1.2rem);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+
 /* ---------------- Pantallas Moviles Chicos ------------------ */
 
 @media screen and (max-width: 375px){
@@ -1949,6 +1986,13 @@ textarea.input{
     }
 
 }
+
+@media screen and (max-width: 768px) {
+    .perfil-container {
+        padding: 3rem 1.5rem;
+    }
+}
+
 
 /* ---------------- Pantallas Moviles XS ------------------ */
 

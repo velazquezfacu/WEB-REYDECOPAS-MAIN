@@ -114,28 +114,30 @@ session_start();
     $(document).ready(function() {
         // 1. LÓGICA DE INICIO DE SESIÓN (#formSesion)
         $('#formSesion').on('submit', function(event) {
-            event.preventDefault();
-        
+             event.preventDefault();
+    
             var formData = $(this).serialize();
-        
-            $.ajax({
-                type: 'POST',
-                url: 'sesionScript.php', 
-                data: formData,
-                dataType: 'json',
-                success: function(response){
-                    if (response.success) {
-                        // Si el inicio de sesión es exitoso, redirigimos a la página de lista.
-                        window.location.href = response.redirect;
-                    } else {
-                        // Si success es FALSE, mostramos el mensaje de error.
-                        $('#respuesta').text(response.message).css('display', 'block');
-                    }
-                },
-                error: function(xhr, status, error) {
-                    $('#respuesta').text('Error en la solicitud: ' + error).css('display', 'block');
-                }
-            });
+    
+             $.ajax({
+                 type: 'POST',
+                 url: 'sesionScript.php', 
+                 data: formData,
+                 dataType: 'json',
+                 success: function(response){
+            
+                  // Si el servidor indica éxito (success: true), redirigimos.
+                  if (response.success) {
+                      window.location.href = response.redirect;
+                     } else {
+                      // Si hay un fallo de credenciales (success: false), mostramos el mensaje.
+                     $('#respuesta').text(response.message).css('display', 'block');
+                      }
+                  },
+                     error: function(xhr, status, error) {
+                 // Manejo de errores de comunicación, como 'Not Found' o 'SyntaxError'.
+                 $('#respuesta').text('Error en la solicitud: ' + error).css('display', 'block');
+         }
+                  });
         });
 
         // 2. LÓGICA DE CIERRE DE SESIÓN (#cerrar-sesion)

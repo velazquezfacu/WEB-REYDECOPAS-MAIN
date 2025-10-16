@@ -124,8 +124,8 @@ session_start();
                 dataType:'json',
                 success: function(response){
                     if (response.success) {
-                        // Si el inicio de sesión es exitoso, redirigimos a la página de lista.
-                        window.location.href = 'php/altasocio.php';
+                        // Si el inicio de sesión es exitoso, usamos la redirección que nos da el servidor.
+                        window.location.href = response.redirect;
                     } else {
                         // Si success es FALSE, mostramos el mensaje de error.
                         $('#respuesta').text(response.message).css('display', 'block');

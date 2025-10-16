@@ -1,18 +1,17 @@
 <?php
     session_start();
 
-    // 1. Verifica si hay una sesión iniciada.
     if (isset($_SESSION['email'])) {
-        // 2. Si la sesión es del admin, lo redirige a la lista de turnos.
-        if ($_SESSION['email'] === 'admin@superadmin.com') {
-            header("Location: ../sesion.php");
+        // Si el usuario ya inició sesión, lo redirigimos a su perfil.
+        // Si es admin, el perfil podría tener opciones de administrador.
+        if ($_SESSION['email'] === 'admin@superadmin.com' ) {
+            header("Location: ../perfil.php");
         } else {
-            // 3. Si es un usuario normal, lo redirige a la página para sacar turno.
-            header("Location: ../turno.html");
+            header("Location: ../perfil.php");
         }
     } else {
-        // 4. Si no hay sesión iniciada, lo redirige a la página de registro.
-        header("Location: ../sesion.php");
+        // Si no hay sesión, lo mandamos a la página de inicio de sesión.
+        header("Location: sesion.php");
     }
     exit;
 ?>
