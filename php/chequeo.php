@@ -4,7 +4,7 @@
     if (isset($_SESSION['email'])) {
         // Si el usuario ya inició sesión, lo redirigimos a su perfil.
         // Si es admin, el perfil podría tener opciones de administrador.
-        if ($_SESSION['email'] === 'admin@superadmin.com' ) {
+        if ($_SESSION['email'] === 'admin@superadmin.com' && $_SESSION['contrasena'] === 'admin') {
             header("Location: ../perfil.php");
         } else {
             header("Location: ../perfil.php");

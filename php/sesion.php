@@ -30,15 +30,15 @@ session_start();
 </head>
 <body>
     <header class="header">
-        <a href="#home" class="logo"><img src="images/Reyes de copas.png" alt=""></a>
+        <a href="../index.html#home" class="logo"><img src="../images/Reyes de copas.png" alt=""></a>
         <nav>
             <ul class="navbar">
-                <li><a href="index.html#home">Inicio</a></li>
-            <li><a href="index.html#about">Sobre nosotros</a></li>
+                <li><a href="../index.html#home">Inicio</a></li>
+            <li><a href="../index.html#about">Sobre nosotros</a></li>
             <!-- <li><a href="#consultorio">Consultorio</a></li> -->
-            <li><a href="index.html#servicios">Servicios</a></li>
-            <li><a href="index.html#recetas">Ustedes</a></li>
-            <li><a href="sesion.php">Cuenta</a></li>
+            <li><a href="../index.html#servicios">Servicios</a></li>
+            <li><a href="../index.html#recetas">Ustedes</a></li>
+            <li><a href="chequeo.php">Cuenta</a></li>
             </ul>
             <div class="nav-toggle" id="nav-toggle">
                 <i class="bx bx-menu" id="nav-open"></i>
@@ -48,12 +48,12 @@ session_start();
 
     <div class="nav-menu" id="nav-menu">
         <ul class="nav-list">
-            <li><a href="index.html#home">Inicio</a></li>
-            <li><a href="index.html#about">Sobre nosotros</a></li>
+            <li><a href="../index.html#home">Inicio</a></li>
+            <li><a href="../index.html#about">Sobre nosotros</a></li>
             <!-- <li><a href="#consultorio">Consultorio</a></li> -->
-            <li><a href="index.html#servicios">Servicios</a></li>
-            <li><a href="index.html#recetas">Ustedes</a></li>
-            <li><a href="php/chequeo.php">Planes</a></li>
+            <li><a href="../index.html#servicios">Servicios</a></li>
+            <li><a href="../index.html#recetas">Ustedes</a></li>
+            <li><a href="chequeo.php">Planes</a></li>
             <li><a href="sesion.php">Cuenta</a></li>
         </ul>
         <i class='bx bx-x' id="nav-close"></i>
