@@ -13,7 +13,7 @@
     $email_usuario = $_SESSION['email'];
 
     $consulta = "SELECT u.nombre, u.apellido, u.email, u.dni, u.telefono,
-                        s.nro_socio, s.fecha_registro, p.nombre_plan AS nombre_plan, p.costo_plan,
+                        s.nro_socio, s.fecha_registro, s.estado, p.nombre_plan AS nombre_plan, p.costo_plan,
                         i.porcentaje AS interes
                  FROM usuarios u
                  LEFT JOIN socio s ON u.id = s.id_usua
@@ -37,6 +37,7 @@
     $nro_socio = "N/A"; $fecha_registro = "N/A";
     $nombre_plan = "N/A"; $costo = "N/A"; 
     $interes = ""; // Nueva variable para el nombre del interés
+    $estado = "";
     $nombreusuario = "Invitado";
 
     if($resultado->num_rows > 0)
@@ -62,6 +63,8 @@
             // Convierte a float para eliminar ceros innecesarios y añade el símbolo %
             $interes = (float)$interes_decimal . '%';
         }
+        $estado = $filas['estado'] ?? "N/A";
+
 
         $nombreusuario = $nombre . ' ' . $apellido;
     }

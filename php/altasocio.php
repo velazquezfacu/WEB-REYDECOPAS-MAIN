@@ -1,5 +1,27 @@
 <?php
 session_start();
+// Database connection
+$conexion = new mysqli("localhost", "root", "", "reyescopas");
+
+// Check connection
+if ($conexion->connect_error) {
+    // Log the error for debugging, but show a user-friendly message
+    error_log("Error de conexión a la base de datos en altasocio.php: " . $conexion->connect_error);
+    die("Lo sentimos, no podemos procesar su solicitud en este momento. Por favor, intente más tarde.");
+}
+
+// Query to get plan names
+$sql_planes = "SELECT nombre_plan FROM planes";
+$result_planes = $conexion->query($sql_planes);
+
+$planes = [];
+if ($result_planes) { // Check if query was successful
+    if ($result_planes->num_rows > 0) {
+        while ($row = $result_planes->fetch_assoc()) {
+            $planes[] = $row['nombre_plan'];
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -50,7 +72,7 @@ session_start();
     <div class="nav-menu" id="nav-menu">
         <ul class="nav-list">
             <li><a href="../index.html#home">Inicio</a></li>
-            <li><a href="../index.html#about">Sobre mi</a></li>
+            <li><a href="../index.html#about">Sobre Nosotros</a></li>
             <li><a href="../index.html#servicios">Servicios</a></li>
             <li><a href="../index.html#recetas">Ustedes</a></li>
             <li><a href="sesion.php">Cuenta</a></li>
@@ -68,24 +90,15 @@ session_start();
     <section class = "home" id="home">
         <div class="altasoc-container">           
             <h1 class="altasoc-text"> ¡Cargá tus datos personales y asociate!</h1>
-            <form action="#" method="POST" class="alta-form">
+            <form action="func_altasc.php" method="POST" class="alta-form">
                 <div class="form-grid">
                     <div class="input-container">
                         <label for="plan">Tipo de plan</label>
-                        <select id="plan" name="plan" class="input">
-                            <option value="socio_pleno">Socio Pleno</option>
-                            <option value="socio_cadete">Socio Cadete</option>
-                            <option value="socio_infantil">Socio Infantil</option>
-                            <option value="adherente">Adherente</option>
+                        <select id="plan" name="plan" class="input" required>
+                            <?php foreach ($planes as $plan): ?>
+                                <option value="<?php echo htmlspecialchars($plan); ?>"><?php echo htmlspecialchars($plan); ?></option>
+                            <?php endforeach; ?>
                         </select>
-                    </div>
-                    <div class="input-container">
-                        <label for="nombre">Nombre</label>
-                        <input type="text" id="nombre" name="nombre" class="input" required>
-                    </div>
-                    <div class="input-container">
-                        <label for="apellido">Apellido</label>
-                        <input type="text" id="apellido" name="apellido" class="input" required>
                     </div>
                     <div class="input-container">
                         <label for="sexo">Sexo</label>
@@ -109,49 +122,15 @@ session_start();
                     <div class="input-container">
                         <label for="fecha_nacimiento">Fecha de Nacimiento</label>
                         <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" class="input" required>
+                    </div> 
+                     <div class="input-container">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" class="input" required>
                     </div>
                     <div class="input-container">
-                        <label for="nacionalidad">Nacionalidad</label>
-                        <input type="text" id="nacionalidad" name="nacionalidad" class="input" required>
-                    </div>
-                </div>
-
-                <h3 class="form-section-title"><strong>DOMICILIO</strong></h3>
-                <div class="form-grid">
-                    <div class="input-container span-2">
-                        <label for="calle">Calle y Número</label>
-                        <div class="form-row">
-                            <input type="text" id="calle" name="calle" class="input" placeholder="Calle" required>
-                            <input type="text" id="nro" name="nro" class="input nro-input" placeholder="Nro" required>
-                        </div>
-                    </div>
-                    <div class="input-container">
-                        <label for="piso">Piso</label>
-                        <input type="text" id="piso" name="piso" class="input">
-                    </div>
-                    <div class="input-container">
-                        <label for="departamento">Departamento</label>
-                        <input type="text" id="departamento" name="departamento" class="input">
-                    </div>
-                    <div class="input-container">
-                        <label for="cp">Código Postal</label>
-                        <input type="text" id="cp" name="cp" class="input" required>
-                    </div>
-                    <div class="input-container">
-                        <label for="ciudad">Ciudad</label>
-                        <input type="text" id="ciudad" name="ciudad" class="input" required>
-                    </div>
-                    <div class="input-container span-2">
-                        <label for="provincia">Estado/Provincia</label>
-                        <input type="text" id="provincia" name="provincia" class="input" required>
-                    </div>
-                </div>
-
-                <h3 class="form-section-title"><strong>CONTACTO</strong></h3>
-                <div class="form-grid">
-                    <div class="input-container"><label for="celular">Número de celular</label><input type="tel" id="celular" name="celular" class="input" required></div>
-                    <div class="input-container"><label for="email">Email</label><input type="email" id="email" name="email" class="input" required></div>
-                    <div class="input-container"><label for="email_confirm">Confirmación de email</label><input type="email" id="email_confirm" name="email_confirm" class="input" required></div>
+                        <label for="email_confirm">Confirmación de email</label>
+                        <input type="email" id="email_confirm" name="email_confirm" class="input" required>
+                    </div>                 
                 </div>
                 <div class="btn-form-container">
                     <button type="submit" class="btn-form">Siguiente</button>
@@ -190,3 +169,9 @@ session_start();
 
     </footer>
 </html>
+<?php
+// Close the database connection at the very end of the script
+if ($conexion) {
+    $conexion->close();
+}
+?>

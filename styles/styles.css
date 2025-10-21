@@ -1890,6 +1890,12 @@ textarea.input{
     padding: 0 1rem; /* Añade un poco de padding en los costados para móviles */
 }
 
+.alta-form .input-container label {
+    position: static;
+    transform: none;
+    pointer-events: auto;
+}
+      
 .form-section-title {
     color: var(--white-color);
     text-shadow: var(--text-shadow);
