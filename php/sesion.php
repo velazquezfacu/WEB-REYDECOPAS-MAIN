@@ -77,6 +77,12 @@ session_start();
             <span class="circle two"></span>
 
             <form id="formSesion" action="sesionScript.php" method="post">
+                <?php
+                    // Determina la URL de redirección. Por defecto es 'perfil.php'.
+                    // Si se pasa 'redirect_url' en la URL, se usa ese valor.
+                    $redirect_url = isset($_GET['redirect_url']) ? htmlspecialchars($_GET['redirect_url']) : '../perfil.php';
+                ?>
+                <input type="hidden" name="redirect_url" value="<?php echo $redirect_url; ?>">
                 <div class="input-container">
                     <input type="email" name="email" placeholder="Email" class="input">
                     <label for=""></label>

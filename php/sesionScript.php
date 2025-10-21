@@ -16,6 +16,10 @@ if (!isset($_POST['email']) || !isset($_POST['contrasena'])) {
     exit();
 }
 
+// Determina la URL de redirección. Por defecto, será '../perfil.php'.
+// Si se envía 'redirect_url' desde el formulario, se usará ese valor.
+$redirect_url = isset($_POST['redirect_url']) && !empty($_POST['redirect_url']) ? $_POST['redirect_url'] : '../perfil.php';
+
 $mail = $_POST['email'];
 $contrasena = $_POST['contrasena'];
 
@@ -56,7 +60,7 @@ if ($stmt->num_rows === 1) {
         $conexion->close();
 
         // Enviar la respuesta JSON que el AJAX espera
-        echo json_encode(['success' => true, 'redirect' => '../perfil.php']);
+        echo json_encode(['success' => true, 'redirect' => $redirect_url]);
         exit();
 
     } else {

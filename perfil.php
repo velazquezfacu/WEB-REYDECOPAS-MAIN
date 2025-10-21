@@ -40,7 +40,7 @@
 <body>
     <!-- Navbar -->
     <header class="header">
-        <a href="#home" class="logo"><img src="images/Reyes de copas.png" alt=""></a>
+        <a href="index.html#home" class="logo"><img src="images/Reyes de copas.png" alt=""></a>
         <nav>
             <ul class="navbar">                
                 <li><a href="index.html#home">Inicio</a></li>
@@ -77,9 +77,69 @@
         <div class="perfil-container">
             <h1 class="perfil-title">Bienvenido, <?php echo htmlspecialchars($nombreusuario); ?></h1>
             <p class="perfil-text">Desde aquí podrás gestionar tu cuenta, ver tus datos y acceder a los beneficios exclusivos para socios.</p>
+
+            <form action="php/modificar.php" method="POST" class="alta-form" style="margin-top: 2rem;">
+                <h3 class="form-section-title"><strong>DATOS PERSONALES</strong></h3>
+                <div class="form-grid">
+                    <div class="input-container">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" class="input" value="<?php echo htmlspecialchars($nombre); ?>" required>
+                    </div>
+                    <div class="input-container">
+                        <label for="apellido">Apellido</label>
+                        <input type="text" id="apellido" name="apellido" class="input" value="<?php echo htmlspecialchars($apellido); ?>" required>
+                    </div>
+                    <div class="input-container">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" class="input" value="<?php echo htmlspecialchars($email); ?>" required>
+                    </div>
+                    <div class="input-container">
+                        <label for="dni">DNI</label>
+                        <input type="text" id="dni" name="dni" class="input" value="<?php echo htmlspecialchars($dni); ?>" readonly>
+                    </div>
+                    <div class="input-container">
+                        <label for="telefono">Teléfono</label>
+                        <input type="tel" id="telefono" name="telefono" class="input" value="<?php echo htmlspecialchars($telefono); ?>" required maxlength="10" pattern="[0-9]{10}" title="El teléfono debe tener 10 dígitos sin espacios ni guiones.">
+                    </div>
+                </div>
+
+                <h3 class="form-section-title"><strong>DATOS DE SOCIO</strong></h3>
+                <div class="form-grid">
+                    <div class="input-container">
+                        <label for="nro_socio">Número de Socio</label>
+                        <input type="text" id="nro_socio" name="nro_socio" class="input" value="<?php echo htmlspecialchars($nro_socio); ?>" readonly>
+                    </div>
+                    <div class="input-container">
+                        <label for="fecha_registro">Fecha de Registro</o_socio">
+                        <input type="text" id="fecha_registro" name="fecha_registro" class="input" value="<?php echo htmlspecialchars($fecha_registro); ?>" readonly>
+                    </div>
+                    <div class="input-container">
+                        <label for="plan">Tipo de Plan</label>
+                        <input type="text" id="plan" name="plan" class="input" value="<?php echo htmlspecialchars($nombre_plan); ?>" readonly>
+                    </div>
+                    <div class="input-container">
+                        <label for="plan">Porcentaje de Interes</label>
+                        <input type="text" id="interes" name="interes" class="input" value="<?php echo htmlspecialchars($interes); ?>" readonly>
+                    </div>
+                </div>
+                <div class="btn-form-container">
+                    <button type="submit" class="btn custom-btn btn-form">Guardar Cambios</button>
+                </div>
+            </form>
         </div>
      </section>
     
+     <script>
+        // Script para permitir solo números en el campo de teléfono
+        document.addEventListener('DOMContentLoaded', function() {
+            const phoneInput = document.getElementById('telefono');
+            if (phoneInput) {
+                phoneInput.addEventListener('input', function(e) {
+                    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                });
+            }
+        });
+    </script>
 
       <footer class="footer" id="footer">
         <div class="footer-logo-container">

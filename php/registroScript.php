@@ -9,6 +9,12 @@
         $contrasena = password_hash($_POST['contrasena'], PASSWORD_DEFAULT);
         $dni = $_POST['dni'];
         $telefono = $_POST['telefono'];
+
+        // Validación del servidor para el teléfono
+        if (!is_numeric($telefono) || strlen($telefono) !== 10) {
+            echo "Error: El número de teléfono debe contener exactamente 10 dígitos.";
+            exit();
+        }
         
 
         $consulta_existencia = mysqli_query(
