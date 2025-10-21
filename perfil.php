@@ -116,7 +116,7 @@
                     <div class="input-container">
                         <label for="plan">Tipo de Plan</label>
                         <input type="text" id="plan" name="plan" class="input" value="<?php echo htmlspecialchars($nombre_plan); ?>" readonly>
-                        <a href="#">Cambiar de plan!</a>
+                        <a href="php/altasocio.php">Cambiar de plan!</a>
                     </div>
                     <div class="input-container">
                         <label for="plan">Porcentaje de Interes</label>
