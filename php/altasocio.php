@@ -141,20 +141,20 @@ if ($result_planes) { // Check if query was successful
     </section>
 </body>
 
-<footer class="footer" id="footer">
+    <footer class="footer" id="footer">
         <div class="footer-logo-container">
-            <img src="../images/Reyes de copas.png" alt="">
+            <img src="./images/Reyes de copas.png" alt="">
         </div>
         <div class="footer-box-container">
             <div class="footer-box">
                 <h4>Rey de Copas - Club de socios</h4>
-                <p>Lic. en Nutricion - UBA</p>
+                <p>El infierno esta encantador</p>
                 <p>MN 10538 - MP 6207</p>
             </div>
             <div class="footer-box">
-                <h4>Turnos</h4>
-                <p>Bauness 2254, Villa Urquiza [Martes]</p>
-                <p>Av. Triunvirato 4141, Villa Urquiza [Sabado]</p>
+                <h4>Sede Social</h4>
+                <p>Diego A. Milito, Avellaneda, Provincia de Buenos Aires [Martes]</p>
+                <p>Av. SeFueronAlaB 4141, Villa Urquiza [Sabado]</p>
             </div>
             <div class="footer-box">
                 <h4>Contacto</h4>
@@ -168,6 +168,8 @@ if ($result_planes) { // Check if query was successful
         </div>
 
     </footer>
+
+     <script src="./js/scripts.js"></script>
 </html>
 <?php
 // Close the database connection at the very end of the script
