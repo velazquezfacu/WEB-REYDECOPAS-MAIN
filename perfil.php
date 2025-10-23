@@ -2,8 +2,8 @@
     session_start();
 
     // 1. Proteger la página: si no hay sesión, redirigir al login
-    if (!isset($_SESSION['nombre'])) {
-        header("Location: php/sesion.php");
+    if (!isset($_SESSION['user_id'])) { // Cambiado a user_id para mayor consistencia
+        header("Location: sesion.php"); // Redirige a sesion.php en la raíz
         exit();
     }
 
@@ -75,7 +75,7 @@
 
      <section class="perfil-section" id="home">
         <div class="perfil-container">
-            <h1 class="perfil-title">Bienvenido, <?php echo htmlspecialchars($nombreusuario); ?></h1>
+            <h1 class="perfil-title">Te damos la Bienvenida, <?php echo htmlspecialchars($nombreusuario); ?></h1>
             <p class="perfil-text">Desde aquí podrás gestionar tu cuenta, ver tus datos y acceder a los beneficios exclusivos para socios.</p>
 
             <form action="php/modificar.php" method="POST" class="alta-form" style="margin-top: 2rem;">
@@ -116,7 +116,7 @@
                     <div class="input-container">
                         <label for="plan">Tipo de Plan</label>
                         <input type="text" id="plan" name="plan" class="input" value="<?php echo htmlspecialchars($nombre_plan); ?>" readonly>
-                        <a href="php/altasocio.php">Cambiar de plan!</a>
+                        <a href="#">Cambiar de plan!</a>
                     </div>
                     <div class="input-container">
                         <label for="plan">Porcentaje de Interes</label>
@@ -146,20 +146,20 @@
         });
     </script>
 
-      <footer class="footer" id="footer">
+    <footer class="footer" id="footer">
         <div class="footer-logo-container">
             <img src="./images/Reyes de copas.png" alt="">
         </div>
         <div class="footer-box-container">
             <div class="footer-box">
                 <h4>Rey de Copas - Club de socios</h4>
-                <p>Lic. en Nutricion - UBA</p>
+                <p>El infierno esta encantador</p>
                 <p>MN 10538 - MP 6207</p>
             </div>
             <div class="footer-box">
-                <h4>Turnos</h4>
-                <p>Bauness 2254, Villa Urquiza [Martes]</p>
-                <p>Av. Triunvirato 4141, Villa Urquiza [Sabado]</p>
+                <h4>Sede Social</h4>
+                <p>Diego A. Milito, Avellaneda, Provincia de Buenos Aires [Martes]</p>
+                <p>Av. SeFueronAlaB 4141, Villa Urquiza [Sabado]</p>
             </div>
             <div class="footer-box">
                 <h4>Contacto</h4>

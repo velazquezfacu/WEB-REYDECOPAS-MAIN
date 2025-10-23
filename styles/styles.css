@@ -281,6 +281,7 @@
 
 #nav-open,
 #nav-close{
+    font-family: 'Poppins', sans-serif;
     font-size: 2rem;
     color: var(--white-color);
     cursor: pointer;
@@ -1701,8 +1702,7 @@ textarea.input{
         position: fixed;
         top: -100%;
         left: 0;
-        background: rgb(190,169,120);
-        background: linear-gradient(135deg, var(--third-color) 0%, var(--fifth-color) 100%);
+        background: var(--black-color);
         box-shadow: var(--box-shadow);
         width: 100%;
         padding-block: 2rem;
@@ -1718,9 +1718,9 @@ textarea.input{
     }
 
     .nav-list li a{
-        color: var(--black-color);
-        font-weight: 600;
-        letter-spacing: 1px;
+        font-family: 'Poppins', sans-serif;
+        color: #ff3c3c;
+        font-weight: 500;
         font-size: 1.15rem;
         transition: color .5s;
     }
