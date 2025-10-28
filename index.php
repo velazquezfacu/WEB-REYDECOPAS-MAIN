@@ -1,4 +1,8 @@
-
+<?php
+session_start();
+$isLoggedIn = isset($_SESSION['user_id']);
+$userName = $isLoggedIn ? $_SESSION['nombre'] : '';
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -10,6 +14,7 @@
     <link rel="shortcut icon" href="images/escudocai.ico" type="image/x-icon">
     <!-- Custom CSS Link -->
     <link rel="stylesheet" href="./styles/styles.css">
+    <link rel="stylesheet" href="./styles/contacto.css">
     <!-- Google Font Link -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <!-- Google Font Link Agregado-->
@@ -37,7 +42,23 @@
                 <li><a href="#about">Sobre Nosotros</a></li>
                 <li><a href="#servicios">Servicios</a></li>
                 <li><a href="#recetas">Ustedes</a></li>
-                <li><a href="php/chequeo.php">Perfil</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+                <?php if ($isLoggedIn): ?>
+                    <li class="user-menu">
+                        <div class="user-avatar" id="user-avatar">
+                            <i class='bx bxs-user-circle'></i>
+                        </div>
+                        <div class="user-dropdown" id="user-dropdown">
+                            <div class="dropdown-header">
+                                <p>Hola, <strong><?php echo htmlspecialchars($userName); ?></strong></p>
+                            </div>
+                            <a href="perfil.php"><i class='bx bxs-user'></i> Mi Perfil</a>
+                            <a href="php/cerrarSesion.php"><i class='bx bx-log-out'></i> Cerrar Sesión</a>
+                        </div>
+                    </li>
+                <?php else: ?>
+                    <li><a href="php/chequeo.php">Cuenta</a></li>
+                <?php endif; ?>
             </ul>
             <div class="nav-toggle" id="nav-toggle">
                 <i class="bx bx-menu" id="nav-open"></i>
@@ -51,7 +72,13 @@
             <li><a href="#about">Sobre Nosotros</a></li>
             <li><a href="#servicios">Servicios</a></li>
             <li><a href="#recetas">Ustedes</a></li>
-            <li><a href="php/chequeo.php">Perfil</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+            <?php if ($isLoggedIn): ?>
+                <li><a href="perfil.php"><i class='bx bxs-user'></i> Hola, <?php echo htmlspecialchars($userName); ?></a></li>
+                <li><a href="php/cerrarSesion.php"><i class='bx bx-log-out'></i> Cerrar Sesión</a></li>
+            <?php else: ?>
+                <li><a href="php/chequeo.php">Cuenta</a></li>
+            <?php endif; ?>
         </ul>
         <i class='bx bx-x' id="nav-close"></i>
     </div>
@@ -248,7 +275,7 @@
                         <li><b>-Reservas:</b> Turnos disponibles de Martes a Viernes.</li>
                     </ul>
                 </div>
-                <a class="item-turno" href="php/sesion.php?redirect_url=altasocio.php">Reservar</a>
+                <a class="item-turno" href="php/chequeo.php?redirect_url=experiencias.php">Reservar</a>
             </div>
             <div class="servicios-item">
                 <div class="item-description">
@@ -263,7 +290,7 @@
                         <li><b>-Reservas:</b> Abierto todo el fin de semana.</li>
                     </ul>
                 </div>
-                <a class="item-turno" href="php/sesion.php?redirect_url=altasocio.php">Reservar</a>
+                <a class="item-turno" href="php/chequeo.php?redirect_url=experiencias.php">Reservar</a>
             </div>
             <div class="servicios-item">
                 <div class="item-description">
@@ -278,7 +305,7 @@
                         <li><b>-Reservas:</b> Evento exclusivo con cupos muy limitados, solo disponible una vez al mes.</li>
                     </ul>
                 </div>
-                <a class="item-turno" href="php/sesion.php?redirect_url=altasocio.php">Reservar</a>
+                <a class="item-turno" href="php/chequeo.php?redirect_url=experiencias.php">Reservar</a>
             </div>
         </div>
 
@@ -350,6 +377,92 @@
 
     <!-- Recetas Section End -->
 
+    <!-- Contacto Section Start -->
+    <section class="contacto-section" id="contacto">
+        <div class="contacto-wrapper">
+            <div class="contacto-content">
+                <div class="contacto-info">
+                    <h2 class="contacto-title">Hablemos</h2>
+                    <p class="contacto-subtitle">¿Tenés alguna consulta o sugerencia? Estamos acá para ayudarte</p>
+
+                    <div class="contacto-details">
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <i class='bx bx-envelope'></i>
+                            </div>
+                            <div class="detail-text">
+                                <h4>Email</h4>
+                                <p>lorem@ipsum.com</p>
+                            </div>
+                        </div>
+
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <i class='bx bx-phone'></i>
+                            </div>
+                            <div class="detail-text">
+                                <h4>Teléfono</h4>
+                                <p>11-1234-5678</p>
+                            </div>
+                        </div>
+
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <i class='bx bx-map'></i>
+                            </div>
+                            <div class="detail-text">
+                                <h4>Ubicación</h4>
+                                <p>Diego A. Milito, Avellaneda</p>
+                                <p>Av. SeFueronAlaB 4141, Villa Urquiza</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contacto-form-container">
+                    <form id="formContacto" class="contacto-form">
+                        <div class="form-header">
+                            <i class='bx bx-message-square-dots'></i>
+                            <h3>Envianos tu mensaje</h3>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nombre_contacto">
+                                <i class='bx bx-user'></i>
+                                Tu nombre
+                            </label>
+                            <input type="text" id="nombre_contacto" name="nombre" placeholder="Juan Pérez" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email_contacto">
+                                <i class='bx bx-envelope'></i>
+                                Tu email
+                            </label>
+                            <input type="email" id="email_contacto" name="email" placeholder="juan@ejemplo.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mensaje_contacto">
+                                <i class='bx bx-message-detail'></i>
+                                Tu mensaje
+                            </label>
+                            <textarea id="mensaje_contacto" name="mensaje" rows="5" placeholder="Escribí tu consulta o sugerencia..." required></textarea>
+                        </div>
+
+                        <div id="mensaje-contacto" class="mensaje-feedback"></div>
+
+                        <button type="submit" class="btn-enviar-contacto">
+                            <i class='bx bx-send'></i>
+                            <span>Enviar Mensaje</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Contacto Section End -->
+
     <!-- Footer Start -->
 
     <footer class="footer" id="footer">
@@ -391,6 +504,70 @@
     <!-- Custom Scripts Link -->
     <script src="./js/scripts.js"></script>
     <script src="./js/scriptsRecipe.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Contacto Form Script -->
+    <script>
+        $('#formContacto').on('submit', function(e) {
+            e.preventDefault();
+
+            const btn = $(this).find('button[type="submit"]');
+            const originalHtml = btn.html();
+            btn.prop('disabled', true).html('<i class="bx bx-loader-alt bx-spin"></i><span>Enviando...</span>');
+
+            $.ajax({
+                type: 'POST',
+                url: 'php/procesar_contacto.php',
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function(response) {
+                    const mensaje = $('#mensaje-contacto');
+                    mensaje.text(response.message);
+
+                    if (response.success) {
+                        mensaje.removeClass('error').addClass('success').show();
+                        $('#formContacto')[0].reset();
+
+                        setTimeout(function() {
+                            mensaje.fadeOut();
+                        }, 5000);
+                    } else {
+                        mensaje.removeClass('success').addClass('error').show();
+                    }
+
+                    btn.prop('disabled', false).html(originalHtml);
+                },
+                error: function() {
+                    $('#mensaje-contacto')
+                        .text('Error al enviar el mensaje. Intentá de nuevo.')
+                        .removeClass('success')
+                        .addClass('error')
+                        .show();
+                    btn.prop('disabled', false).html(originalHtml);
+                }
+            });
+        });
+    </script>
+
+    <!-- User Menu Dropdown Script -->
+    <script>
+        const userAvatar = document.getElementById('user-avatar');
+        const userDropdown = document.getElementById('user-dropdown');
+
+        if (userAvatar && userDropdown) {
+            userAvatar.addEventListener('click', function(e) {
+                e.stopPropagation();
+                userDropdown.classList.toggle('show');
+            });
+
+            // Cerrar el dropdown al hacer clic fuera de él
+            document.addEventListener('click', function(e) {
+                if (!userAvatar.contains(e.target) && !userDropdown.contains(e.target)) {
+                    userDropdown.classList.remove('show');
+                }
+            });
+        }
+    </script>
 
 </body>
 </html>

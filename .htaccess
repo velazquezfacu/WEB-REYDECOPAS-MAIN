@@ -1,0 +1,8 @@
+RewriteEngine On
+RewriteBase /WEB-REYDECOPAS-MAIN/
+
+# Redirigir index.html a index.php
+RewriteRule ^index\.html$ index.php [L,R=301]
+
+# DirectoryIndex
+DirectoryIndex index.php index.html

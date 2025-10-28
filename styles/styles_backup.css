@@ -1,5 +1,5 @@
 :root{
-    --first-color: #e74c3c;
+    --first-color: #d37245;
     --second-color: #FAEBAA;
     --third-color: #D1988A;
     --fourth-color: #EB7C8D;
@@ -358,7 +358,7 @@
 }
 
 .user-dropdown a:hover {
-    background: rgba(231, 76, 60, 0.2);
+    background: rgba(211, 114, 69, 0.2);
     color: var(--first-color);
 }
 
@@ -2142,7 +2142,7 @@ textarea.input{
     backdrop-filter: blur(10px);
     border-radius: 15px;
     padding: 2rem;
-    border: 1px solid rgba(231, 76, 60, 0.3);
+    border: 1px solid rgba(211, 114, 69, 0.3);
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
@@ -2150,7 +2150,7 @@ textarea.input{
 .experiencia-card:hover {
     transform: translateY(-5px);
     border-color: var(--first-color);
-    box-shadow: 0 8px 25px rgba(231, 76, 60, 0.3);
+    box-shadow: 0 8px 25px rgba(211, 114, 69, 0.3);
 }
 
 .experiencia-header {
@@ -2208,7 +2208,7 @@ textarea.input{
 }
 
 .btn-reservar:hover {
-    background: #c0392b;
+    background: #b85a30;
     transform: scale(1.02);
 }
 
@@ -2233,7 +2233,7 @@ textarea.input{
     border-radius: 15px;
     width: 90%;
     max-width: 500px;
-    box-shadow: 0 10px 40px rgba(231, 76, 60, 0.3);
+    box-shadow: 0 10px 40px rgba(211, 114, 69, 0.3);
 }
 
 .modal-content-reserva h2 {
@@ -2258,7 +2258,7 @@ textarea.input{
 }
 
 .info-experiencia {
-    background: rgba(231, 76, 60, 0.1);
+    background: rgba(211, 114, 69, 0.1);
     padding: 1rem;
     border-radius: 10px;
     margin-bottom: 1.5rem;
@@ -2289,7 +2289,7 @@ textarea.input{
 .mis-reservas-section {
     margin-top: 3rem;
     padding-top: 2rem;
-    border-top: 2px solid rgba(231, 76, 60, 0.3);
+    border-top: 2px solid rgba(211, 114, 69, 0.3);
 }
 
 .reservas-container {
@@ -2398,7 +2398,7 @@ textarea.input{
 .no-reservas {
     text-align: center;
     padding: 3rem 1rem;
-    background: rgba(231, 76, 60, 0.05);
+    background: rgba(211, 114, 69, 0.05);
     border-radius: 10px;
     border: 2px dashed var(--first-color);
 }

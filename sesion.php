@@ -1,5 +1,7 @@
 <?php
 session_start();
+// Capturar redirect_url de la URL si existe
+$redirect_url = isset($_GET['redirect_url']) ? $_GET['redirect_url'] : '';
 ?>
 
 <!DOCTYPE html>
@@ -33,11 +35,11 @@ session_start();
         <a href="#home" class="logo"><img src="images/Reyes de copas.png" alt=""></a>
         <nav>
             <ul class="navbar">
-                <li><a href="index.html#home">Inicio</a></li>
-            <li><a href="index.html#about">Sobre nosotros</a></li>
+                <li><a href="index.php#home">Inicio</a></li>
+            <li><a href="index.php#about">Sobre nosotros</a></li>
             <!-- <li><a href="#consultorio">Consultorio</a></li> -->
-            <li><a href="index.html#servicios">Servicios</a></li>
-            <li><a href="index.html#recetas">Ustedes</a></li>
+            <li><a href="index.php#servicios">Servicios</a></li>
+            <li><a href="index.php#recetas">Ustedes</a></li>
             <li><a href="sesion.php">Cuenta</a></li>
             </ul>
             <div class="nav-toggle" id="nav-toggle">
@@ -48,16 +50,15 @@ session_start();
 
     <div class="nav-menu" id="nav-menu">
         <ul class="nav-list">
-            <li><a href="index.html#home">Inicio</a></li>
-            <li><a href="index.html#about">Sobre nosotros</a></li>
+            <li><a href="index.php#home">Inicio</a></li>
+            <li><a href="index.php#about">Sobre nosotros</a></li>
             <!-- <li><a href="#consultorio">Consultorio</a></li> -->
-            <li><a href="index.html#servicios">Servicios</a></li>
-            <li><a href="index.html#recetas">Ustedes</a></li>
+            <li><a href="index.php#servicios">Servicios</a></li>
+            <li><a href="index.php#recetas">Ustedes</a></li>
             <li><a href="sesion.php">Cuenta</a></li>
         </ul>
         <i class='bx bx-x' id="nav-close"></i>
-    </div>
-  </div> 
+    </div> 
 
 
 
@@ -76,6 +77,9 @@ session_start();
             <span class="circle two"></span>
 
             <form id="formSesion" action="php/sesionScript.php" method="post">
+                <?php if (!empty($redirect_url)): ?>
+                    <input type="hidden" name="redirect_url" value="<?php echo htmlspecialchars($redirect_url); ?>">
+                <?php endif; ?>
                 <div class="input-container">
                     <input type="email" name="email" placeholder="Email" class="input">
                     <label for=""></label>

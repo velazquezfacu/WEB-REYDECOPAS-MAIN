@@ -16,9 +16,9 @@ if (!isset($_POST['email']) || !isset($_POST['contrasena'])) {
     exit();
 }
 
-// Determina la URL de redirección. Por defecto, será '../perfil.php'.
+// Determina la URL de redirección. Por defecto, será 'perfil.php'.
 // Si se envía 'redirect_url' desde el formulario, se usará ese valor.
-$redirect_url = isset($_POST['redirect_url']) && !empty($_POST['redirect_url']) ? $_POST['redirect_url'] : '../perfil.php';
+$redirect_url = isset($_POST['redirect_url']) && !empty($_POST['redirect_url']) ? $_POST['redirect_url'] : 'perfil.php';
 
 $mail = $_POST['email'];
 $contrasena = $_POST['contrasena'];

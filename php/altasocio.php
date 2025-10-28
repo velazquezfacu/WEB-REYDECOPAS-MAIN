@@ -54,13 +54,13 @@ if ($result_planes) { // Check if query was successful
 
     <!-- Navbar -->
     <header class="header">
-        <a href="../index.html#home" class="logo"><img src="../images/Reyes de copas.png" alt=""></a>
+        <a href="../index.php#home" class="logo"><img src="../images/Reyes de copas.png" alt=""></a>
         <nav>
             <ul class="navbar">
-                <li><a href="../index.html#home">Inicio</a></li>
-                <li><a href="../index.html#about">Sobre Nosotros</a></li>
-                <li><a href="../index.html#servicios">Servicios</a></li>
-                <li><a href="../index.html#recetas">Ustedes</a></li>
+                <li><a href="../index.php#home">Inicio</a></li>
+                <li><a href="../index.php#about">Sobre Nosotros</a></li>
+                <li><a href="../index.php#servicios">Servicios</a></li>
+                <li><a href="../index.php#recetas">Ustedes</a></li>
                 <li><a href="sesion.php">Perfil</a></li>
             </ul>
             <div class="nav-toggle" id="nav-toggle">
@@ -71,10 +71,10 @@ if ($result_planes) { // Check if query was successful
 
     <div class="nav-menu" id="nav-menu">
         <ul class="nav-list">
-            <li><a href="../index.html#home">Inicio</a></li>
-            <li><a href="../index.html#about">Sobre Nosotros</a></li>
-            <li><a href="../index.html#servicios">Servicios</a></li>
-            <li><a href="../index.html#recetas">Ustedes</a></li>
+            <li><a href="../index.php#home">Inicio</a></li>
+            <li><a href="../index.php#about">Sobre Nosotros</a></li>
+            <li><a href="../index.php#servicios">Servicios</a></li>
+            <li><a href="../index.php#recetas">Ustedes</a></li>
             <li><a href="sesion.php">Perfil</a></li>
         </ul>
         <i class='bx bx-x' id="nav-close"></i>

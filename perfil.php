@@ -9,6 +9,18 @@
 
     // 2. Incluir el script que obtiene los datos del perfil
     include 'php/func_perfil.php';
+
+    // 3. Obtener las reservas del usuario
+    $conexion = new mysqli("localhost", "root", "", "reyescopas");
+    $sql_reservas = "SELECT r.*, e.nombre_expe, e.costo_expe
+                     FROM reservas_experiencias r
+                     INNER JOIN experiencias e ON r.id_experiencia = e.id
+                     WHERE r.id_usuario = ?
+                     ORDER BY r.fecha_experiencia DESC";
+    $stmt_reservas = $conexion->prepare($sql_reservas);
+    $stmt_reservas->bind_param("i", $_SESSION['user_id']);
+    $stmt_reservas->execute();
+    $reservas = $stmt_reservas->get_result();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,6 +33,7 @@
     <link rel="shortcut icon" href="images/escudocai.ico" type="image/x-icon">
     <!-- Custom CSS Link -->
     <link rel="stylesheet" href="./styles/styles.css">
+    <link rel="stylesheet" href="./styles/perfil-tabs.css">
     <!-- Google Font Link -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <!-- Google Font Link Agregado-->
@@ -40,13 +53,13 @@
 <body>
     <!-- Navbar -->
     <header class="header">
-        <a href="index.html#home" class="logo"><img src="images/Reyes de copas.png" alt=""></a>
+        <a href="index.php#home" class="logo"><img src="images/Reyes de copas.png" alt=""></a>
         <nav>
             <ul class="navbar">                
-                <li><a href="index.html#home">Inicio</a></li>
-                <li><a href="index.html#about">Sobre Nosotros</a></li>
-                <li><a href="index.html#servicios">Servicios</a></li>
-                <li><a href="index.html#recetas">Ustedes</a></li>
+                <li><a href="index.php#home">Inicio</a></li>
+                <li><a href="index.php#about">Sobre Nosotros</a></li>
+                <li><a href="index.php#servicios">Servicios</a></li>
+                <li><a href="index.php#recetas">Ustedes</a></li>
                 <li><a href="php/cerrarSesion.php">Cerrar Sesión</a></li>
             </ul>
             <div class="nav-toggle" id="nav-toggle">
@@ -57,10 +70,10 @@
 
     <div class="nav-menu" id="nav-menu">
         <ul class="nav-list">
-            <li><a href="index.html#home">Inicio</a></li>
-            <li><a href="index.html#about">Sobre mi</a></li>
-            <li><a href="index.html#servicios">Servicios</a></li>
-            <li><a href="index.html#recetas">Ustedes</a></li>
+            <li><a href="index.php#home">Inicio</a></li>
+            <li><a href="index.php#about">Sobre mi</a></li>
+            <li><a href="index.php#servicios">Servicios</a></li>
+            <li><a href="index.php#recetas">Ustedes</a></li>
             <li><a href="php/cerrarSesion.php">Cerrar Sesión</a></li>
         </ul>
         <i class='bx bx-x' id="nav-close"></i>
@@ -76,10 +89,28 @@
      <section class="perfil-section" id="home">
         <div class="perfil-container">
             <h1 class="perfil-title">Te damos la Bienvenida, <?php echo htmlspecialchars($nombreusuario); ?></h1>
-            <p class="perfil-text">Desde aquí podrás gestionar tu cuenta, ver tus datos y acceder a los beneficios exclusivos para socios.</p>
+            <p class="perfil-text">Desde aquí podrás gestionar tu cuenta, ver tus datos y acceder a tus reservas.</p>
 
-            <form action="php/modificar.php" method="POST" class="alta-form" style="margin-top: 2rem;">
-                <h3 class="form-section-title"><strong>DATOS PERSONALES</strong></h3>
+            <!-- Tabs Navigation -->
+            <div class="tabs-container">
+                <div class="tabs-nav">
+                    <button class="tab-btn active" data-tab="datos">
+                        <i class='bx bx-user'></i>
+                        <span>Mis Datos</span>
+                    </button>
+                    <button class="tab-btn" data-tab="reservas">
+                        <i class='bx bx-calendar'></i>
+                        <span>Mis Reservas</span>
+                        <?php if ($reservas->num_rows > 0): ?>
+                            <span class="tab-badge"><?php echo $reservas->num_rows; ?></span>
+                        <?php endif; ?>
+                    </button>
+                </div>
+
+                <!-- Tab Content: Datos -->
+                <div class="tab-content active" id="tab-datos">
+                    <form action="php/modificar.php" method="POST" class="perfil-form">
+                        <h3 class="form-section-title"><strong>DATOS PERSONALES</strong></h3>
                 <div class="form-grid">
                     <div class="input-container">
                         <label for="nombre">Nombre</label>
@@ -127,16 +158,140 @@
                         <input type="text" id="estado" name="estado" class="input" value="<?php echo htmlspecialchars($estado); ?>" readonly>
                     </div>
                 </div>
-                <div class="btn-form-container">
-                    <button type="submit" class="btn custom-btn btn-form">Guardar Cambios</button>
+                        <div class="btn-form-container">
+                            <button type="submit" class="btn custom-btn btn-form">
+                                <i class='bx bx-save'></i> Guardar Cambios
+                            </button>
+                        </div>
+                    </form>
                 </div>
-            </form>
+
+                <!-- Tab Content: Reservas -->
+                <div class="tab-content" id="tab-reservas">
+                    <div class="reservas-header">
+                        <h3 class="form-section-title">Mis Reservas de Experiencias</h3>
+                        <a href="experiencias.php" class="btn-nueva-reserva">
+                            <i class='bx bx-plus-circle'></i>
+                            <span>Nueva Reserva</span>
+                        </a>
+                    </div>
+
+                    <?php if ($reservas->num_rows > 0): ?>
+                        <div class="reservas-grid">
+                            <?php
+                            $reservas->data_seek(0);
+                            while($reserva = $reservas->fetch_assoc()):
+                                $esFutura = strtotime($reserva['fecha_experiencia']) > time();
+                                $estadoClass = $reserva['estado'];
+                            ?>
+                                <div class="reserva-card-modern <?php echo $estadoClass; ?>">
+                                    <div class="reserva-card-header">
+                                        <div class="reserva-icon">
+                                            <i class='bx <?php echo $reserva['estado'] == 'confirmada' ? 'bx-check-circle' : ($reserva['estado'] == 'cancelada' ? 'bx-x-circle' : 'bx-time-five'); ?>'></i>
+                                        </div>
+                                        <span class="reserva-badge <?php echo $estadoClass; ?>">
+                                            <?php
+                                                $estados = ['confirmada' => 'Confirmada', 'pendiente' => 'Pendiente', 'cancelada' => 'Cancelada'];
+                                                echo $estados[$reserva['estado']];
+                                            ?>
+                                        </span>
+                                    </div>
+
+                                    <div class="reserva-card-body">
+                                        <h3 class="reserva-titulo"><?php echo htmlspecialchars($reserva['nombre_expe']); ?></h3>
+
+                                        <div class="reserva-info-grid">
+                                            <div class="info-item">
+                                                <i class='bx bx-calendar-event'></i>
+                                                <div>
+                                                    <span class="info-label">Fecha de experiencia</span>
+                                                    <span class="info-value"><?php echo date('d/m/Y', strtotime($reserva['fecha_experiencia'])); ?></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="info-item">
+                                                <i class='bx bx-money'></i>
+                                                <div>
+                                                    <span class="info-label">Costo</span>
+                                                    <span class="info-value">$<?php echo number_format($reserva['costo_expe'], 0, ',', '.'); ?></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="info-item">
+                                                <i class='bx bx-time'></i>
+                                                <div>
+                                                    <span class="info-label">Reservado el</span>
+                                                    <span class="info-value"><?php echo date('d/m/Y', strtotime($reserva['fecha_reserva'])); ?></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="info-item">
+                                                <i class='bx bx-info-circle'></i>
+                                                <div>
+                                                    <span class="info-label">Estado</span>
+                                                    <span class="info-value"><?php echo $esFutura ? 'Próxima' : 'Realizada'; ?></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <?php if ($reserva['estado'] == 'confirmada' && $esFutura): ?>
+                                        <div class="reserva-card-footer">
+                                            <button class="btn-cancelar-moderna" onclick="cancelarReserva(<?php echo $reserva['id']; ?>)">
+                                                <i class='bx bx-trash'></i>
+                                                <span>Cancelar Reserva</span>
+                                            </button>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            <?php endwhile; ?>
+                        </div>
+                    <?php else: ?>
+                        <div class="empty-state">
+                            <div class="empty-icon">
+                                <i class='bx bx-calendar-x'></i>
+                            </div>
+                            <h3>No tenés reservas aún</h3>
+                            <p>Explorá nuestras experiencias exclusivas y reservá tu lugar</p>
+                            <a href="experiencias.php" class="btn-explorar">
+                                <i class='bx bx-compass'></i>
+                                <span>Explorar Experiencias</span>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
         </div>
      </section>
     
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
      <script>
-        // Script para permitir solo números en el campo de teléfono
         document.addEventListener('DOMContentLoaded', function() {
+            // Tab Switching
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const tabName = btn.getAttribute('data-tab');
+
+                    // Remove active class from all
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+
+                    // Add active class to clicked
+                    btn.classList.add('active');
+                    document.getElementById(`tab-${tabName}`).classList.add('active');
+                });
+            });
+
+            // Check URL hash for direct tab access
+            const hash = window.location.hash;
+            if (hash === '#mis-reservas') {
+                document.querySelector('[data-tab="reservas"]').click();
+            }
+
+            // Script para permitir solo números en el campo de teléfono
             const phoneInput = document.getElementById('telefono');
             if (phoneInput) {
                 phoneInput.addEventListener('input', function(e) {
@@ -144,6 +299,31 @@
                 });
             }
         });
+
+        // Función para cancelar reserva
+        function cancelarReserva(idReserva) {
+            if (!confirm('¿Estás seguro de que deseas cancelar esta reserva?')) {
+                return;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: 'php/cancelar_reserva.php',
+                data: { id_reserva: idReserva },
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        alert(response.message);
+                        location.reload();
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function() {
+                    alert('Error al cancelar la reserva');
+                }
+            });
+        }
     </script>
 
     <script>
