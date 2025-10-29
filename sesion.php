@@ -2,6 +2,8 @@
 session_start();
 // Capturar redirect_url de la URL si existe
 $redirect_url = isset($_GET['redirect_url']) ? $_GET['redirect_url'] : '';
+$isLoggedIn = isset($_SESSION['user_id']);
+$userName = $isLoggedIn ? $_SESSION['nombre'] : '';
 ?>
 
 <!DOCTYPE html>
@@ -36,11 +38,25 @@ $redirect_url = isset($_GET['redirect_url']) ? $_GET['redirect_url'] : '';
         <nav>
             <ul class="navbar">
                 <li><a href="index.php#home">Inicio</a></li>
-            <li><a href="index.php#about">Sobre nosotros</a></li>
-            <!-- <li><a href="#consultorio">Consultorio</a></li> -->
-            <li><a href="index.php#servicios">Servicios</a></li>
-            <li><a href="index.php#recetas">Ustedes</a></li>
-            <li><a href="sesion.php">Cuenta</a></li>
+                <li><a href="index.php#servicios">Servicios</a></li>
+                <li><a href="experiencias.php">Experiencias</a></li>
+                <li><a href="index.php#contacto">Contacto</a></li>                
+                <?php if ($isLoggedIn): ?>
+                    <li class="user-menu">
+                        <div class="user-avatar" id="user-avatar">
+                            <i class='bx bxs-user-circle'></i>
+                        </div>
+                        <div class="user-dropdown" id="user-dropdown">
+                            <div class="dropdown-header">
+                                <p>Hola, <strong><?php echo htmlspecialchars($userName); ?></strong></p>
+                            </div>
+                            <a href="perfil.php"><i class='bx bxs-user'></i> Mi Perfil</a>
+                            <a href="php/cerrarSesion.php"><i class='bx bx-log-out'></i> Cerrar Sesión</a>
+                        </div>
+                    </li>
+                <?php else: ?>
+                    <li><a href="php/chequeo.php">Cuenta</a></li>
+                <?php endif; ?>
             </ul>
             <div class="nav-toggle" id="nav-toggle">
                 <i class="bx bx-menu" id="nav-open"></i>
@@ -51,10 +67,9 @@ $redirect_url = isset($_GET['redirect_url']) ? $_GET['redirect_url'] : '';
     <div class="nav-menu" id="nav-menu">
         <ul class="nav-list">
             <li><a href="index.php#home">Inicio</a></li>
-            <li><a href="index.php#about">Sobre nosotros</a></li>
-            <!-- <li><a href="#consultorio">Consultorio</a></li> -->
-            <li><a href="index.php#servicios">Servicios</a></li>
-            <li><a href="index.php#recetas">Ustedes</a></li>
+            <li><a href="index.php#about">Nosotros</a></li>
+            <li><a href="experiencias.php">Experiencias</a></li>
+            <li><a href="index.php#contacto">Contacto</a></li>
             <li><a href="sesion.php">Cuenta</a></li>
         </ul>
         <i class='bx bx-x' id="nav-close"></i>

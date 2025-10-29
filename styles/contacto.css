@@ -41,7 +41,7 @@
 }
 
 .contacto-title {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Poppins', sans-serif;
     font-size: clamp(2.5rem, 5vw, 4rem);
     color: #e74c3c;
     margin-bottom: 1rem;

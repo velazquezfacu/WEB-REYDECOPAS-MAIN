@@ -57,7 +57,6 @@ $detalles = [
         <nav>
             <ul class="navbar">
                 <li><a href="index.php#home">Inicio</a></li>
-                <li><a href="index.php#about">Sobre Nosotros</a></li>
                 <li><a href="index.php#servicios">Servicios</a></li>
                 <li><a href="experiencias.php">Experiencias</a></li>
                 <?php if ($isLoggedIn): ?>
