@@ -68,7 +68,6 @@ $userName = $isLoggedIn ? $_SESSION['nombre'] : '';
     <div class="nav-menu" id="nav-menu">
         <ul class="nav-list">
             <li><a href="#home">Inicio</a></li>
-            <li><a href="#about">Sobre Nosotros</a></li>
             <li><a href="#servicios">Servicios</a></li>
             <li><a href="#recetas">Ustedes</a></li>
             <li><a href="#contacto">Contacto</a></li>

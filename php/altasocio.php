@@ -58,7 +58,6 @@ if ($result_planes) { // Check if query was successful
         <nav>
             <ul class="navbar">
                 <li><a href="../index.php#home">Inicio</a></li>
-                <li><a href="../index.php#about">Sobre Nosotros</a></li>
                 <li><a href="../index.php#servicios">Servicios</a></li>
                 <li><a href="../index.php#recetas">Ustedes</a></li>
                 <li><a href="sesion.php">Perfil</a></li>
@@ -72,7 +71,6 @@ if ($result_planes) { // Check if query was successful
     <div class="nav-menu" id="nav-menu">
         <ul class="nav-list">
             <li><a href="../index.php#home">Inicio</a></li>
-            <li><a href="../index.php#about">Sobre Nosotros</a></li>
             <li><a href="../index.php#servicios">Servicios</a></li>
             <li><a href="../index.php#recetas">Ustedes</a></li>
             <li><a href="sesion.php">Perfil</a></li>

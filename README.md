@@ -1,3 +1,3 @@
-# WEB-Nutricionista
+# WEB-REYDECOPAS-MAIN
 
-Web creada para una profesional en nutricion, conectada a una base de datos, donde se puede crear una cuenta para posteriormente agendar turnos y que el administrador de la pagina pueda gestionar estos turnos
+Web creada para registrarse como usuario, socio o reservar una experiencia que te da el club. Con una pagina especial para el administrador en la que podra ver y gestionar procesos de socios o experiencias.
