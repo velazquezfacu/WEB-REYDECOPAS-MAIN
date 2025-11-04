@@ -248,7 +248,7 @@ $userName = $isLoggedIn ? $_SESSION['nombre'] : '';
                         <b>Costo:</b> $50.000 ARS <br>
                         <b>Renovación:</b> Mensual <br>                    
                     </p>
-                    <h3><b>Beneficios Adicionaless: (incluye todos los anteriores)</b></h3>
+                    <h3><b>Beneficios Adicionales: (incluye todos los anteriores)</b></h3>
                     <ul>
                         <li><b>-Descuento del 20%</b> en la cuota de la Sede Social y actividades.</li>
                         <li><b>-Descuento fijo del 15%</b> en la tienda oficial del club.</li>
