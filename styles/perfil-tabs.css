@@ -1,0 +1,426 @@
+/* ============ ESTILOS MODERNOS PARA PERFIL CON TABS ============ */
+
+/* Tabs Navigation */
+.tabs-container {
+    margin-top: 2rem;
+}
+
+.tabs-nav {
+    display: flex;
+    gap: 1rem;
+    border-bottom: 2px solid rgba(231, 76, 60, 0.2);
+    margin-bottom: 2rem;
+}
+
+.tab-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #666;
+    transition: all 0.3s ease;
+    position: relative;
+    font-family: 'Poppins', sans-serif;
+}
+
+.tab-btn i {
+    font-size: 1.3rem;
+}
+
+.tab-btn:hover {
+    color: #e74c3c;
+    background: rgba(231, 76, 60, 0.05);
+}
+
+.tab-btn.active {
+    color: #e74c3c;
+    border-bottom-color: #e74c3c;
+}
+
+.tab-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 0.4rem;
+    background: #e74c3c;
+    color: white;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+/* Tab Content */
+.tab-content {
+    display: none;
+    animation: fadeIn 0.4s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Reservas Header */
+.reservas-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid rgba(231, 76, 60, 0.1);
+}
+
+.reservas-header .form-section-title {
+    margin: 0;
+}
+
+.btn-nueva-reserva {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+}
+
+.btn-nueva-reserva:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.6);
+}
+
+.btn-nueva-reserva i {
+    font-size: 1.3rem;
+}
+
+/* Reservas Grid */
+.reservas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+/* Card Moderna */
+.reserva-card-modern {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.reserva-card-modern:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.reserva-card-modern.confirmada {
+    border-color: rgba(76, 175, 80, 0.3);
+}
+
+.reserva-card-modern.confirmada .reserva-card-header {
+    background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+}
+
+.reserva-card-modern.cancelada {
+    opacity: 0.7;
+    border-color: rgba(158, 158, 158, 0.3);
+}
+
+.reserva-card-modern.cancelada .reserva-card-header {
+    background: linear-gradient(135deg, #9e9e9e 0%, #757575 100%);
+}
+
+.reserva-card-modern.pendiente .reserva-card-header {
+    background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+}
+
+/* Card Header */
+.reserva-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+}
+
+.reserva-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+}
+
+.reserva-icon i {
+    font-size: 1.8rem;
+    color: white;
+}
+
+.reserva-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    backdrop-filter: blur(10px);
+}
+
+/* Card Body */
+.reserva-card-body {
+    padding: 2rem;
+}
+
+.reserva-titulo {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+.reserva-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.reserva-info-grid .info-item {
+    display: flex;
+    gap: 1rem;
+}
+
+.reserva-info-grid .info-item i {
+    font-size: 1.5rem;
+    color: #e74c3c;
+    flex-shrink: 0;
+}
+
+.reserva-info-grid .info-item > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-label {
+    font-size: 0.75rem;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.3rem;
+}
+
+.info-value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Card Footer */
+.reserva-card-footer {
+    padding: 1rem 2rem 1.5rem;
+    background: rgba(231, 76, 60, 0.03);
+    border-top: 1px solid rgba(231, 76, 60, 0.1);
+}
+
+.btn-cancelar-moderna {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.8rem;
+    background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(244, 67, 54, 0.2);
+}
+
+.btn-cancelar-moderna:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(244, 67, 54, 0.4);
+}
+
+.btn-cancelar-moderna i {
+    font-size: 1.2rem;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, rgba(231, 76, 60, 0.03) 0%, rgba(231, 76, 60, 0.08) 100%);
+    border-radius: 20px;
+    border: 2px dashed rgba(231, 76, 60, 0.3);
+}
+
+.empty-icon {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 2rem;
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(231, 76, 60, 0.3);
+}
+
+.empty-icon i {
+    font-size: 3rem;
+    color: white;
+}
+
+.empty-state h3 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 1rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+.empty-state p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+.btn-explorar {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.3);
+}
+
+.btn-explorar:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(231, 76, 60, 0.5);
+}
+
+.btn-explorar i {
+    font-size: 1.5rem;
+}
+
+/* Responsive */
+@media screen and (max-width: 1024px) {
+    .reserva-info-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .tabs-nav {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .tab-btn {
+        border-bottom: 1px solid rgba(231, 76, 60, 0.1);
+        border-left: 3px solid transparent;
+        justify-content: flex-start;
+    }
+
+    .tab-btn.active {
+        border-bottom-color: rgba(231, 76, 60, 0.1);
+        border-left-color: #e74c3c;
+    }
+
+    .reservas-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+
+    .btn-nueva-reserva {
+        justify-content: center;
+    }
+
+    .reservas-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .reserva-info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .tab-btn {
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .reserva-card-body {
+        padding: 1.5rem;
+    }
+
+    .reserva-titulo {
+        font-size: 1.2rem;
+    }
+
+    .empty-icon {
+        width: 80px;
+        height: 80px;
+    }
+
+    .empty-icon i {
+        font-size: 2.5rem;
+    }
+
+    .empty-state h3 {
+        font-size: 1.4rem;
+    }
+}
+
+/* Fix for form styling in tabs */
+.tab-content .perfil-form {
+    background: transparent;
+    padding: 0;
+}
+
+.tab-content .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
