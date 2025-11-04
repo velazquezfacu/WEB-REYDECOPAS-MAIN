@@ -215,7 +215,7 @@ $userName = $isLoggedIn ? $_SESSION['nombre'] : '';
                     </ul>
                     
                 </div>
-                <a class="item-turno" href="php/sesion.php?redirect_url=altasocio.php">¡Quiero ser socio!</a>
+                <a class="item-turno" href="sesion.php?redirect_url=altasocio.php">¡Quiero ser socio!</a>
             </div>
             <div class="servicios-item">
                 <div class="item-description">
@@ -235,7 +235,7 @@ $userName = $isLoggedIn ? $_SESSION['nombre'] : '';
                     </ul>
                 </div>
 
-                <a class="item-turno" href="php/sesion.php?redirect_url=altasocio.php">¡Quiero ser socio!</a>
+                <a class="item-turno" href="sesion.php?redirect_url=altasocio.php">¡Quiero ser socio!</a>
             </div>
             <div class="servicios-item">
                 <div class="item-description">
@@ -255,7 +255,7 @@ $userName = $isLoggedIn ? $_SESSION['nombre'] : '';
                     </ul>
                                          
                 </div>
-                <a class="item-turno" href="php/sesion.php?redirect_url=altasocio.php">¡Quiero ser socio!</a>
+                <a class="item-turno" href="sesion.php?redirect_url=altasocio.php">¡Quiero ser socio!</a>
             </div>
 
             <h2>Experiencias!</h2>
