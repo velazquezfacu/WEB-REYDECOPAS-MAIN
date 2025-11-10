@@ -16,9 +16,6 @@ if (!isset($_POST['email']) || !isset($_POST['contrasena'])) {
     exit();
 }
 
-// Determina la URL de redirección. Por defecto, será 'perfil.php'.
-// Si se envía 'redirect_url' desde el formulario, se usará ese valor.
-$redirect_url = isset($_POST['redirect_url']) && !empty($_POST['redirect_url']) ? $_POST['redirect_url'] : 'perfil.php';
 
 $mail = $_POST['email'];
 $contrasena = $_POST['contrasena'];
@@ -55,6 +52,14 @@ if ($stmt->num_rows === 1) {
         $_SESSION['user_id'] = $id;
         $_SESSION['email'] = $mail;
         $_SESSION['nombre'] = $nombre;
+
+        // Determina la URL de redirección.
+        if ($nombre === 'super') {
+            $redirect_url = 'admin.php';
+        } else {
+            // Si se envía 'redirect_url' desde el formulario, se usará ese valor, si no, 'perfil.php'.
+            $redirect_url = isset($_POST['redirect_url']) && !empty($_POST['redirect_url']) ? $_POST['redirect_url'] : 'perfil.php';
+        }
 
         $stmt->close();
         $conexion->close();
