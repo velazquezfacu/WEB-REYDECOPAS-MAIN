@@ -52,7 +52,11 @@ $userName = $isLoggedIn ? $_SESSION['nombre'] : '';
                             <div class="dropdown-header">
                                 <p>Hola, <strong><?php echo htmlspecialchars($userName); ?></strong></p>
                             </div>
-                            <a href="perfil.php"><i class='bx bxs-user'></i> Mi Perfil</a>
+                            <?php if (isset($_SESSION['nombre']) && $_SESSION['nombre'] === 'super'): ?>
+                                <a href="admin.php"><i class='bx bxs-dashboard'></i> Panel Admin</a>
+                            <?php else: ?>
+                                <a href="perfil.php"><i class='bx bxs-user'></i> Mi Perfil</a>
+                            <?php endif; ?>
                             <a href="php/cerrarSesion.php"><i class='bx bx-log-out'></i> Cerrar Sesión</a>
                         </div>
                     </li>
@@ -73,7 +77,11 @@ $userName = $isLoggedIn ? $_SESSION['nombre'] : '';
             <li><a href="#recetas">Ustedes</a></li>
             <li><a href="#contacto">Contacto</a></li>
             <?php if ($isLoggedIn): ?>
-                <li><a href="perfil.php"><i class='bx bxs-user'></i> Hola, <?php echo htmlspecialchars($userName); ?></a></li>
+                <?php if (isset($_SESSION['nombre']) && $_SESSION['nombre'] === 'super'): ?>
+                    <li><a href="admin.php"><i class='bx bxs-dashboard'></i> Panel Admin</a></li>
+                <?php else: ?>
+                    <li><a href="perfil.php"><i class='bx bxs-user'></i> Mi Perfil</a></li>
+                <?php endif; ?>
                 <li><a href="php/cerrarSesion.php"><i class='bx bx-log-out'></i> Cerrar Sesión</a></li>
             <?php else: ?>
                 <li><a href="php/chequeo.php">Cuenta</a></li>

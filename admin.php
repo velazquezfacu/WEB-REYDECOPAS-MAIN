@@ -25,20 +25,56 @@ $result_socios = $conexion->query("SELECT COUNT(id) as total FROM socio WHERE es
 $socios_activos = $result_socios->fetch_assoc()['total'];
 
 // 3. Desglose de socios por plan
-$sql_planes = "SELECT p.nombre_plan, COUNT(s.id) as cantidad 
-               FROM socio s 
-               JOIN planes p ON s.id_plan = p.id 
-               WHERE s.estado = 'Activo' 
-               GROUP BY p.nombre_plan";
+$sql_planes = "SELECT p.nombre_plan, COUNT(s.id) as cantidad
+               FROM planes p
+               LEFT JOIN socio s ON p.id = s.id_plan AND s.estado = 'Activo'
+               GROUP BY p.id, p.nombre_plan
+               ORDER BY p.id";
+
 $result_planes = $conexion->query($sql_planes);
 $socios_por_plan = [];
 while($row = $result_planes->fetch_assoc()) {
     $socios_por_plan[] = $row;
 }
 
+// 4. Ingresos totales del mes actual
+$sql_ingresos = "SELECT SUM(e.costo_expe) as total_ingresos
+                  FROM reservas_experiencias r
+                  JOIN experiencias e ON r.id_experiencia = e.id
+                  WHERE r.estado = 'confirmada' AND MONTH(r.fecha_experiencia) = MONTH(CURDATE()) AND YEAR(r.fecha_experiencia) = YEAR(CURDATE())";
+$result_ingresos = $conexion->query($sql_ingresos);
+$ingresos_mes = $result_ingresos->fetch_assoc()['total_ingresos'] ?: 0; // Ensure 0 if null
 // 4. Cantidad de experiencias reservadas (confirmadas)
 $result_reservas = $conexion->query("SELECT COUNT(id) as total FROM reservas_experiencias WHERE estado = 'confirmada'");
 $total_reservas = $result_reservas->fetch_assoc()['total'];
+
+// 5. Cantidad de reservas pendientes o canceladas
+$sql_otras_reservas = "SELECT COUNT(id) as total FROM reservas_experiencias WHERE estado IN ('pendiente', 'cancelada')";
+$result_otras_reservas = $conexion->query($sql_otras_reservas);
+$total_otras_reservas = $result_otras_reservas->fetch_assoc()['total'];
+
+// 6. Actividad Reciente (UNION de nuevos socios y nuevas reservas)
+$sql_actividad = "(SELECT
+                        s.fecha_registro AS fecha,
+                        CONCAT(u.nombre, ' ', u.apellido) AS usuario,
+                        'Se hizo socio' AS accion,
+                        p.nombre_plan AS detalle,
+                        'socio' as tipo
+                    FROM socio s
+                    JOIN usuarios u ON s.id_usua = u.id
+                    JOIN planes p ON s.id_plan = p.id)
+                UNION ALL
+                  (SELECT
+                        r.fecha_reserva AS fecha,
+                        CONCAT(u.nombre, ' ', u.apellido) AS usuario,
+                        'Nueva Reserva' AS accion,
+                        e.nombre_expe AS detalle,
+                        'reserva' as tipo
+                    FROM reservas_experiencias r
+                    JOIN usuarios u ON r.id_usuario = u.id
+                    JOIN experiencias e ON r.id_experiencia = e.id)
+                ORDER BY fecha DESC LIMIT 15";
+$result_actividad = $conexion->query($sql_actividad);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -53,6 +89,7 @@ $total_reservas = $result_reservas->fetch_assoc()['total'];
      <link rel="stylesheet" href="./styles/styles.css">
      <link rel="stylesheet" href="./styles/perfil-tabs.css"> <!-- Estilo de perfil -->
      <!-- Google Font Link -->
+     <link rel="stylesheet" href="./styles/perfil-tabs.css">
      <link rel="stylesheet" href="./styles/admin-dashboard.css"> <!-- Estilos para el dashboard -->
      <link rel="preconnect" href="https://fonts.googleapis.com">
      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
@@ -70,7 +107,10 @@ $total_reservas = $result_reservas->fetch_assoc()['total'];
         <nav>
             <ul class="navbar">
                 <li><a href="index.php#home">Inicio</a></li>
+                <li><a href="index.php#servicios">Servicios</a></li>
+                <li><a href="index.php#recetas">Ustedes</a></li>
                 <li><a href="experiencias.php">Experiencias</a></li>
+                <li><a href="index.php#contacto">Contacto</a></li>
                 <?php if ($isLoggedIn): ?>
                     <li class="user-menu">
                         <div class="user-avatar" id="user-avatar">
@@ -118,6 +158,10 @@ $total_reservas = $result_reservas->fetch_assoc()['total'];
                         <i class='bx bxs-dashboard'></i>
                         <span>Dashboard</span>
                     </button>
+                    <button class="tab-btn" data-tab="actividad">
+                        <i class='bx bx-history'></i>
+                        <span>Actividad Reciente</span>
+                    </button>
                 </div>
 
                 <!-- Contenido del Dashboard -->
@@ -158,6 +202,84 @@ $total_reservas = $result_reservas->fetch_assoc()['total'];
                                 </div>
                             </div>
 
+                            <!-- Card Reservas Pendientes/Canceladas -->
+                            <div class="stat-card">
+                                <div class="stat-card-icon pending">
+                                    <i class='bx bxs-calendar-exclamation'></i>
+                                </div>
+                                <div class="stat-card-info">
+                                    <p>Reservas Pendientes/Canceladas</p>
+                                    <span><?php echo $total_otras_reservas; ?></span>
+                                </div>
+                            </div>
+
+                            <!-- Card Ingresos del Mes -->
+                            <div class="stat-card">
+                                <div class="stat-card-icon bookings">
+                                    <i class='bx bx-coin'></i>
+                                </div>
+                                <div class="stat-card-info">
+                                    <p>Ingresos del Mes</p>
+                                    <span>$<?php echo number_format($ingresos_mes, 0, ',', '.'); ?></span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección de Planes -->
+                <div class="tab-content active" id="tab-planes">
+                    <div class="perfil-form">
+                        <h3 class="form-section-title" style="margin-top: 2rem;"><strong>PLANES MÁS ELEGIDOS</strong></h3>
+                        <div class="dashboard-grid">
+                            <?php foreach ($socios_por_plan as $plan): ?>
+                                <div class="stat-card plan-card">
+                                    <div class="stat-card-icon plan">
+                                        <i class='bx bx-star'></i>
+                                    </div>
+                                    <div class="stat-card-info">
+                                        <p><?php echo htmlspecialchars($plan['nombre_plan']); ?></p>
+                                        <span><?php echo $plan['cantidad']; ?></span>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contenido de Actividad Reciente -->
+                <div class="tab-content" id="tab-actividad">
+                    <div class="perfil-form">
+                        <h3 class="form-section-title"><strong>ÚLTIMOS MOVIMIENTOS</strong></h3>
+                        <div class="activity-table-container">
+                            <table class="activity-table">
+                                <thead>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Usuario</th>
+                                        <th>Acción</th>
+                                        <th>Detalle</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php if ($result_actividad->num_rows > 0): ?>
+                                        <?php while($act = $result_actividad->fetch_assoc()): ?>
+                                            <tr>
+                                                <td><?php echo date('d/m/Y', strtotime($act['fecha'])); ?></td>
+                                                <td><?php echo htmlspecialchars($act['usuario']); ?></td>
+                                                <td>
+                                                    <span class="activity-badge <?php echo $act['tipo']; ?>">
+                                                        <i class='bx <?php echo $act['tipo'] === 'socio' ? 'bx-user-plus' : 'bx-calendar-star'; ?>'></i>
+                                                        <?php echo htmlspecialchars($act['accion']); ?>
+                                                    </span>
+                                                </td>
+                                                <td><?php echo htmlspecialchars($act['detalle']); ?></td>
+                                            </tr>
+                                        <?php endwhile; ?>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -220,6 +342,26 @@ $total_reservas = $result_reservas->fetch_assoc()['total'];
 
         if(navToggle) navToggle.addEventListener('click', () => navMenu.classList.add('show-menu'))
         if(navClose) navClose.addEventListener('click', () => navMenu.classList.remove('show-menu'))
+
+        // Script para las pestañas del panel de admin
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const tabId = btn.getAttribute('data-tab');
+
+                    // Ocultar todos los contenidos y desactivar todos los botones
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    tabBtns.forEach(button => button.classList.remove('active'));
+
+                    // Mostrar el contenido y activar el botón de la pestaña seleccionada
+                    document.getElementById(`tab-${tabId}`).classList.add('active');
+                    btn.classList.add('active');
+                });
+            });
+        });
     </script>
 
   </body>
