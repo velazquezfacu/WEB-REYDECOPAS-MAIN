@@ -466,6 +466,25 @@ $userName = $isLoggedIn ? $_SESSION['nombre'] : '';
                     </form>
                 </div>
             </div>
+
+            <!-- Mapa Section -->
+            <div class="map-container">
+                <h3 class="map-title">
+                    <i class='bx bx-map-pin'></i>
+                    Encontranos Acá
+                </h3>
+                <div class="map-wrapper">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3282.7821147537907!2d-58.36882!3d-34.6659!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95a3334e8ab87dc1%3A0x5b7d0da27bcb7a22!2sAv.%20Mitre%20470%2C%20Avellaneda%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1234567890123"
+                        width="100%"
+                        height="400"
+                        style="border:0; border-radius: 15px;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
         </div>
     </section>
     <!-- Contacto Section End -->

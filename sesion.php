@@ -4,6 +4,18 @@ session_start();
 $redirect_url = isset($_GET['redirect_url']) ? $_GET['redirect_url'] : '';
 $isLoggedIn = isset($_SESSION['user_id']);
 $userName = $isLoggedIn ? $_SESSION['nombre'] : '';
+
+// Si el usuario ya está logueado y hay un redirect_url, redirigir directamente
+if ($isLoggedIn && !empty($redirect_url)) {
+    // Si redirect_url está en la carpeta php/, mantener la ruta
+    if (strpos($redirect_url, 'php/') === 0) {
+        header("Location: " . $redirect_url);
+    } else {
+        // Si no tiene php/, asumimos que está en php/
+        header("Location: php/" . $redirect_url);
+    }
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -30,6 +42,13 @@ $userName = $isLoggedIn ? $_SESSION['nombre'] : '';
     <!-- Box Icons -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <!-- Scroll Reveal -->
+
+    <style>
+        .contacto {
+            min-height: auto !important;
+            padding-bottom: 0 !important;
+        }
+    </style>
 
 </head>
 <body>
@@ -132,6 +151,33 @@ $userName = $isLoggedIn ? $_SESSION['nombre'] : '';
     </div>
 </section>
 
+<footer class="footer" id="footer">
+    <div class="footer-logo-container">
+        <img src="./images/Reyes de copas.png" alt="">
+    </div>
+    <div class="footer-box-container">
+        <div class="footer-box">
+            <h4>Rey de Copas - Club de socios</h4>
+            <p>El infierno esta encantador</p>
+            <p>MN 10538 - MP 6207</p>
+        </div>
+        <div class="footer-box">
+            <h4>Sede Social</h4>
+            <p>Diego A. Milito, Avellaneda, Provincia de Buenos Aires [Martes]</p>
+            <p>Av. SeFueronAlaB 4141, Villa Urquiza [Sabado]</p>
+        </div>
+        <div class="footer-box">
+            <h4>Contacto</h4>
+            <div class="box-info">
+                <p>lorem@ipsum.com</p>
+            </div>
+            <div class="box-info">
+                <p>11-1234-5678</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
 <script>
     $(document).ready(function() {
         // 1. LÓGICA DE INICIO DE SESIÓN (#formSesion)
@@ -197,32 +243,5 @@ $userName = $isLoggedIn ? $_SESSION['nombre'] : '';
         })
     }
 </script>
-    <footer class="footer" id="footer">
-        <div class="footer-logo-container">
-            <img src="./images/Reyes de copas.png" alt="">
-        </div>
-        <div class="footer-box-container">
-            <div class="footer-box">
-                <h4>Rey de Copas - Club de socios</h4>
-                <p>El infierno esta encantador</p>
-                <p>MN 10538 - MP 6207</p>
-            </div>
-            <div class="footer-box">
-                <h4>Sede Social</h4>
-                <p>Diego A. Milito, Avellaneda, Provincia de Buenos Aires [Martes]</p>
-                <p>Av. SeFueronAlaB 4141, Villa Urquiza [Sabado]</p>
-            </div>
-            <div class="footer-box">
-                <h4>Contacto</h4>
-                <div class="box-info">
-                    <p>lorem@ipsum.com</p>
-                </div>
-                <div class="box-info">
-                    <p>11-1234-5678</p>
-                </div>
-            </div>
-        </div>
-
-    </footer>
 </body>
 </html>

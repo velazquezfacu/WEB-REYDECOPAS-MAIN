@@ -21,6 +21,29 @@
     $stmt_reservas->bind_param("i", $_SESSION['user_id']);
     $stmt_reservas->execute();
     $reservas = $stmt_reservas->get_result();
+
+    // 4. Obtener las cuotas del socio (si es socio)
+    $cuotas = null;
+    $id_socio = null;
+    if ($nro_socio) { // Si tiene número de socio, obtener sus cuotas
+        $sql_socio_id = "SELECT id FROM socio WHERE id_usua = ?";
+        $stmt_socio_id = $conexion->prepare($sql_socio_id);
+        $stmt_socio_id->bind_param("i", $_SESSION['user_id']);
+        $stmt_socio_id->execute();
+        $result_socio = $stmt_socio_id->get_result();
+        if ($row_socio = $result_socio->fetch_assoc()) {
+            $id_socio = $row_socio['id'];
+        }
+        $stmt_socio_id->close();
+
+        if ($id_socio) {
+            $sql_cuotas = "SELECT * FROM cuotas WHERE id_socio = ? ORDER BY numero_cuota DESC";
+            $stmt_cuotas = $conexion->prepare($sql_cuotas);
+            $stmt_cuotas->bind_param("i", $id_socio);
+            $stmt_cuotas->execute();
+            $cuotas = $stmt_cuotas->get_result();
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -104,6 +127,24 @@
                             <span class="tab-badge"><?php echo $reservas->num_rows; ?></span>
                         <?php endif; ?>
                     </button>
+                    <?php if ($nro_socio): ?>
+                    <button class="tab-btn" data-tab="cuotas">
+                        <i class='bx bx-wallet'></i>
+                        <span>Cuotas y Pagos</span>
+                        <?php if ($cuotas && $cuotas->num_rows > 0): ?>
+                            <?php
+                            $cuotas_pendientes = 0;
+                            $cuotas->data_seek(0);
+                            while($c = $cuotas->fetch_assoc()) {
+                                if ($c['estado'] == 'pendiente') $cuotas_pendientes++;
+                            }
+                            if ($cuotas_pendientes > 0):
+                            ?>
+                            <span class="tab-badge"><?php echo $cuotas_pendientes; ?></span>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    </button>
+                    <?php endif; ?>
                 </div>
 
                 <!-- Tab Content: Datos -->
@@ -259,6 +300,103 @@
                         </div>
                     <?php endif; ?>
                 </div>
+
+                <!-- Tab Content: Cuotas y Pagos -->
+                <?php if ($nro_socio): ?>
+                <div class="tab-content" id="tab-cuotas">
+                    <div class="perfil-form">
+                        <h3 class="form-section-title">Mis Cuotas</h3>
+
+                        <?php if ($cuotas && $cuotas->num_rows > 0): ?>
+                            <div class="cuotas-grid">
+                                <?php
+                                $cuotas->data_seek(0);
+                                while($cuota = $cuotas->fetch_assoc()):
+                                    $esVencida = strtotime($cuota['fecha_vencimiento']) < time() && $cuota['estado'] == 'pendiente';
+                                    $estadoClass = $cuota['estado'];
+                                    if ($esVencida) $estadoClass = 'vencida';
+                                ?>
+                                    <div class="cuota-card <?php echo $estadoClass; ?>">
+                                        <div class="cuota-card-header">
+                                            <div class="cuota-icon">
+                                                <i class='bx <?php echo $cuota['estado'] == 'pagada' ? 'bx-check-circle' : ($esVencida ? 'bx-error-circle' : 'bx-time-five'); ?>'></i>
+                                            </div>
+                                            <span class="cuota-badge <?php echo $estadoClass; ?>">
+                                                <?php
+                                                    if ($cuota['estado'] == 'pagada') echo 'Pagada';
+                                                    elseif ($esVencida) echo 'Vencida';
+                                                    else echo 'Pendiente';
+                                                ?>
+                                            </span>
+                                        </div>
+
+                                        <div class="cuota-card-body">
+                                            <h3 class="cuota-titulo">Cuota #<?php echo $cuota['numero_cuota']; ?></h3>
+
+                                            <div class="cuota-info-grid">
+                                                <div class="info-item">
+                                                    <i class='bx bx-money'></i>
+                                                    <div>
+                                                        <span class="info-label">Monto</span>
+                                                        <span class="info-value">$<?php echo number_format($cuota['monto'], 2, ',', '.'); ?></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="info-item">
+                                                    <i class='bx bx-calendar-event'></i>
+                                                    <div>
+                                                        <span class="info-label">Vencimiento</span>
+                                                        <span class="info-value"><?php echo date('d/m/Y', strtotime($cuota['fecha_vencimiento'])); ?></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="info-item">
+                                                    <i class='bx bx-time'></i>
+                                                    <div>
+                                                        <span class="info-label">Generada el</span>
+                                                        <span class="info-value"><?php echo date('d/m/Y', strtotime($cuota['fecha_generacion'])); ?></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="info-item">
+                                                    <i class='bx bx-info-circle'></i>
+                                                    <div>
+                                                        <span class="info-label">Estado</span>
+                                                        <span class="info-value">
+                                                            <?php
+                                                                if ($cuota['estado'] == 'pagada') echo 'Abonada';
+                                                                elseif ($esVencida) echo 'Vencida';
+                                                                else echo 'Al día';
+                                                            ?>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <?php if ($cuota['estado'] == 'pendiente'): ?>
+                                            <div class="cuota-card-footer">
+                                                <button class="btn-pagar-moderna" onclick="pagarCuota(<?php echo $cuota['id']; ?>, <?php echo $cuota['monto']; ?>)">
+                                                    <i class='bx bx-money'></i>
+                                                    <span>Pagar Cuota</span>
+                                                </button>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php endwhile; ?>
+                            </div>
+                        <?php else: ?>
+                            <div class="empty-state">
+                                <div class="empty-icon">
+                                    <i class='bx bx-receipt'></i>
+                                </div>
+                                <h3>No tenés cuotas registradas</h3>
+                                <p>Tus cuotas aparecerán aquí cuando se generen</p>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <?php endif; ?>
             </div>
         </div>
      </section>
@@ -288,6 +426,16 @@
             const hash = window.location.hash;
             if (hash === '#mis-reservas') {
                 document.querySelector('[data-tab="reservas"]').click();
+            }
+
+            // Check URL parameter for tab selection
+            const urlParams = new URLSearchParams(window.location.search);
+            const tabParam = urlParams.get('tab');
+            if (tabParam) {
+                const tabBtn = document.querySelector(`[data-tab="${tabParam}"]`);
+                if (tabBtn) {
+                    tabBtn.click();
+                }
             }
 
             // Script para permitir solo números en el campo de teléfono
@@ -320,6 +468,33 @@
                 },
                 error: function() {
                     alert('Error al cancelar la reserva');
+                }
+            });
+        }
+
+        // Función para pagar cuota
+        function pagarCuota(idCuota, monto) {
+            if (!confirm('¿Confirmar pago de $' + monto.toFixed(2) + '?')) {
+                return;
+            }
+
+            // Aquí puedes redirigir a una página de pago o procesar el pago
+            // Por ahora, simularemos el pago
+            $.ajax({
+                type: 'POST',
+                url: 'php/pagar_cuota.php',
+                data: { id_cuota: idCuota },
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        alert(response.message);
+                        location.reload();
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function() {
+                    alert('Error al procesar el pago');
                 }
             });
         }

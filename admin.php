@@ -1,8 +1,28 @@
 <?php
 session_start();
 
-// 1. Proteger la página: si no hay sesión o el usuario no es 'super', redirigir.
-if (!isset($_SESSION['user_id']) || $_SESSION['nombre'] !== 'super') {
+// Conectar para verificar la categoría del usuario
+$conexion_check = new mysqli("localhost", "root", "", "reyescopas");
+if ($conexion_check->connect_error) {
+    die("Error de conexión: " . $conexion_check->connect_error);
+}
+
+// Obtener la categoría del usuario actual
+$categoria_usuario = null;
+if (isset($_SESSION['user_id'])) {
+    $stmt = $conexion_check->prepare("SELECT categoria FROM usuarios WHERE id = ?");
+    $stmt->bind_param("i", $_SESSION['user_id']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($row = $result->fetch_assoc()) {
+        $categoria_usuario = $row['categoria'];
+    }
+    $stmt->close();
+}
+$conexion_check->close();
+
+// Proteger la página: si no hay sesión o el usuario no es 'admin', redirigir.
+if (!isset($_SESSION['user_id']) || $categoria_usuario !== 'admin') {
     header("Location: index.php"); // Redirige a la página principal
     exit();
 }
@@ -37,11 +57,10 @@ while($row = $result_planes->fetch_assoc()) {
     $socios_por_plan[] = $row;
 }
 
-// 4. Ingresos totales del mes actual
-$sql_ingresos = "SELECT SUM(e.costo_expe) as total_ingresos
-                  FROM reservas_experiencias r
-                  JOIN experiencias e ON r.id_experiencia = e.id
-                  WHERE r.estado = 'confirmada' AND MONTH(r.fecha_experiencia) = MONTH(CURDATE()) AND YEAR(r.fecha_experiencia) = YEAR(CURDATE())";
+// 4. Ingresos totales del mes actual (cuotas pagadas)
+$sql_ingresos = "SELECT SUM(monto) as total_ingresos
+                  FROM pagos
+                  WHERE MONTH(fecha_pago) = MONTH(CURDATE()) AND YEAR(fecha_pago) = YEAR(CURDATE())";
 $result_ingresos = $conexion->query($sql_ingresos);
 $ingresos_mes = $result_ingresos->fetch_assoc()['total_ingresos'] ?: 0; // Ensure 0 if null
 // 4. Cantidad de experiencias reservadas (confirmadas)
@@ -145,6 +164,31 @@ $result_actividad = $conexion->query($sql_actividad);
          </ul>
          <i class='bx bx-x' id="nav-close"></i>
       </div>
+
+    <!-- Sidebar Lateral -->
+    <aside class="admin-sidebar-lateral">
+        <div class="sidebar-content">
+            <h3 class="sidebar-title">Módulos</h3>
+            <nav class="sidebar-menu">
+                <a href="admin.php" class="sidebar-module active">
+                    <i class='bx bxs-dashboard'></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="socios.php" class="sidebar-module">
+                    <i class='bx bxs-group'></i>
+                    <span>Socios</span>
+                </a>
+                <a href="cuenta_corriente.php" class="sidebar-module">
+                    <i class='bx bx-money'></i>
+                    <span>Cuenta Corriente</span>
+                </a>
+                <a href="generar_cuotas.php" class="sidebar-module">
+                    <i class='bx bx-calendar-plus'></i>
+                    <span>Generar Cuotas</span>
+                </a>
+            </nav>
+        </div>
+    </aside>
 
     <section class="perfil-section" id="home">
         <div class="perfil-container">

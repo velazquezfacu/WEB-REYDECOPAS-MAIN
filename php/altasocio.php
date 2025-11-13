@@ -10,15 +10,15 @@ if ($conexion->connect_error) {
     die("Lo sentimos, no podemos procesar su solicitud en este momento. Por favor, intente más tarde.");
 }
 
-// Query to get plan names
-$sql_planes = "SELECT nombre_plan FROM planes";
+// Query to get plan details
+$sql_planes = "SELECT nombre_plan, costo_plan FROM planes";
 $result_planes = $conexion->query($sql_planes);
 
 $planes = [];
 if ($result_planes) { // Check if query was successful
     if ($result_planes->num_rows > 0) {
         while ($row = $result_planes->fetch_assoc()) {
-            $planes[] = $row['nombre_plan'];
+            $planes[] = $row;
         }
     }
 }
@@ -34,6 +34,7 @@ if ($result_planes) { // Check if query was successful
     <link rel="shortcut icon" href="../images/escudocai.ico" type="image/x-icon">
     <!-- Custom CSS Link -->
     <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/perfil-tabs.css">
     <!-- Google Font Link -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <!-- Google Font Link Agregado-->
@@ -60,7 +61,24 @@ if ($result_planes) { // Check if query was successful
                 <li><a href="../index.php#home">Inicio</a></li>
                 <li><a href="../index.php#servicios">Servicios</a></li>
                 <li><a href="../index.php#recetas">Ustedes</a></li>
-                <li><a href="sesion.php">Perfil</a></li>
+                <li><a href="../experiencias.php">Experiencias</a></li>
+                <li><a href="../index.php#contacto">Contacto</a></li>
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <li class="user-menu">
+                        <div class="user-avatar" id="user-avatar">
+                            <i class='bx bxs-user-circle'></i>
+                        </div>
+                        <div class="user-dropdown" id="user-dropdown">
+                            <div class="dropdown-header">
+                                <p>Hola, <strong><?php echo htmlspecialchars($_SESSION['nombre']); ?></strong></p>
+                            </div>
+                            <a href="../perfil.php"><i class='bx bxs-user'></i> Mi Perfil</a>
+                            <a href="cerrarSesion.php"><i class='bx bx-log-out'></i> Cerrar Sesión</a>
+                        </div>
+                    </li>
+                <?php else: ?>
+                    <li><a href="../sesion.php">Cuenta</a></li>
+                <?php endif; ?>
             </ul>
             <div class="nav-toggle" id="nav-toggle">
                 <i class="bx bx-menu" id="nav-open"></i>
@@ -73,7 +91,13 @@ if ($result_planes) { // Check if query was successful
             <li><a href="../index.php#home">Inicio</a></li>
             <li><a href="../index.php#servicios">Servicios</a></li>
             <li><a href="../index.php#recetas">Ustedes</a></li>
-            <li><a href="sesion.php">Perfil</a></li>
+            <li><a href="../experiencias.php">Experiencias</a></li>
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <li><a href="../perfil.php"><i class='bx bxs-user'></i> Mi Perfil</a></li>
+                <li><a href="cerrarSesion.php"><i class='bx bx-log-out'></i> Cerrar Sesión</a></li>
+            <?php else: ?>
+                <li><a href="../sesion.php">Cuenta</a></li>
+            <?php endif; ?>
         </ul>
         <i class='bx bx-x' id="nav-close"></i>
     </div>
@@ -85,58 +109,85 @@ if ($result_planes) { // Check if query was successful
         </a>
     </div>
 
-    <section class = "home" id="home">
-        <div class="altasoc-container">           
-            <h1 class="altasoc-text"> ¡Cargá tus datos personales y asociate!</h1>
-            <form action="func_altasc.php" method="POST" class="alta-form">
-                <div class="form-grid">
-                    <div class="input-container">
-                        <label for="plan">Tipo de plan</label>
-                        <select id="plan" name="plan" class="input" required>
-                            <?php foreach ($planes as $plan): ?>
-                                <option value="<?php echo htmlspecialchars($plan); ?>"><?php echo htmlspecialchars($plan); ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                    <div class="input-container">
-                        <label for="sexo">Sexo</label>
-                        <select id="sexo" name="sexo" class="input">
-                            <option value="masculino">Masculino</option>
-                            <option value="femenino">Femenino</option>
-                            <option value="otro">Otro</option>
-                        </select>
-                    </div>
-                    <div class="input-container">
-                        <label for="tipo_doc">Tipo de documento</label>
-                        <select id="tipo_doc" name="tipo_doc" class="input">
-                            <option value="dni">DNI</option>
-                            <option value="pasaporte">Pasaporte</option>
-                        </select>
-                    </div>
-                    <div class="input-container">
-                        <label for="num_doc">Número de documento</label>
-                        <input type="text" id="num_doc" name="num_doc" class="input" required>
-                    </div>
-                    <div class="input-container">
-                        <label for="fecha_nacimiento">Fecha de Nacimiento</label>
-                        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" class="input" required>
-                    </div> 
-                     <div class="input-container">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" class="input" required>
-                    </div>
-                    <div class="input-container">
-                        <label for="email_confirm">Confirmación de email</label>
-                        <input type="email" id="email_confirm" name="email_confirm" class="input" required>
-                    </div>                 
-                </div>
-                <div class="btn-form-container">
-                    <button type="submit" class="btn-form">Siguiente</button>
-                </div>
-            </form>
-        </div>
+    <section class="perfil-section" id="home">
+        <div class="perfil-container">
+            <h1 class="perfil-title">¡Convertite en Socio!</h1>
+            <p class="perfil-text">Completá tus datos para formar parte del club y disfrutar de todos los beneficios exclusivos.</p>
 
+            <div class="tabs-container">
+                <form action="func_altasc.php" method="POST" class="perfil-form">
+                    <h3 class="form-section-title"><strong>ELEGÍ TU PLAN</strong></h3>
+
+                    <div class="planes-wrapper">
+                        <?php foreach ($planes as $index => $plan): ?>
+                            <label class="plan-item">
+                                <input type="radio" name="plan" value="<?php echo htmlspecialchars($plan['nombre_plan']); ?>" required>
+                                <div class="plan-box">
+                                    <div class="plan-info">
+                                        <h4 class="plan-title"><?php echo htmlspecialchars($plan['nombre_plan']); ?></h4>
+                                        <div class="plan-pricing">
+                                            <span class="plan-price">$<?php echo number_format($plan['costo_plan'], 0, ',', '.'); ?></span>
+                                            <span class="plan-period">/mes</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </label>
+                        <?php endforeach; ?>
+                    </div>
+
+                    <h3 class="form-section-title" style="margin-top: 3rem;"><strong>COMPLETÁ TUS DATOS</strong></h3>
+                    <div class="form-grid">
+                        <div class="input-container">
+                            <label for="sexo">Sexo</label>
+                            <select id="sexo" name="sexo" class="input" required>
+                                <option value="">Seleccionar...</option>
+                                <option value="masculino">Masculino</option>
+                                <option value="femenino">Femenino</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+                        <div class="input-container">
+                            <label for="fecha_nacimiento">Fecha de Nacimiento</label>
+                            <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" class="input" required>
+                        </div>
+                    </div>
+
+                    <div class="btn-form-container" style="margin-top: 2rem;">
+                        <button type="submit" class="btn custom-btn btn-form">
+                            <i class='bx bx-check-circle'></i> Confirmar y Continuar al Pago
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </section>
+
+    <script>
+        // Script para el menú desplegable de usuario
+        const userAvatar = document.getElementById('user-avatar');
+        const userDropdown = document.getElementById('user-dropdown');
+
+        if (userAvatar && userDropdown) {
+            userAvatar.addEventListener('click', function(e) {
+                e.stopPropagation();
+                userDropdown.classList.toggle('show');
+            });
+
+            document.addEventListener('click', function(e) {
+                if (!userAvatar.contains(e.target) && !userDropdown.contains(e.target)) {
+                    userDropdown.classList.remove('show');
+                }
+            });
+        }
+
+        // Script para el menú responsive
+        const navMenu = document.getElementById('nav-menu'),
+              navToggle = document.getElementById('nav-toggle'),
+              navClose = document.getElementById('nav-close')
+
+        if(navToggle) navToggle.addEventListener('click', () => navMenu.classList.add('show-menu'))
+        if(navClose) navClose.addEventListener('click', () => navMenu.classList.remove('show-menu'))
+    </script>
 </body>
 
     <footer class="footer" id="footer">

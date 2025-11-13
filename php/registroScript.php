@@ -48,9 +48,10 @@
 
     // Insertar nuevo usuario
     $contrasena_hashed = password_hash($contrasena_plain, PASSWORD_DEFAULT);
-    $sql_insert = "INSERT INTO usuarios(nombre, apellido, email, contrasena, dni, telefono) VALUES (?, ?, ?, ?, ?, ?)";
+    $categoria = 'usuario';
+    $sql_insert = "INSERT INTO usuarios(nombre, apellido, email, contrasena, dni, telefono, categoria) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt_insert = $conexion->prepare($sql_insert);
-    $stmt_insert->bind_param("ssssss", $nombre, $apellido, $mail, $contrasena_hashed, $dni, $telefono);
+    $stmt_insert->bind_param("sssssss", $nombre, $apellido, $mail, $contrasena_hashed, $dni, $telefono, $categoria);
 
     if ($stmt_insert->execute()) {
         // Iniciar sesión automáticamente
