@@ -75,6 +75,7 @@ ScrollReveal().reveal('.servicios-item:nth-child(3)', { origin: 'left', reset:fa
 ScrollReveal().reveal('.servicios-item:nth-child(4)', { origin: 'left', reset:false, distance:'150px', delay:1100, duration:1800 });
 ScrollReveal().reveal('.servicios-item:nth-child(5)', { origin: 'left', reset:false, distance:'150px', delay:1300, duration:1900 });
 ScrollReveal().reveal('.servicios-item:nth-child(6)', { origin: 'left', reset:false, distance:'150px', delay:1500, duration:2000 });
+ScrollReveal().reveal('.servicios-item:nth-child(7)', { origin: 'left', reset:false, distance:'150px', delay:1700, duration:2100 });
 
 ScrollReveal().reveal('.container a:nth-child(1)', { origin: 'left', reset:false, distance:'150px', delay:500, duration:500 });
 ScrollReveal().reveal('.container a:nth-child(2)', { origin: 'left', reset:false, distance:'150px', delay:700, duration:500 });

@@ -58,6 +58,7 @@ if ($isLoggedIn && !empty($redirect_url)) {
             <ul class="navbar">
                 <li><a href="index.php#home">Inicio</a></li>
                 <li><a href="index.php#servicios">Servicios</a></li>
+                <li><a href="index.php#recetas">Ustedes</a></li>
                 <li><a href="experiencias.php">Experiencias</a></li>
                 <li><a href="index.php#contacto">Contacto</a></li>                
                 <?php if ($isLoggedIn): ?>

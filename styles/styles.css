@@ -1479,6 +1479,9 @@ textarea.input{
     width: 50%;
 }
 
+.img-expe{
+    border-radius: 25px;
+}
 .receta-img-container{
     display: flex;
     justify-content: center;

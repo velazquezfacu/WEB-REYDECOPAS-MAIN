@@ -18,9 +18,9 @@ $resultado = $conexion->query($sql);
 
 // Mapeo de imágenes por ID de experiencia
 $imagenes = [
-    1 => 'metabolismo.webp',  // Recorrido Sagrado
-    2 => 'corporate.webp',    // Viaje a la Gloria
-    3 => 'grocery.webp'       // Almuerzo con Leyendas
+    1 => 'cancharoja.png',  // Recorrido Sagrado
+    2 => 'museocopas.png',    // Viaje a la Gloria
+    3 => 'tagliaalmuer.png'       // Almuerzo con Leyendas
 ];
 
 $descripciones = [
@@ -46,6 +46,8 @@ $detalles = [
     <link rel="stylesheet" href="./styles/styles.css">
     <link rel="stylesheet" href="./styles/experiencias.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Belleza&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -58,7 +60,9 @@ $detalles = [
             <ul class="navbar">
                 <li><a href="index.php#home">Inicio</a></li>
                 <li><a href="index.php#servicios">Servicios</a></li>
+                <li><a href="index.php#recetas">Ustedes</a></li>
                 <li><a href="experiencias.php">Experiencias</a></li>
+                <li><a href="index.php#contacto">Contacto</a></li>
                 <?php if ($isLoggedIn): ?>
                     <li class="user-menu">
                         <div class="user-avatar" id="user-avatar">

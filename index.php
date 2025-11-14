@@ -208,7 +208,7 @@ $userName = $isLoggedIn ? $_SESSION['nombre'] : '';
         <div class="servicios-container">
             <div class="servicios-item">
                 <div class="item-description">
-                    <img src="./images/chat.webp" alt="">
+                    <img src="./images/pbasico.png" alt="" class = "img-expe">
                     <h3>Plan Básico: Espíritu Rojo</h3>
                 </div>
                 <div class="item-text">
@@ -228,7 +228,7 @@ $userName = $isLoggedIn ? $_SESSION['nombre'] : '';
             </div>
             <div class="servicios-item">
                 <div class="item-description">
-                    <img src="./images/seguimiento.webp" alt="">
+                    <img src="./images/pintermedio.png" alt="" class = "img-expe">
                     <h3>Plan Intermedio: Pasión Eterna</h3>
                 </div>
                 <div class="item-text">
@@ -248,7 +248,7 @@ $userName = $isLoggedIn ? $_SESSION['nombre'] : '';
             </div>
             <div class="servicios-item">
                 <div class="item-description">
-                    <img src="./images/inbody.webp" alt="">
+                    <img src="./images/ppremium.png" alt="" class = "img-expe">
                     <h3>Plan Premium: Orgullo Nacional</h3>
                 </div>
                 <div class="item-text">
@@ -271,7 +271,7 @@ $userName = $isLoggedIn ? $_SESSION['nombre'] : '';
        
             <div class="servicios-item">
                 <div class="item-description">
-                    <img src="./images/metabolismo.webp" alt="">
+                    <img src="./images/cancharojac.png" alt="" class = "img-expe">
                     <h3>Recorrido Sagrado: Pisá el Libertadores de América</h3>
                 </div>
                 <div class="item-text">
@@ -286,7 +286,7 @@ $userName = $isLoggedIn ? $_SESSION['nombre'] : '';
             </div>
             <div class="servicios-item">
                 <div class="item-description">
-                    <img src="./images/corporate.webp" alt="">
+                    <img src="./images/museocopasc.png" alt="" class = "img-expe">
                     <h3>Viaje a la Gloria: Museo C.A.I</h3>
                 </div>
                 <div class="item-text">
@@ -301,7 +301,7 @@ $userName = $isLoggedIn ? $_SESSION['nombre'] : '';
             </div>
             <div class="servicios-item">
                 <div class="item-description">
-                    <img src="./images/grocery.webp" alt="">
+                    <img src="./images/tagliaalmuerc.png" alt="" class = "img-expe">
                     <h3>VIP: Almuerzo con Leyendas</h3>
                 </div>
                 <div class="item-text">
@@ -529,7 +529,6 @@ $userName = $isLoggedIn ? $_SESSION['nombre'] : '';
 
     <!-- Custom Scripts Link -->
     <script src="./js/scripts.js"></script>
-    <script src="./js/scriptsRecipe.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!-- Contacto Form Script -->

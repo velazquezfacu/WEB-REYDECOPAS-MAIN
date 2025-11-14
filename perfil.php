@@ -83,6 +83,7 @@
                 <li><a href="index.php#servicios">Servicios</a></li>
                 <li><a href="index.php#recetas">Ustedes</a></li>
                 <li><a href="experiencias.php">Experiencias</a></li>
+                <li><a href="index.php#contacto">Contacto</a></li>
                 <li><a href="php/cerrarSesion.php">Cerrar Sesión</a></li>
             </ul>
             <div class="nav-toggle" id="nav-toggle">
@@ -93,10 +94,12 @@
 
     <div class="nav-menu" id="nav-menu">
         <ul class="nav-list">
-            <li><a href="index.php#home">Inicio</a></li>
-            <li><a href="index.php#servicios">Servicios</a></li>
-            <li><a href="index.php#recetas">Ustedes</a></li>
-            <li><a href="php/cerrarSesion.php">Cerrar Sesión</a></li>
+                <li><a href="index.php#home">Inicio</a></li>
+                <li><a href="index.php#servicios">Servicios</a></li>
+                <li><a href="index.php#recetas">Ustedes</a></li>
+                <li><a href="experiencias.php">Experiencias</a></li>
+                <li><a href="index.php#contacto">Contacto</a></li>
+                <li><a href="php/cerrarSesion.php">Cerrar Sesión</a></li>
         </ul>
         <i class='bx bx-x' id="nav-close"></i>
     </div>
