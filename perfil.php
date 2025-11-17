@@ -190,7 +190,9 @@
                     <div class="input-container">
                         <label for="plan">Tipo de Plan</label>
                         <input type="text" id="plan" name="plan" class="input" value="<?php echo htmlspecialchars($nombre_plan); ?>" readonly>
-                        <a href="php/cambiar_plan_socio.php" class="btn-cambiar-plan">Cambiar de plan!</a>
+                        <a href="php/cambiar_plan_socio.php" style=" /*Modificado para que sea mas llamativo*/
+                            display: block; margin-top: 0.5rem; font-size: 0.9rem; color: #999; text-decoration: none;
+                        ">Cambiar de plan</a>
                     </div>
                     <div class="input-container">
                         <label for="plan">Porcentaje de Interes</label>

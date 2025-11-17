@@ -1187,6 +1187,26 @@ textarea.input{
     color: var(--white-color);
 }
 
+.perfil-text a { /*Agregado para que sea mas llamativo*/
+    color: #f1c40f; /* Un color dorado para destacar */
+    font-weight: 600;
+    border-bottom: 2px solid #f1c40f;
+    padding-bottom: 2px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+
+.btn-cancelar {
+    background: #6c757d !important; /* Un color gris para indicar una acción secundaria */
+    color: white !important;
+}
+
+.btn-cancelar:hover {
+    background: #5a6268 !important;
+    color: white !important;
+}
+
 .input-container span{
     position: absolute;
     top: 0;

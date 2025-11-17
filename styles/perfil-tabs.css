@@ -599,6 +599,7 @@
     flex: 1;
     min-width: 220px;
     max-width: 280px;
+    position: relative; /* Añadido para anclar elementos absolutos */
 }
 
 .plan-item input[type="radio"] {

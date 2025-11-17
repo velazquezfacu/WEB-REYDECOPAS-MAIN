@@ -1,21 +1,39 @@
 <?php
 session_start();
+
+// 1. Proteger la página: si no hay sesión, redirigir al login
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../sesion.php");
+    exit();
+}
+
 // Database connection
 $conexion = new mysqli("localhost", "root", "", "reyescopas");
 
 // Check connection
 if ($conexion->connect_error) {
     // Log the error for debugging, but show a user-friendly message
-    error_log("Error de conexión a la base de datos en altasocio.php: " . $conexion->connect_error);
+    error_log("Error de conexión a la base de datos en cambiar_plan_socio.php: " . $conexion->connect_error);
     die("Lo sentimos, no podemos procesar su solicitud en este momento. Por favor, intente más tarde.");
 }
 
-// Query to get plan details
-$sql_planes = "SELECT nombre_plan, costo_plan FROM planes";
+// 2. Obtener el plan actual del socio
+$id_usuario = $_SESSION['user_id'];
+$sql_current_plan = "SELECT p.nombre_plan FROM socio s JOIN planes p ON s.id_plan = p.id WHERE s.id_usua = ?";
+$stmt_current_plan = $conexion->prepare($sql_current_plan);
+$stmt_current_plan->bind_param("i", $id_usuario);
+$stmt_current_plan->execute();
+$result_current_plan = $stmt_current_plan->get_result();
+$current_plan_row = $result_current_plan->fetch_assoc();
+$current_plan_name = $current_plan_row ? $current_plan_row['nombre_plan'] : 'Ninguno';
+$stmt_current_plan->close();
+
+// 3. Query to get all plan details
+$sql_planes = "SELECT id, nombre_plan, costo_plan FROM planes";
 $result_planes = $conexion->query($sql_planes);
 
 $planes = [];
-if ($result_planes) { // Check if query was successful
+if ($result_planes) {
     if ($result_planes->num_rows > 0) {
         while ($row = $result_planes->fetch_assoc()) {
             $planes[] = $row;
@@ -29,12 +47,13 @@ if ($result_planes) { // Check if query was successful
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Club de Socios C.A.I - Afiliaciones</title>
+    <title>Club de Socios C.A.I - Cambiar Plan</title>
     <!-- Favicon -->
     <link rel="shortcut icon" href="../images/escudocai.ico" type="image/x-icon">
     <!-- Custom CSS Link -->
     <link rel="stylesheet" href="../styles/styles.css">
     <link rel="stylesheet" href="../styles/perfil-tabs.css">
+    <link rel="stylesheet" href="../styles/cambiar-plan.css"> <!-- Corregido: La ruta ya era correcta, el archivo estaba mal ubicado -->
     <!-- Google Font Link -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <!-- Google Font Link Agregado-->
@@ -112,22 +131,24 @@ if ($result_planes) { // Check if query was successful
     <section class="perfil-section" id="home">
         <div class="perfil-container">
             <h1 class="perfil-title">¡Cambia al plan que desees!</h1>
-            <p class="perfil-text">En este momento contas con el Plan: </p>
+            <p class="perfil-text">En este momento contás con el Plan: <strong><?php echo htmlspecialchars($current_plan_name); ?></strong></p>
 
             <div class="tabs-container">
-                <form action="func_altasc.php" method="POST" class="perfil-form">
+                <form action="func_cambiar_plan.php" method="POST" class="perfil-form">
                     <h3 class="form-section-title"><strong>ELEGÍ TU PLAN</strong></h3>
 
                     <div class="planes-wrapper">
                         <?php foreach ($planes as $index => $plan): ?>
+                            <?php $isCurrentPlan = ($plan['nombre_plan'] == $current_plan_name); ?>
                             <label class="plan-item">
-                                <input type="radio" name="plan" value="<?php echo htmlspecialchars($plan['nombre_plan']); ?>" required>
+                                <input type="radio" name="id_plan" value="<?php echo $plan['id']; ?>" required <?php if ($isCurrentPlan) echo 'disabled'; ?>>
                                 <div class="plan-box">
                                     <div class="plan-info">
                                         <h4 class="plan-title"><?php echo htmlspecialchars($plan['nombre_plan']); ?></h4>
                                         <div class="plan-pricing">
                                             <span class="plan-price">$<?php echo number_format($plan['costo_plan'], 0, ',', '.'); ?></span>
                                             <span class="plan-period">/mes</span>
+                                            <?php if ($isCurrentPlan): ?><span class="plan-current-badge"><i class='bx bx-check-shield'></i> Plan Actual</span><?php endif; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -135,27 +156,13 @@ if ($result_planes) { // Check if query was successful
                         <?php endforeach; ?>
                     </div>
 
-                    <h3 class="form-section-title" style="margin-top: 3rem;"><strong>COMPLETÁ TUS DATOS</strong></h3>
-                    <div class="form-grid">
-                        <div class="input-container">
-                            <label for="sexo">Sexo</label>
-                            <select id="sexo" name="sexo" class="input" required>
-                                <option value="">Seleccionar...</option>
-                                <option value="masculino">Masculino</option>
-                                <option value="femenino">Femenino</option>
-                                <option value="otro">Otro</option>
-                            </select>
-                        </div>
-                        <div class="input-container">
-                            <label for="fecha_nacimiento">Fecha de Nacimiento</label>
-                            <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" class="input" required>
-                        </div>
-                    </div>
-
-                    <div class="btn-form-container" style="margin-top: 2rem;">
-                        <button type="submit" class="btn custom-btn btn-form">
-                            <i class='bx bx-check-circle'></i> Confirmar y Continuar al Pago
+                    <div class="btn-form-container" style="margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
+                        <button type="submit" class="btn custom-btn btn-form" style="width: auto; flex-grow: 1;">
+                            <i class='bx bx-check-circle'></i> Confirmar Cambio de Plan
                         </button>
+                        <a href="../perfil.php" class="btn custom-btn btn-form btn-cancelar" style="width: auto; flex-grow: 1;">
+                            <i class='bx bx-arrow-back'></i> Seguir con mi actual plan
+                        </a>
                     </div>
                 </form>
             </div>
