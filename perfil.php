@@ -492,6 +492,96 @@
         </div>
      </section>
     
+     <!-- Modal de Métodos de Pago -->
+     <div class="modal-overlay" id="modal-pago">
+         <div class="modal-pago">
+             <div class="modal-pago-header">
+                 <h2><i class='bx bx-credit-card'></i> Seleccionar Método de Pago</h2>
+                 <button class="btn-close-modal" id="btn-close-pago">
+                     <i class='bx bx-x'></i>
+                 </button>
+             </div>
+
+             <div class="modal-pago-body">
+                 <p class="pago-info">Seleccioná cómo querés pagar tu cuota de <strong id="monto-cuota">$0</strong></p>
+
+                 <div class="metodos-pago">
+                     <div class="metodo-item" data-metodo="efectivo">
+                         <div class="metodo-icon">
+                             <i class='bx bx-money'></i>
+                         </div>
+                         <div class="metodo-info">
+                             <h4>Efectivo</h4>
+                             <p>Pago en nuestras oficinas</p>
+                         </div>
+                         <div class="metodo-radio">
+                             <i class='bx bx-check-circle'></i>
+                         </div>
+                     </div>
+
+                     <div class="metodo-item" data-metodo="transferencia">
+                         <div class="metodo-icon">
+                             <i class='bx bx-transfer'></i>
+                         </div>
+                         <div class="metodo-info">
+                             <h4>Transferencia Bancaria</h4>
+                             <p>CBU: 0000003100012345678901</p>
+                         </div>
+                         <div class="metodo-radio">
+                             <i class='bx bx-check-circle'></i>
+                         </div>
+                     </div>
+
+                     <div class="metodo-item" data-metodo="tarjeta_debito">
+                         <div class="metodo-icon">
+                             <i class='bx bx-credit-card-alt'></i>
+                         </div>
+                         <div class="metodo-info">
+                             <h4>Tarjeta de Débito</h4>
+                             <p>Pago con débito automático</p>
+                         </div>
+                         <div class="metodo-radio">
+                             <i class='bx bx-check-circle'></i>
+                         </div>
+                     </div>
+
+                     <div class="metodo-item" data-metodo="tarjeta_credito">
+                         <div class="metodo-icon">
+                             <i class='bx bx-credit-card'></i>
+                         </div>
+                         <div class="metodo-info">
+                             <h4>Tarjeta de Crédito</h4>
+                             <p>Pago con tarjeta de crédito</p>
+                         </div>
+                         <div class="metodo-radio">
+                             <i class='bx bx-check-circle'></i>
+                         </div>
+                     </div>
+
+                     <div class="metodo-item" data-metodo="mercadopago">
+                         <div class="metodo-icon">
+                             <i class='bx bxl-paypal'></i>
+                         </div>
+                         <div class="metodo-info">
+                             <h4>Mercado Pago</h4>
+                             <p>Pago online seguro</p>
+                         </div>
+                         <div class="metodo-radio">
+                             <i class='bx bx-check-circle'></i>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+
+             <div class="modal-pago-footer">
+                 <button class="btn-cancelar-pago" id="btn-cancelar-pago">Cancelar</button>
+                 <button class="btn-confirmar-pago" id="btn-confirmar-pago">
+                     <i class='bx bx-check'></i> Confirmar Pago
+                 </button>
+             </div>
+         </div>
+     </div>
+
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
      <script>
         // Script para el menú desplegable de usuario en navbar
@@ -580,18 +670,68 @@
             });
         }
 
-        // Función para pagar cuota
+        // Variables globales para el modal de pago
+        let currentCuotaId = null;
+        let currentMetodoPago = null;
+
+        // Función para pagar cuota - Ahora muestra el modal
         function pagarCuota(idCuota, monto) {
-            if (!confirm('¿Confirmar pago de $' + monto.toFixed(2) + '?')) {
+            currentCuotaId = idCuota;
+
+            // Mostrar monto en el modal
+            $('#monto-cuota').text('$' + new Intl.NumberFormat('es-AR').format(monto));
+
+            // Mostrar modal
+            $('#modal-pago').addClass('show');
+
+            // Resetear selección
+            $('.metodo-item').removeClass('selected');
+            currentMetodoPago = null;
+        }
+
+        // Seleccionar método de pago
+        $(document).on('click', '.metodo-item', function() {
+            $('.metodo-item').removeClass('selected');
+            $(this).addClass('selected');
+            currentMetodoPago = $(this).data('metodo');
+        });
+
+        // Cerrar modal
+        $('#btn-close-pago, #btn-cancelar-pago').on('click', function() {
+            $('#modal-pago').removeClass('show');
+            currentCuotaId = null;
+            currentMetodoPago = null;
+        });
+
+        // Cerrar modal al hacer clic fuera
+        $('#modal-pago').on('click', function(e) {
+            if (e.target.id === 'modal-pago') {
+                $(this).removeClass('show');
+                currentCuotaId = null;
+                currentMetodoPago = null;
+            }
+        });
+
+        // Confirmar pago
+        $('#btn-confirmar-pago').on('click', function() {
+            if (!currentMetodoPago) {
+                alert('Por favor, seleccioná un método de pago');
                 return;
             }
 
-            // Aquí puedes redirigir a una página de pago o procesar el pago
-            // Por ahora, simularemos el pago
+            if (!currentCuotaId) {
+                alert('Error: No se encontró la cuota');
+                return;
+            }
+
+            // Procesar pago
             $.ajax({
                 type: 'POST',
                 url: 'php/pagar_cuota.php',
-                data: { id_cuota: idCuota },
+                data: {
+                    id_cuota: currentCuotaId,
+                    metodo_pago: currentMetodoPago
+                },
                 dataType: 'json',
                 success: function(response) {
                     if (response.success) {
@@ -605,7 +745,7 @@
                     alert('Error al procesar el pago');
                 }
             });
-        }
+        });
     </script>
 
     <script>

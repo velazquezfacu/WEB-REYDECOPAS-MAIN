@@ -20,8 +20,22 @@ if (!isset($_POST['id_cuota'])) {
     exit();
 }
 
+// Verificar que se haya enviado el método de pago
+if (!isset($_POST['metodo_pago'])) {
+    echo json_encode(['success' => false, 'message' => 'Debe seleccionar un método de pago.']);
+    exit();
+}
+
 $id_cuota = intval($_POST['id_cuota']);
 $id_usuario = $_SESSION['user_id'];
+$metodo_pago = $_POST['metodo_pago'];
+
+// Validar método de pago
+$metodos_validos = ['efectivo', 'transferencia', 'tarjeta_debito', 'tarjeta_credito', 'mercadopago'];
+if (!in_array($metodo_pago, $metodos_validos)) {
+    echo json_encode(['success' => false, 'message' => 'Método de pago no válido.']);
+    exit();
+}
 
 $conexion = new mysqli("localhost", "root", "", "reyescopas");
 
@@ -68,8 +82,7 @@ try {
     $stmt_update->execute();
     $stmt_update->close();
 
-    // 2. Registrar el pago
-    $metodo_pago = 'transferencia'; // Por defecto, puedes cambiarlo
+    // 2. Registrar el pago con el método seleccionado
     $sql_pago = "INSERT INTO pagos (id_socio, id_cuota, monto, metodo_pago, fecha_pago)
                  VALUES (?, ?, ?, ?, NOW())";
     $stmt_pago = $conexion->prepare($sql_pago);
