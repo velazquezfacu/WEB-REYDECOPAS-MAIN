@@ -83,7 +83,7 @@ if ($stmt_insert->execute()) {
     $sql_cuenta = "INSERT INTO cuenta_cte (id_soc, saldo, tipo_plan, estado, fech_pago, ult_fechpag)
                    VALUES (?, ?, ?, 'Pendiente', NOW(), NOW())";
     $stmt_cuenta = $conexion->prepare($sql_cuenta);
-    $stmt_cuenta->bind_param("ids", $id_socio_nuevo, $saldo_inicial, $nombre_plan_form);
+    $stmt_cuenta->bind_param("idi", $id_socio_nuevo, $saldo_inicial, $id_plan);
 
     if (!$stmt_cuenta->execute()) {
         error_log("Error al crear cuenta corriente: " . $stmt_cuenta->error);
