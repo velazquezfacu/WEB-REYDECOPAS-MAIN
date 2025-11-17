@@ -27,8 +27,11 @@ if ($conexion->connect_error) {
     exit();
 }
 
-// 3. Consulta ÚNICA y SEGURA
-$sql = "SELECT id, nombre, contrasena FROM usuarios WHERE email = ?";
+// 3. Consulta ÚNICA y SEGURA - Incluir estado del socio si existe
+$sql = "SELECT u.id, u.nombre, u.email, u.contrasena, s.estado
+        FROM usuarios u
+        LEFT JOIN socio s ON u.id = s.id_usua
+        WHERE u.email = ?";
 $stmt = $conexion->prepare($sql);
 
 if (!$stmt) {
@@ -43,11 +46,28 @@ $stmt->execute();
 $stmt->store_result();
 
 if ($stmt->num_rows === 1) {
-    $stmt->bind_result($id, $nombre, $hashed_password);
+    $stmt->bind_result($id, $nombre, $email_db, $hashed_password, $estado_socio);
     $stmt->fetch();
 
     // 4. Verificación de Contraseña
     if (password_verify($contrasena, $hashed_password)) {
+
+        // Verificar si el usuario es un socio inactivo
+        if ($estado_socio !== null && $estado_socio === 'Inactivo') {
+            $stmt->close();
+            $conexion->close();
+
+            // Devolver respuesta especial para socio inactivo
+            echo json_encode([
+                'success' => false,
+                'inactive' => true,
+                'message' => 'Tu cuenta está dada de baja.',
+                'user_name' => $nombre,
+                'user_email' => $email_db
+            ]);
+            exit();
+        }
+
         // INICIO DE SESIÓN EXITOSO
         $_SESSION['user_id'] = $id;
         $_SESSION['email'] = $mail;

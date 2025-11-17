@@ -139,6 +139,56 @@ $result_cuentas = $conexion->query($sql_cuentas);
              transform: scale(1.05);
              box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
          }
+
+         /* Override body flex para esta página */
+         body {
+             display: flex !important;
+             flex-direction: column;
+             min-height: 100vh;
+             position: relative;
+         }
+
+         .perfil-section {
+             flex: 1 !important;
+             min-height: 0;
+             padding-bottom: 20px;
+         }
+
+         .footer {
+             position: relative;
+             margin-top: auto;
+             flex-shrink: 0;
+         }
+
+         html {
+             height: 100%;
+         }
+
+         /* Ajuste de tabla para scroll horizontal en zoom */
+         .activity-table-container {
+             max-height: calc(100vh - 450px);
+             overflow-y: auto;
+         }
+
+         /* Estilos para scrollbar de la tabla */
+         .activity-table-container::-webkit-scrollbar {
+             width: 8px;
+             height: 8px;
+         }
+
+         .activity-table-container::-webkit-scrollbar-track {
+             background: rgba(255, 255, 255, 0.1);
+             border-radius: 10px;
+         }
+
+         .activity-table-container::-webkit-scrollbar-thumb {
+             background: rgba(231, 76, 60, 0.8);
+             border-radius: 10px;
+         }
+
+         .activity-table-container::-webkit-scrollbar-thumb:hover {
+             background: rgba(231, 76, 60, 1);
+         }
      </style>
 
  </head>
@@ -214,8 +264,8 @@ $result_cuentas = $conexion->query($sql_cuentas);
         </div>
     </aside>
 
-    <section class="perfil-section" id="home">
-        <div class="perfil-container" style="max-width: 95%;">
+    <section class="perfil-section" id="home" style="padding: 100px 5% 20px;">
+        <div class="perfil-container" style="max-width: 95%; margin-bottom: 20px; padding: 2rem;">
             <h1 class="perfil-title">Cuenta Corriente</h1>
             <p class="perfil-text">Gestión de cuotas y pagos de socios.</p>
 

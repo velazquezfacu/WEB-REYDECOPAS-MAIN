@@ -1,0 +1,9 @@
+# Permitir acceso a imágenes pero prevenir ejecución de scripts
+<FilesMatch "\.(jpg|jpeg|png|gif)$">
+    Allow from all
+</FilesMatch>
+
+# Denegar ejecución de PHP
+<FilesMatch "\.php$">
+    Deny from all
+</FilesMatch>

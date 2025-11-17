@@ -4,9 +4,22 @@ session_start();
 // Verificar si el usuario está logueado
 $isLoggedIn = isset($_SESSION['user_id']);
 $userName = $isLoggedIn ? $_SESSION['nombre'] : '';
+$userPhoto = null;
 
 // Conectar a la base de datos
 $conexion = new mysqli("localhost", "root", "", "reyescopas");
+
+// Obtener foto de perfil si el usuario está logueado
+if ($isLoggedIn && !$conexion->connect_error) {
+    $stmt = $conexion->prepare("SELECT foto_perfil FROM usuarios WHERE id = ?");
+    $stmt->bind_param("i", $_SESSION['user_id']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($row = $result->fetch_assoc()) {
+        $userPhoto = $row['foto_perfil'];
+    }
+    $stmt->close();
+}
 
 if ($conexion->connect_error) {
     die("Error de conexión: " . $conexion->connect_error);
@@ -66,7 +79,11 @@ $detalles = [
                 <?php if ($isLoggedIn): ?>
                     <li class="user-menu">
                         <div class="user-avatar" id="user-avatar">
-                            <i class='bx bxs-user-circle'></i>
+                            <?php if ($userPhoto && file_exists($userPhoto)): ?>
+                                <img src="<?php echo htmlspecialchars($userPhoto); ?>" alt="Foto de perfil" class="navbar-user-photo">
+                            <?php else: ?>
+                                <i class='bx bxs-user-circle'></i>
+                            <?php endif; ?>
                         </div>
                         <div class="user-dropdown" id="user-dropdown">
                             <div class="dropdown-header">

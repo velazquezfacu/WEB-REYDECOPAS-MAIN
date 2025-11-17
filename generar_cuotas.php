@@ -161,6 +161,7 @@ $result_socios = $conexion->query($sql_socios);
              padding: 1.5rem;
              border-radius: 10px;
              margin-top: 1.5rem;
+             margin-bottom: 1.5rem;
          }
 
          .alert-warning {
@@ -188,6 +189,49 @@ $result_socios = $conexion->query($sql_socios);
              border-radius: 8px;
              color: white;
              margin-bottom: 1rem;
+         }
+
+         /* Estilos para el scroll interno de la vista previa */
+         .preview-section div::-webkit-scrollbar {
+             width: 8px;
+         }
+
+         .preview-section div::-webkit-scrollbar-track {
+             background: rgba(255, 255, 255, 0.1);
+             border-radius: 10px;
+         }
+
+         .preview-section div::-webkit-scrollbar-thumb {
+             background: rgba(231, 76, 60, 0.8);
+             border-radius: 10px;
+         }
+
+         .preview-section div::-webkit-scrollbar-thumb:hover {
+             background: rgba(231, 76, 60, 1);
+         }
+
+         /* Override body flex para esta página */
+         body {
+             display: flex !important;
+             flex-direction: column;
+             min-height: 100vh;
+             position: relative;
+         }
+
+         .perfil-section {
+             flex: 1 !important;
+             min-height: 0;
+             padding-bottom: 20px;
+         }
+
+         .footer {
+             position: relative;
+             margin-top: auto;
+             flex-shrink: 0;
+         }
+
+         html {
+             height: 100%;
          }
      </style>
 
@@ -264,8 +308,8 @@ $result_socios = $conexion->query($sql_socios);
         </div>
     </aside>
 
-    <section class="perfil-section" id="home">
-        <div class="perfil-container" style="max-width: 95%;">
+    <section class="perfil-section" id="home" style="padding: 100px 5% 20px;">
+        <div class="perfil-container" style="max-width: 95%; margin-bottom: 20px; padding: 2rem;">
             <h1 class="perfil-title">Generación de Cuotas</h1>
             <p class="perfil-text">Generar cuotas mensuales para todos los socios activos.</p>
 
@@ -332,7 +376,7 @@ $result_socios = $conexion->query($sql_socios);
                                     <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 1rem;">
                                         Se generarán cuotas para los siguientes <strong><?php echo $stats['total_socios_activos']; ?></strong> socios:
                                     </p>
-                                    <div style="max-height: 300px; overflow-y: auto; background: rgba(0, 0, 0, 0.2); padding: 1rem; border-radius: 8px;">
+                                    <div style="max-height: 200px; overflow-y: auto; background: rgba(0, 0, 0, 0.2); padding: 1rem; border-radius: 8px; scrollbar-width: thin; scrollbar-color: rgba(231, 76, 60, 0.8) rgba(255, 255, 255, 0.1);">
                                         <?php if ($result_socios->num_rows > 0): ?>
                                             <?php while($socio = $result_socios->fetch_assoc()): ?>
                                                 <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); color: white;">

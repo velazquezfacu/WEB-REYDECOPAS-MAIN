@@ -2,6 +2,23 @@
 session_start();
 $isLoggedIn = isset($_SESSION['user_id']);
 $userName = $isLoggedIn ? $_SESSION['nombre'] : '';
+$userPhoto = null;
+
+// Obtener foto de perfil si el usuario está logueado
+if ($isLoggedIn) {
+    $conexion = new mysqli("localhost", "root", "", "reyescopas");
+    if (!$conexion->connect_error) {
+        $stmt = $conexion->prepare("SELECT foto_perfil FROM usuarios WHERE id = ?");
+        $stmt->bind_param("i", $_SESSION['user_id']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($row = $result->fetch_assoc()) {
+            $userPhoto = $row['foto_perfil'];
+        }
+        $stmt->close();
+        $conexion->close();
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -46,7 +63,11 @@ $userName = $isLoggedIn ? $_SESSION['nombre'] : '';
                 <?php if ($isLoggedIn): ?>
                     <li class="user-menu">
                         <div class="user-avatar" id="user-avatar">
-                            <i class='bx bxs-user-circle'></i>
+                            <?php if ($userPhoto && file_exists($userPhoto)): ?>
+                                <img src="<?php echo htmlspecialchars($userPhoto); ?>" alt="Foto de perfil" class="navbar-user-photo">
+                            <?php else: ?>
+                                <i class='bx bxs-user-circle'></i>
+                            <?php endif; ?>
                         </div>
                         <div class="user-dropdown" id="user-dropdown">
                             <div class="dropdown-header">
@@ -592,6 +613,39 @@ $userName = $isLoggedIn ? $_SESSION['nombre'] : '';
                 }
             });
         }
+    </script>
+
+    <script>
+        // Script para prellenar el formulario de contacto con parámetros de URL
+        document.addEventListener('DOMContentLoaded', function() {
+            // Obtener parámetros de la URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const nombre = urlParams.get('nombre');
+            const email = urlParams.get('email');
+            const mensaje = urlParams.get('mensaje');
+
+            // Prellenar los campos si hay parámetros
+            if (nombre) {
+                document.getElementById('nombre_contacto').value = decodeURIComponent(nombre);
+            }
+            if (email) {
+                document.getElementById('email_contacto').value = decodeURIComponent(email);
+            }
+            if (mensaje) {
+                document.getElementById('mensaje_contacto').value = decodeURIComponent(mensaje);
+            }
+
+            // Si hay parámetros, hacer scroll al formulario
+            if (nombre || email || mensaje) {
+                // Pequeño delay para asegurar que la página cargó completamente
+                setTimeout(function() {
+                    const contactoSection = document.getElementById('contacto');
+                    if (contactoSection) {
+                        contactoSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }, 300);
+            }
+        });
     </script>
 
 </body>

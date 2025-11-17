@@ -78,13 +78,27 @@
     <header class="header">
         <a href="index.php#home" class="logo"><img src="images/Reyes de copas.png" alt=""></a>
         <nav>
-            <ul class="navbar">                
+            <ul class="navbar">
                 <li><a href="index.php#home">Inicio</a></li>
                 <li><a href="index.php#servicios">Servicios</a></li>
                 <li><a href="index.php#recetas">Ustedes</a></li>
                 <li><a href="experiencias.php">Experiencias</a></li>
                 <li><a href="index.php#contacto">Contacto</a></li>
-                <li><a href="php/cerrarSesion.php">Cerrar Sesión</a></li>
+                <li class="user-menu">
+                    <div class="user-avatar" id="user-avatar">
+                        <?php if ($foto_perfil && file_exists($foto_perfil)): ?>
+                            <img src="<?php echo htmlspecialchars($foto_perfil); ?>" alt="Foto de perfil" class="navbar-user-photo">
+                        <?php else: ?>
+                            <i class='bx bxs-user-circle'></i>
+                        <?php endif; ?>
+                    </div>
+                    <div class="user-dropdown" id="user-dropdown">
+                        <div class="dropdown-header">
+                            <p>Hola, <strong><?php echo htmlspecialchars($nombre); ?></strong></p>
+                        </div>
+                        <a href="php/cerrarSesion.php"><i class='bx bx-log-out'></i> Cerrar Sesión</a>
+                    </div>
+                </li>
             </ul>
             <div class="nav-toggle" id="nav-toggle">
                 <i class="bx bx-menu" id="nav-open"></i>
@@ -203,6 +217,78 @@
                         <input type="text" id="estado" name="estado" class="input" value="<?php echo htmlspecialchars($estado); ?>" readonly>
                     </div>
                 </div>
+
+                <?php if ($nro_socio): ?>
+                <h3 class="form-section-title"><strong>CARNET DE SOCIO</strong></h3>
+                <div class="carnet-container">
+                    <div class="carnet-digital">
+                        <div class="carnet-header">
+                            <img src="images/escudocai.png" alt="Logo CAI" class="carnet-logo">
+                            <div class="carnet-club-info">
+                                <h2>CLUB ATLÉTICO INDEPENDIENTE</h2>
+                                <p>Rey de Copas - Club de Socios</p>
+                            </div>
+                        </div>
+
+                        <div class="carnet-body">
+                            <div class="carnet-photo-wrapper">
+                                <div class="carnet-photo" id="carnet-photo">
+                                    <?php if (isset($foto_perfil) && !empty($foto_perfil) && file_exists($foto_perfil)): ?>
+                                        <img src="<?php echo htmlspecialchars($foto_perfil); ?>" alt="Foto de perfil" class="foto-perfil-img">
+                                    <?php else: ?>
+                                        <i class='bx bx-user-circle'></i>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="upload-foto-container">
+                                    <input type="file" id="foto-perfil-input" accept="image/jpeg,image/png,image/jpg" style="display: none;">
+                                    <button type="button" class="btn-upload-foto" onclick="document.getElementById('foto-perfil-input').click()">
+                                        <i class='bx bx-camera'></i>
+                                        <span>Cambiar Foto</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="carnet-info">
+                                <div class="carnet-field">
+                                    <span class="carnet-label">N° Socio:</span>
+                                    <span class="carnet-value"><?php echo htmlspecialchars($nro_socio); ?></span>
+                                </div>
+                                <div class="carnet-field">
+                                    <span class="carnet-label">Nombre:</span>
+                                    <span class="carnet-value"><?php echo htmlspecialchars($nombre . ' ' . $apellido); ?></span>
+                                </div>
+                                <div class="carnet-field">
+                                    <span class="carnet-label">DNI:</span>
+                                    <span class="carnet-value"><?php echo htmlspecialchars($dni); ?></span>
+                                </div>
+                                <div class="carnet-field">
+                                    <span class="carnet-label">Plan:</span>
+                                    <span class="carnet-value"><?php echo htmlspecialchars($nombre_plan); ?></span>
+                                </div>
+                                <div class="carnet-field">
+                                    <span class="carnet-label">Desde:</span>
+                                    <span class="carnet-value"><?php echo date('d/m/Y', strtotime($fecha_registro)); ?></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carnet-footer">
+                            <div class="carnet-status <?php echo strtolower($estado); ?>">
+                                <i class='bx <?php echo $estado == 'Activo' ? 'bx-check-circle' : 'bx-x-circle'; ?>'></i>
+                                <span><?php echo htmlspecialchars($estado); ?></span>
+                            </div>
+                            <div class="carnet-barcode">
+                                <svg width="150" height="40">
+                                    <?php for($i = 0; $i < 20; $i++): ?>
+                                        <rect x="<?php echo $i * 7; ?>" y="0" width="<?php echo rand(2,4); ?>" height="40" fill="#000"/>
+                                    <?php endfor; ?>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php endif; ?>
+
                         <div class="btn-form-container">
                             <button type="submit" class="btn custom-btn btn-form">
                                 <i class='bx bx-save'></i> Guardar Cambios
@@ -408,6 +494,23 @@
     
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
      <script>
+        // Script para el menú desplegable de usuario en navbar
+        const userAvatar = document.getElementById('user-avatar');
+        const userDropdown = document.getElementById('user-dropdown');
+
+        if (userAvatar && userDropdown) {
+            userAvatar.addEventListener('click', function(e) {
+                e.stopPropagation();
+                userDropdown.classList.toggle('show');
+            });
+
+            document.addEventListener('click', function(e) {
+                if (!userAvatar.contains(e.target) && !userDropdown.contains(e.target)) {
+                    userDropdown.classList.remove('show');
+                }
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             // Tab Switching
             const tabBtns = document.querySelectorAll('.tab-btn');
@@ -523,6 +626,67 @@
             navClose.addEventListener('click', () =>{
                 navMenu.classList.remove('show-menu')
             })
+        }
+    </script>
+
+    <script>
+        // Script para subir foto de perfil
+        const fotoPerfilInput = document.getElementById('foto-perfil-input');
+
+        if (fotoPerfilInput) {
+            fotoPerfilInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+
+                if (!file) return;
+
+                // Validar tipo de archivo
+                const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+                if (!allowedTypes.includes(file.type)) {
+                    alert('Solo se permiten imágenes JPG, JPEG o PNG');
+                    return;
+                }
+
+                // Validar tamaño (máximo 5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('La imagen no puede superar los 5MB');
+                    return;
+                }
+
+                // Crear FormData y subir
+                const formData = new FormData();
+                formData.append('foto_perfil', file);
+
+                // Mostrar preview inmediato
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const carnetPhoto = document.getElementById('carnet-photo');
+                    carnetPhoto.innerHTML = '<img src="' + e.target.result + '" alt="Foto de perfil" class="foto-perfil-img">';
+                };
+                reader.readAsDataURL(file);
+
+                // Subir al servidor
+                $.ajax({
+                    type: 'POST',
+                    url: 'php/subir_foto_perfil.php',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.success) {
+                            alert('Foto de perfil actualizada correctamente');
+                        } else {
+                            alert('Error: ' + response.message);
+                            // Revertir preview en caso de error
+                            location.reload();
+                        }
+                    },
+                    error: function() {
+                        alert('Error al subir la imagen');
+                        location.reload();
+                    }
+                });
+            });
         }
     </script>
 

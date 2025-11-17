@@ -89,8 +89,9 @@
     position: absolute;
     left: 2rem;
     top: 120px;
-    height: calc(100vh - 240px);
+    max-height: calc(100vh - 240px);
     width: 280px;
+    min-width: 280px;
     background: rgba(0, 0, 0, 0.75);
     backdrop-filter: blur(10px);
     border-radius: 15px;
@@ -168,7 +169,12 @@
 @media (max-width: 1200px) {
     .admin-sidebar-lateral {
         left: 1rem;
-        width: 180px;
+        width: 280px;
+        min-width: 280px;
+    }
+
+    .perfil-section .perfil-container {
+        margin-left: 320px;
     }
 }
 

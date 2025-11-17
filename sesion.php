@@ -52,6 +52,103 @@ if ($isLoggedIn && !empty($redirect_url)) {
         .contacto {
             flex-grow: 1;
         }
+
+        /* Modal de advertencia para socios inactivos */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-inactive {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-inactive .icon-warning {
+            font-size: 4rem;
+            color: #e74c3c;
+            margin-bottom: 1rem;
+        }
+
+        .modal-inactive h2 {
+            color: #333;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .modal-inactive p {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .btn-modal {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-contacto {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+        }
+
+        .btn-contacto:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+        }
+
+        .btn-cerrar-modal {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .btn-cerrar-modal:hover {
+            background: #7f8c8d;
+        }
     </style>
 </head>
 <body>
@@ -155,6 +252,21 @@ if ($isLoggedIn && !empty($redirect_url)) {
     </div>
 </section>
 
+<!-- Modal de advertencia para socios inactivos -->
+<div class="modal-overlay" id="modal-inactive">
+    <div class="modal-inactive">
+        <i class='bx bx-error-circle icon-warning'></i>
+        <h2>Cuenta Inactiva</h2>
+        <p id="modal-message">Tu cuenta está dada de baja. Por favor, comunicate con un administrador para reestablecerla.</p>
+        <div class="modal-buttons">
+            <a href="#" class="btn-modal btn-contacto" id="btn-contactar">
+                <i class='bx bx-envelope'></i> Contactar
+            </a>
+            <button class="btn-modal btn-cerrar-modal" id="btn-cerrar-modal">Cerrar</button>
+        </div>
+    </div>
+</div>
+
 <footer class="footer" id="footer">
     <div class="footer-logo-container">
         <img src="./images/Reyes de copas.png" alt="">
@@ -192,13 +304,31 @@ if ($isLoggedIn && !empty($redirect_url)) {
         
             $.ajax({
                 type: 'POST',
-                url: 'php/sesionScript.php', 
+                url: 'php/sesionScript.php',
                 data: formData,
                 dataType:'json',
                 success: function(response){
                     if (response.success) {
                         // Si el inicio de sesión es exitoso, usamos la redirección que nos da el servidor.
                         window.location.href = response.redirect;
+                    } else if (response.inactive) {
+                        // Si el socio está inactivo, mostrar modal
+                        const modal = $('#modal-inactive');
+                        const btnContactar = $('#btn-contactar');
+
+                        // Crear URL con parámetros para prellenar el formulario
+                        const nombreCompleto = response.user_name || '';
+                        const email = response.user_email || '';
+                        const mensaje = 'Hola, mi cuenta está inactiva y deseo reestablecerla. Por favor, ayúdenme con este proceso.';
+
+                        // Los parámetros deben ir ANTES del hash
+                        const contactUrl = `index.php?nombre=${encodeURIComponent(nombreCompleto)}&email=${encodeURIComponent(email)}&mensaje=${encodeURIComponent(mensaje)}#contacto`;
+
+                        btnContactar.attr('href', contactUrl);
+                        modal.addClass('show');
+
+                        // Ocultar mensaje de error si existe
+                        $('#respuesta').css('display', 'none');
                     } else {
                         // Si success es FALSE, mostramos el mensaje de error.
                         $('#respuesta').text(response.message).css('display', 'block');
@@ -213,16 +343,28 @@ if ($isLoggedIn && !empty($redirect_url)) {
         // 2. LÓGICA DE CIERRE DE SESIÓN (#cerrar-sesion)
         $('#cerrar-sesion').on('click', function(event) {
             event.preventDefault();
-            
+
             $.ajax({
                 url: 'php/cerrarSesion.php',
                 success: function(response) {
-                    window.location.href = 'sesion.php'; 
+                    window.location.href = 'sesion.php';
                 },
                 error: function(xhr, status, error) {
                     $('#respuesta').text('Error al cerrar sesión: ' + error).css('display', 'block');
                 }
             });
+        });
+
+        // 3. CERRAR MODAL DE SOCIO INACTIVO
+        $('#btn-cerrar-modal').on('click', function() {
+            $('#modal-inactive').removeClass('show');
+        });
+
+        // Cerrar modal al hacer clic fuera de él
+        $('#modal-inactive').on('click', function(e) {
+            if (e.target.id === 'modal-inactive') {
+                $(this).removeClass('show');
+            }
         });
     });
 </script>

@@ -692,3 +692,240 @@
         font-size: 2.4rem;
     }
 }
+
+/* ============ ESTILOS PARA CARNET DIGITAL ============ */
+.carnet-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+    padding: 2rem;
+}
+
+.carnet-digital {
+    width: 100%;
+    max-width: 600px;
+    background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    border: 3px solid #e74c3c;
+}
+
+.carnet-header {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.carnet-logo {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    background: white;
+    border-radius: 10px;
+    padding: 0.5rem;
+}
+
+.carnet-club-info h2 {
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0;
+    text-transform: uppercase;
+    font-family: 'Poppins', sans-serif;
+}
+
+.carnet-club-info p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9rem;
+    margin: 0.3rem 0 0 0;
+}
+
+.carnet-body {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 2rem;
+    padding: 2rem;
+    background: white;
+}
+
+.carnet-photo-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.carnet-photo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 180px;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+    border-radius: 10px;
+    border: 3px solid #e74c3c;
+    overflow: hidden;
+    position: relative;
+}
+
+.carnet-photo i {
+    font-size: 6rem;
+    color: #999;
+}
+
+.foto-perfil-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.upload-foto-container {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-upload-foto {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-upload-foto:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+}
+
+.btn-upload-foto i {
+    font-size: 1.2rem;
+}
+
+.carnet-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    justify-content: center;
+}
+
+.carnet-field {
+    display: flex;
+    gap: 0.5rem;
+    align-items: baseline;
+}
+
+.carnet-label {
+    font-weight: 700;
+    color: #333;
+    font-size: 0.9rem;
+    min-width: 80px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.carnet-value {
+    color: #666;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.carnet-footer {
+    background: #f8f8f8;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 2px solid #e0e0e0;
+}
+
+.carnet-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+.carnet-status.activo {
+    background: rgba(46, 204, 113, 0.2);
+    color: #27ae60;
+}
+
+.carnet-status.inactivo {
+    background: rgba(231, 76, 60, 0.2);
+    color: #c0392b;
+}
+
+.carnet-status i {
+    font-size: 1.2rem;
+}
+
+.carnet-barcode {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Responsive para el carnet */
+@media (max-width: 768px) {
+    .carnet-container {
+        padding: 1rem;
+    }
+
+    .carnet-digital {
+        max-width: 100%;
+    }
+
+    .carnet-body {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 1.5rem;
+    }
+
+    .carnet-photo {
+        width: 120px;
+        height: 150px;
+        margin: 0 auto;
+    }
+
+    .carnet-photo i {
+        font-size: 4rem;
+    }
+
+    .carnet-logo {
+        width: 60px;
+        height: 60px;
+    }
+
+    .carnet-club-info h2 {
+        font-size: 1rem;
+    }
+
+    .carnet-club-info p {
+        font-size: 0.8rem;
+    }
+
+    .carnet-footer {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .carnet-barcode svg {
+        width: 120px;
+        height: 30px;
+    }
+}
