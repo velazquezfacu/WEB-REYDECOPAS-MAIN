@@ -79,6 +79,25 @@ if ($stmt->num_rows === 1) {
         } else {
             // Si se envía 'redirect_url' desde el formulario, se usará ese valor, si no, 'perfil.php'.
             $redirect_url = isset($_POST['redirect_url']) && !empty($_POST['redirect_url']) ? $_POST['redirect_url'] : 'perfil.php';
+
+            // Si la URL es altasocio.php y el usuario ya es socio, redirigir a cambiar_plan_socio.php
+            if ($redirect_url === 'altasocio.php' || $redirect_url === 'php/altasocio.php') {
+                // Verificar si el usuario ya es socio
+                $sql_check_socio = "SELECT id FROM socio WHERE id_usua = ?";
+                $stmt_socio = $conexion->prepare($sql_check_socio);
+                $stmt_socio->bind_param("i", $id);
+                $stmt_socio->execute();
+                $result_socio = $stmt_socio->get_result();
+
+                if ($result_socio->num_rows > 0) {
+                    // Ya es socio, redirigir a cambiar plan
+                    $redirect_url = 'php/cambiar_plan_socio.php';
+                } else {
+                    // No es socio, asegurar que vaya a php/altasocio.php
+                    $redirect_url = 'php/altasocio.php';
+                }
+                $stmt_socio->close();
+            }
         }
 
         $stmt->close();

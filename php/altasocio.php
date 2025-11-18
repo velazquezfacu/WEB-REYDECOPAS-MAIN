@@ -1,5 +1,9 @@
 <?php
 session_start();
+
+// Verificar si el usuario está logueado
+$isLoggedIn = isset($_SESSION['user_id']);
+
 // Database connection
 $conexion = new mysqli("localhost", "root", "", "reyescopas");
 
@@ -8,6 +12,24 @@ if ($conexion->connect_error) {
     // Log the error for debugging, but show a user-friendly message
     error_log("Error de conexión a la base de datos en altasocio.php: " . $conexion->connect_error);
     die("Lo sentimos, no podemos procesar su solicitud en este momento. Por favor, intente más tarde.");
+}
+
+// Si el usuario está logueado, verificar si ya es socio
+if ($isLoggedIn) {
+    $sql_check_socio = "SELECT s.id, s.estado FROM socio s WHERE s.id_usua = ?";
+    $stmt_check = $conexion->prepare($sql_check_socio);
+    $stmt_check->bind_param("i", $_SESSION['user_id']);
+    $stmt_check->execute();
+    $result_check = $stmt_check->get_result();
+
+    if ($result_check->num_rows > 0) {
+        // El usuario ya es socio, redirigir a cambiar plan
+        $stmt_check->close();
+        $conexion->close();
+        header("Location: cambiar_plan_socio.php");
+        exit();
+    }
+    $stmt_check->close();
 }
 
 // Query to get plan details
